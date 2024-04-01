@@ -24,8 +24,8 @@ Remember to have your environment properly setup. Perform the following, if the 
 
 See this example: 
 
+This is a change
 - Look at the error of not being able to find the desired package.
-
 .. image:: images/ErrorNotSourcing.png
    :alt: Error message of not sourcing workspace correctly.
 
