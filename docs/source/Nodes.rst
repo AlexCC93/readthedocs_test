@@ -16,25 +16,29 @@ What is it?
 
 Do not forget 
 -------------
-Remember to have your environment properly setup. Perform the following if the ROS2 package cannot be found when executing it:
+Remember to have your environment properly setup. Perform the following, if the ROS2 package cannot be found when executing it:
 
 .. code-block:: console
 
    source install/setup.sh
 
 See this example: 
+
 - Look at the error of not being able to find the desired package.
+
 .. image:: images/ErrorNotSourcing.png
    :alt: Error message of not sourcing workspace correctly.
+
 - Source the appropriate setup script to correctly configure the environment.
 .. image:: images/SourcingWorkspace.png
    :alt: Correctly sourcing the workspace.
+
 Notice that the sourcing is performed inside the workspace folder. 
 
 
 Important commands 
 ------------------
-The following can be executed with a node.
+The following can be executed with a node:
 
 Running a node
 ~~~~~~~~~~~~~~
@@ -45,11 +49,12 @@ In order to run a node, perform:
 
    ros2 run <package_name> <executable_name>
 
-This command launches an executable from a package. See this example:
+This command launches an executable script from a package. See this example:
 
 .. code-block:: console
 
    ros2 run turtlesim turtlesim_node
 
-Where, ``turtlesim`` is the name of the package and  
-``turtlesim_node``, is the name of the executable. This will tipycally coincide with the node name. 
+Where,   ``turtlesim`` is the name of the package and  
+
+         ``turtlesim_node``, is the name of the executable. This will tipycally coincide with the node name. 
