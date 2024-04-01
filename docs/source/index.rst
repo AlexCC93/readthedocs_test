@@ -1,22 +1,23 @@
 Welcome to the ROS2 course!
 ===================================
 
-**Lumache** (/lu'make/) is a Python library for cooks and food lovers
-that creates recipes mixing random ingredients.
-It pulls data from the `Open Food Facts database <https://world.openfoodfacts.org/>`_
-and offers a *simple* and *intuitive* API.
+ROS2 offers a powerful platform for building, simulating, and deploying robotic applications. In this course, we'll guide you through the fundamentals of ROS2, empowering you to harness its capabilities for creating innovative robotic solutions.
 
-Check out the :doc:`usage` section for further information, including
-how to :ref:`installation` the project.
-Lumache has its documentation hosted on Read the Docs.
-.. note::
+You'll learn essential concepts such as ROS2 architecture, communication mechanisms, and package management. We'll explore how to design modular and scalable robotic systems using ROS2, leveraging its extensive library of tools and resources. Let's dive in and unlock the potential of ROS2 together!
 
-   This project is under active development.
+This entire course is based on the ROS2 documentation webpage: https://docs.ros.org/en/humble/index.html. 
 
 Contents
 --------
 
 .. toctree::
-
-   usage
-   api
+   ROS2 basics
+   Installation 
+   Workspace and packages
+   Nodes
+   Topics
+   Services
+   Launch files
+   ROS2 tools
+   Final project
+   
