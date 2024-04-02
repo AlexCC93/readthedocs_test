@@ -12,6 +12,8 @@ Opening a new terminal
 ----------------------
 
 When opening a new terminal in Windows, it will be necessary to link that terminal with the already running container. Perform the following to achieve this.
+
+
 .. code-block:: console
 
    docker exec -it <container_name> bash
