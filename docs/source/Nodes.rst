@@ -42,8 +42,8 @@ Important commands
 ------------------
 The following can be executed with a node:
 
-Running a node
-~~~~~~~~~~~~~~
+1. Running a node
+~~~~~~~~~~~~~~~~~
 
 In order to run a node, perform:
 
@@ -59,8 +59,8 @@ This command launches an executable script from a package. See this example:
 
 Where, ``turtlesim`` is the name of the package and ``turtlesim_node``, is the name of the executable; This last, will tipycally coincide with the node name. 
 
-Getting info from a node
-~~~~~~~~~~~~~~~~~~~~~~~~
+2. Getting info from a node
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To print the information of a node, :ref:`open a new terminal<Installation/Opening a new terminal>` and execute:
 
@@ -90,35 +90,55 @@ It displays the information about:
    :alt: Displaying rqt graph of the ROS2 node info.
 
 
-Listing all nodes
-~~~~~~~~~~~~~~~~~
+3. Listing all nodes
+~~~~~~~~~~~~~~~~~~~~
 
-To list all available nodes, execute:
+To list all available nodes, :ref:`open a new terminal<Installation/Opening a new terminal>` and execute:
 
 .. code-block:: console
 
    ros2 node list
 
-As an example, open a new terminal and execute:
+As an example, :ref:`open a new terminal<Installation/Opening a new terminal>` and execute:
 
 .. code-block:: console
 
    ros2 run turtlesim turtle_teleop_key
 
-Afterwards, execute ros2 n
+Afterwards, return to the terminal where it was ran ``ros2 node list`` and run it again.Two active nodes will be listed:
+
+.. code-block:: console
+
+   /turtlesim
+   /teleop_turtle
 
 
-It displays a list of all nodes that are currently running.
+4. Remapping nodes 
+~~~~~~~~~~~~~~~~~~
 
-- The topics that this node is subscribed to. 
-- The topics, this node is publishing to. 
-- The service servers associated with this node. 
-- The service clients associated with this node. 
-- The action servers associated with this node. 
-- The action clients associated with this node. 
+In order to reassign default node properties, like node name, topic names, service names, etc., to custom values, the ``remap`` command is used. Check the structure of the command.
 
-.. image:: images/rosNodeInfo.png
-   :alt: Executing ROS2 node info.
+.. code-block:: console
 
-.. image:: images/rosNodeInfo_rqt.png
-   :alt: Displaying rqt graph of the ROS2 node info.
+   ros2 run <package_name> <executable_name> --ros-args --remap __node:=<new_node_name>
+
+As an example, recall that two nodes already exist from the previous parts of this tutorial (the turtlesim and teleop_turtle nodes). :ref:`Open a new terminal<Installation/Opening a new terminal>` and execute:
+
+.. code-block:: console
+
+   ros2 run turtlesim turtlesim_node --ros-args --remap __node:=my_turtlesim_node
+
+It reassigns the turtlesim_node node properties into a new node with custom name value of: "my_turtlesim_node".
+
+Check in another terminal, the list of nodes and see also the rqt graph for this example.
+
+.. image:: images/ROS2nodeList.png
+   :alt: ROS2 node list after remap.
+
+.. image:: images/rqt_graphRemapping.png
+   :alt: rqt_graph after remap.
+
+ROS arguments are important when executing a node. The way these ROS arguments are modified is by using ``--ros-args`` in the execution command. After ``--ros-args``, the argument: ``--remap __node`` is used to specify that the node name should be remapped to "my_turtlesim_node". It is possible as well to modify the namespace, topic/service names and parameters of a node.See this link for more information: https://docs.ros.org/en/rolling/How-To-Guides/Node-arguments.html
+
+
+
