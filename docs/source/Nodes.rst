@@ -62,7 +62,7 @@ Where, ``turtlesim`` is the name of the package and ``turtlesim_node``, is the n
 Getting info from a node
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-To print the information of a node, *open a new terminal* :ref:`Installation/Opening a new terminal` and execute:
+To print the information of a node, :ref:`open a new terminal<Installation/Opening a new terminal>` and execute:
 
 .. code-block:: console
 
