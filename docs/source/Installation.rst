@@ -6,29 +6,16 @@ Usage
 Installation
 ------------
 
-To use Lumache, first install it using pip:
+Bla bla talk about the installation of Docker and the way it should work with ROS2. 
 
+Opening a new terminal
+----------------------
+
+When opening a new terminal in Windows, it will be necessary to link that terminal with the already running container. Perform the following to achieve this.
 .. code-block:: console
 
-   (.venv) $ pip install lumache
+   docker exec -it <container_name> bash
 
-Creating recipes
-----------------
 
-To retrieve a list of random ingredients,
-you can use the ``lumache.get_random_ingredients()`` function:
 
-.. autofunction:: lumache.get_random_ingredients
-
-The ``kind`` parameter should be either ``"meat"``, ``"fish"``,
-or ``"veggies"``. Otherwise, :py:func:`lumache.get_random_ingredients`
-will raise an exception.
-
-.. autoexception:: lumache.InvalidKindError
-
-For example:
-
->>> import lumache
->>> lumache.get_random_ingredients()
-['shells', 'gorgonzola', 'parsley']
 

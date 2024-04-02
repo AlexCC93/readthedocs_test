@@ -24,12 +24,14 @@ Remember to have your environment properly setup. Perform the following, if the 
 
 See this example: 
 
-This is a change
-- Look at the error of not being able to find the desired package.
+
+- Look at the error of not being able to find the desired package. This is because the workspace was not configured correctly.
+
 .. image:: images/ErrorNotSourcing.png
    :alt: Error message of not sourcing workspace correctly.
 
 - Source the appropriate setup script to correctly configure the environment.
+
 .. image:: images/SourcingWorkspace.png
    :alt: Correctly sourcing the workspace.
 
@@ -55,6 +57,68 @@ This command launches an executable script from a package. See this example:
 
    ros2 run turtlesim turtlesim_node
 
-Where,   ``turtlesim`` is the name of the package and  
+Where, ``turtlesim`` is the name of the package and ``turtlesim_node``, is the name of the executable; This last, will tipycally coincide with the node name. 
 
-         ``turtlesim_node``, is the name of the executable. This will tipycally coincide with the node name. 
+Getting info from a node
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+To print the information of a node, *open a new terminal* :ref:`Installation`/Opening a new terminal and execute:
+
+.. code-block:: console
+
+   ros2 node info <node_name>
+
+See this example:
+
+.. code-block:: console
+
+   ros2 node info turtlesim_node
+
+It displays the information about:
+
+- The topics that this node is subscribed to. 
+- The topics, this node is publishing to. 
+- The service servers associated with this node. 
+- The service clients associated with this node. 
+- The action servers associated with this node. 
+- The action clients associated with this node. 
+
+.. image:: images/rosNodeInfo.png
+   :alt: Executing ROS2 node info.
+
+.. image:: images/rosNodeInfo_rqt.png
+   :alt: Displaying rqt graph of the ROS2 node info.
+
+
+Listing all nodes
+~~~~~~~~~~~~~~~~~
+
+To list all available nodes, execute:
+
+.. code-block:: console
+
+   ros2 node list
+
+As an example, open a new terminal and execute:
+
+.. code-block:: console
+
+   ros2 run turtlesim turtle_teleop_key
+
+Afterwards, execute ros2 n
+
+
+It displays a list of all nodes that are currently running.
+
+- The topics that this node is subscribed to. 
+- The topics, this node is publishing to. 
+- The service servers associated with this node. 
+- The service clients associated with this node. 
+- The action servers associated with this node. 
+- The action clients associated with this node. 
+
+.. image:: images/rosNodeInfo.png
+   :alt: Executing ROS2 node info.
+
+.. image:: images/rosNodeInfo_rqt.png
+   :alt: Displaying rqt graph of the ROS2 node info.
