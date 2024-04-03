@@ -1,7 +1,7 @@
 Communication using topics
 ==========================
 
-.. _com_with_topics:
+.. _communication using topics:
 
 Writting a custom publisher node
 --------------------------------
