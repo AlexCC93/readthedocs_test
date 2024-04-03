@@ -1,4 +1,4 @@
-Usage
+ROS2 tools
 =====
 
 .. _ros2_tools:

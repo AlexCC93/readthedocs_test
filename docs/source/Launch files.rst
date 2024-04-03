@@ -1,4 +1,4 @@
-Usage
+Launch files
 =====
 
 .. _launch_files:

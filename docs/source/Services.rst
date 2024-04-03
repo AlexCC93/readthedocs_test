@@ -1,4 +1,4 @@
-Usage
+Services
 =====
 
 .. _services:

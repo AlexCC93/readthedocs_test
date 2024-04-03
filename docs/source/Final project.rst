@@ -1,4 +1,4 @@
-Usage
+Final project
 =====
 
 .. _final_project:

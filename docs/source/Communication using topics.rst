@@ -1,5 +1,5 @@
 Communication using topics
-=====
+==========================
 
 .. _com_with_topics:
 

@@ -1,4 +1,4 @@
-Usage
+ROS2 basics
 =====
 
 .. _ros2_basics:
