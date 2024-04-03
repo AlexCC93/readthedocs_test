@@ -93,7 +93,8 @@ See a simplified version of the topics and nodes.
 .. image:: images/rosTopicList_rqtGraph.png
    :alt: rqt_graph simplified version.
 
-And if all the "hide" options are unchecked, it can be seeen all the topics listed above. 
+And if all the "hide" options are unchecked, it can be seeen all the topics listed above.
+
 .. image:: images/topicListFullVersionRqtGraph.png
    :alt: rqt_graph full version.
 
@@ -122,6 +123,7 @@ The expected result is:
    Subscription count: 1
 
 The information included in the topic consists on:
+
 - The type of messages that the topic is handling.
 - A count of how many nodes are publishing to the given topic. 
 - A count of how many nodes are subscribed to the given topic.
@@ -175,7 +177,9 @@ Run the example below:
 
 Nothing will be displayed in the terminal because no messages are being sent to the given topic. However, when going back to the terminal where ``turtle_teleop_key`` was executed and the forward arrow key (↑) is pressed, the following will be displayed:
 
+
 .. code-block:: console
+
    linear:
       x: 2.0
       y: 0.0
@@ -221,14 +225,18 @@ As a result, the turtle animation should move a quarter portion of a cirle and t
 In the above-command the ``--once`` part is an optional argument, meaning that the message will be published only once. If the execution changes to be the following one, then the turtle animation would keep on moving in circles.
 
 .. code-block:: console
+
    ros2 topic pub --rate 1 /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 2.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 1.8}}"
+
 
 .. image:: images/circlesTurtle.png
    :alt: Turtle moving in circles.
 
 It has been replaced ``--once`` by ``--rate 1`` to indicate that the message should be published at 1 hz rate. It should also be displayed in the terminal where the command was executed, the following messages:
 
+
 .. code-block:: console
+
    publisher: beginning loop
    publishing #1: geometry_msgs.msg.Twist(linear=geometry_msgs.msg.Vector3(x=2.0, y=0.0, z=0.0), angular=geometry_msgs.msg.Vector3(x=0.0, y=0.0, z=1.8))
 
@@ -262,6 +270,7 @@ Open a new terminal and execute the following:
 It displays the average rate at which messages are being handled in the given topic. The expected results are these messages displayed in the terminal window.
 
 .. code-block:: console
+   
    average rate: 1.000
          min: 0.998s max: 1.002s std dev: 0.00044s window: 247
    average rate: 1.000

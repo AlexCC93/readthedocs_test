@@ -1,7 +1,7 @@
 Nodes
 =====
 
-.. _Nodes:
+.. _nodes:
 
 What is it?
 ------------
@@ -40,7 +40,7 @@ Notice that the sourcing is performed inside the workspace folder.
 
 Important commands. Nodes
 -------------------------
-Make sure to be in a brand new terminal window and no ROS commands were executed previously. 
+Make sure to be in a brand new terminal window and no ROS commands are currently running. 
 
 The following can be executed with a node:
 
@@ -126,7 +126,7 @@ In order to reassign default node properties, like node name, topic names, servi
 
    ros2 run <package_name> <executable_name> --ros-args --remap __node:=<new_node_name>
 
-As an example, recall that two nodes already exist from the previous parts of this tutorial (the turtlesim and teleop_turtle nodes). :ref:`Open a new terminal<Installation/Opening a new terminal>` and execute:
+As an example, recall that two nodes already exist from the previous parts of this tutorial (the turtlesim and teleop_turtle nodes). :ref:`open a new terminal<installation/Opening a new terminal>` and execute:
 
 .. code-block:: console
 

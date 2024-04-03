@@ -12,10 +12,15 @@ Bla bla talk about the installation of Docker and the way it should work with RO
 Running a docker container
 --------------------------
 
-In order to use GUI applications from within the container that will be created, first run the Xlaunch application and set the Display number to zero. 
+In order to use GUI applications from within the container that will be created, first, if not perfomed yet, run the Xlaunch application and set the Display number to zero. 
 
 .. image:: images/XlaunchSetDisplayToZero.png
    :alt: Setting display number to zero in Xlaunch.
+
+Make sure that in the Docker desktop GUI window, there are no containers running.
+
+.. image:: images/NoContainersRunning.png
+   :alt: No containers are running in docker.
 
 Open a terminal in Windows, navigate to the directory where the ROS2 workspace is stored, and execute the docker command to start running a container based on a specified docker image. This is the structure of such docker command:
 
@@ -50,7 +55,16 @@ See the example below:
 
 See that ``ros2_container`` is the name of the docker container that the current terminal is to be linked with.
 
+Afterwards, if working with custom packages, i.e packages that were created during the course or imported from a third party repository, it will be necessary to source the appropriate setup file. Navigate to the workspace directory and execute:
 
+.. code-block:: console
+   
+   source install/setup.bash
+
+See the example below:
+
+.. image:: images/onlySourcingWorkspace.png
+   :alt: Sourcing the workspace only.
 
 
 

@@ -16,6 +16,7 @@ Contents
    Configuring environment (workspace and packages)
    Nodes
    Topics
+   Communication using Topics
    Services
    Launch files
    ROS2 tools
