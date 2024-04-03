@@ -97,7 +97,7 @@ It displays the information about:
 3. Listing all nodes
 ~~~~~~~~~~~~~~~~~~~~
 
-To list all available nodes, :ref:`open a new terminal<1. Running a node>` and execute:
+To list all available nodes, :ref:`open a new terminal<_installation/Opening a new terminal>` and execute:
 
 .. code-block:: console
 
