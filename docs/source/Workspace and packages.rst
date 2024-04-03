@@ -1,7 +1,7 @@
 Usage
 =====
 
-.. _installation:
+.. _workspaces_packages:
 
 Installation
 ------------

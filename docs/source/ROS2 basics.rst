@@ -1,7 +1,7 @@
 Usage
 =====
 
-.. _installation:
+.. _ros2_basics:
 
 Installation
 ------------

@@ -1,7 +1,7 @@
 Topics
 =====
 
-.. _Topics:
+.. _topics:
 
 What is a topic?
 ----------------
