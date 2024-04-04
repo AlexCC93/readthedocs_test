@@ -494,11 +494,11 @@ Have ``trutlesim`` node running. Create a new node called "topics_practice" that
 
 See image below for an example of the results:
 
-.. .. image:: images/PracticeExample1.png
-..    :alt: Practice results example 1.
+.. image:: images/PracticeExample1_cpp.png
+   :alt: Practice results example 1 with cpp.
 
-.. .. image:: images/PracticeExample2.png
-..    :alt: Practice results example 2.
+.. image:: images/PracticeExample2_cpp.png
+   :alt: Practice results example 2 with cpp.
 
 Optional
 ~~~~~~~~
