@@ -232,3 +232,12 @@ The turtlesim window should be updated to display a new turtle like the followin
 .. image:: images/spawnTurtleExample.png
    :alt: Spawning a new turtle example.
 
+And the terminal window should output:
+
+.. code-block:: console
+
+   requester: making request: turtlesim.srv.Spawn_Request(x=2.0, y=2.0, theta=0.2, name='Juan')
+
+   response:
+   turtlesim.srv.Spawn_Response(name='Juan')
+
