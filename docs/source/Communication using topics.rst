@@ -1,17 +1,15 @@
-Communication using topics
+Writting custom publisher and subscriber nodes. Python
 ==========================
 
 .. _communication using topics:
 
-Writting a custom publisher node
---------------------------------
 
 It is already known what a node is (check the :ref:`nodes<nodes/What is it?>` section), as such, the following section of the course is devoted to show the coding of a node capable of publishing messages into a topic. 
 
 Along this tutorial, it will be shown the programming of nodes in two languages: Python and C++.
 
 Publisher node in python
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 
 Make sure to be in a brand new terminal window and no ROS commands were executed previously. 
 
@@ -21,7 +19,7 @@ It will be necessary first to create a new package. This package should be conta
 
    ros2 pkg create --build-type ament_python --license Apache-2.0 py_pubsub
 
-For more reference on package creation consult: :ref:`pacakge creation<conf_env/Creating a package>`
+For more reference on package creation consult: :ref:`pacakge creation<conf_env/Creating a package>` or :ref:`pacakge creation2<Configuring environment/Creating a package>`
 
 Inside this package, spsecifically in ``py_pubsub/py_pubsub`` create a python script, name it "publisher_script.py".
 
@@ -73,7 +71,7 @@ Copy this content into the new python script.
 
 
 1. Publisher, python. Examining the code. 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The first lines correspond to import libraries.
 
@@ -156,7 +154,7 @@ Lastly, the main function is defined.
 
 
 2. Publisher, python. Adding dependencies
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Once the python script is ready, make sure the dependencies to run this script are correctly configured in the ROS2 environment. Navigate to ``py_pubsub/package.xml`` and add the following just below the ``<license>`` tag:
 
@@ -176,7 +174,7 @@ About the tags found in the ``package.xml``:
 - ``<test_depend>`` tag indicates a dependency required for testing purposes. It means that the package needs the specified dependency to run its tests. 
 
 3. Publisher, python. Adding an entry point
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Navigate to ``py_pubsub/setup.py`` and add the following within the ``console_scripts`` brackets of the ``entry_points`` field:
 
@@ -188,8 +186,8 @@ Navigate to ``py_pubsub/setup.py`` and add the following within the ``console_sc
          ],
    },
 
-Build publisher node and run
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+4. Build publisher node and run
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 At this point the script is created, the dependencies configured and the entry point correclty setup. 
 
 :ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS2 command was executed previously, navigate to the workspace directory and execute either of these two commands:
@@ -283,7 +281,7 @@ At this point it is important to distinguish these three elements:
 And from now on, these three will carry the same name to avoid confussions. 
 
 Subscriber node in python
-~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------
 
 Navigate to ``py_pubsub/py_pubsub`` and create a python script called: "listener.py". Copy this content into the new python script. 
 
@@ -329,7 +327,7 @@ Navigate to ``py_pubsub/py_pubsub`` and create a python script called: "listener
 
 
 1. Subscriber, python. Examining the code. 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Overall, the code for the subscriber node is similar to the publisher node. 
 
@@ -385,12 +383,12 @@ Lastly, the main function, as in the publisher node, initializes the rclpy libra
       rclpy.shutdown()
 
 2. Subscriber, python. Adding dependencies
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 As the libraries to use in this program are exactly the same as in the publisher node, then no new dependency should be added. If, for some reason, it were going to use a new library in the subscriber node, then that library should be added as a dependecy in the ``py_pubsub/package.xml`` file.
 
 3. Subscriber, python. Adding an entry point
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Navigate to ``py_pubsub/setup.py`` and add the following within the ``console_scripts`` brackets of the ``entry_points`` field:
 
@@ -409,8 +407,8 @@ This ``entry_points`` field should be remain like this:
         ],
    },
 
-Build subscriber node and run
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+4. Build subscriber node and run
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 At this point the script is created, the dependencies configured and the entry point correclty setup. 
 
@@ -463,5 +461,15 @@ See that the two nodes: ``talker`` and ``listener`` are visible and they are pub
 
 .. image:: images/talkerAndListener_rqtGraph.png
    :alt: Talker and listener in rqt_graph.
+
+Practice 
+---------
+
+Have ``trutlesim`` node running. Create a new node called "topics_practice" that performs:
+
+- A counter back starting in 10 and be displayed in the terminal.
+- When counter reaches 0 moves the turtle drawing a growing spiral.
+- When the turtle reaches some pre-defined boundaries in the screen, print in the terminal the message "Returning home" and make the turtle return to its initial position.
+
 
 

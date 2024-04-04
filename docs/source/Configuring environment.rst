@@ -12,7 +12,7 @@ To use Lumache, first install it using pip:
 
    (.venv) $ pip install lumache
 
-Source the setup file
+Creating a package
 ------------------
 
 BLA BLA BLA packages...
