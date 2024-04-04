@@ -16,7 +16,8 @@ Contents
    Configuring environment
    Nodes
    Topics
-   Communication using topics
+   Writting custom publisher and subscriber nodes. Python
+   Writting custom publisher and subscriber nodes. C++
    Services
    Launch files
    ROS2 tools

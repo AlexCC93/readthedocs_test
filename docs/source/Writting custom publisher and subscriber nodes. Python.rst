@@ -4,9 +4,8 @@ Writting custom publisher and subscriber nodes. Python
 .. _communication using topics:
 
 
-It is already known what a node is (check the :ref:`nodes<nodes/What is it?>` section), as such, the following section of the course is devoted to show the coding of a node capable of publishing messages into a topic. 
+It is already known what a node is (check the :ref:`nodes<nodes/What is it?>` section), as such, the following section of the course is devoted to show the coding of nodes capable of publishing and subscribing to a topic. This code will be developed in python. 
 
-Along this tutorial, it will be shown the programming of nodes in two languages: Python and C++.
 
 Publisher node in python
 ------------------------
