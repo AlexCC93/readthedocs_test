@@ -1,5 +1,5 @@
 Configuring environment
-=====
+=======================
 
 .. _conf_env:
 

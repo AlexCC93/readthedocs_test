@@ -13,7 +13,7 @@ Contents
 .. toctree::
    ROS2 basics
    Installation 
-   Configuring environment (workspace and packages)
+   Configuring environment
    Nodes
    Topics
    Communication using topics
