@@ -19,7 +19,7 @@ It will be necessary first to create a new package. This package should be conta
 
    ros2 pkg create --build-type ament_python --license Apache-2.0 py_pubsub
 
-For more reference on package creation consult: :ref:`pacakge creation<conf_env/Creating a package>` or :ref:`pacakge creation2<Configuring environment/Creating a package>`
+For more reference on package creation consult: :ref:`pacakge creation<conf_env/Creating a package>` or :ref:`pacakge creation2<Configuring environment/Creating a package>` or :ref:`pacakge creation3<_conf_env/Creating a package>`
 
 Inside this package, spsecifically in ``py_pubsub/py_pubsub`` create a python script, name it "publisher_script.py".
 
@@ -467,9 +467,21 @@ Practice
 
 Have ``trutlesim`` node running. Create a new node called "topics_practice" that performs:
 
-- A counter back starting in 10 and be displayed in the terminal.
-- When counter reaches 0 moves the turtle drawing a growing spiral.
-- When the turtle reaches some pre-defined boundaries in the screen, print in the terminal the message "Returning home" and make the turtle return to its initial position.
+- A countdown starting at 5 and be displayed in the terminal.
+- When counter reaches 0 moves the turtle drawing a growing spiral. Print in the terminal "Drawing spiral".
+- When the turtle reaches some pre-defined boundaries in the screen (horizontal and vertical limits defined by the coder), make the turtle advance in a straight line. Print in the terminal "Going straight".
 
+See image below for an example of the results:
 
+.. image:: images/PracticeExample1.png
+   :alt: Practice results example 1.
 
+.. image:: images/PracticeExample2.png
+   :alt: Practice results example 2.
+
+Optional
+~~~~~~~~
+
+Have ``trutlesim`` node running. Create a new node called "topics_practice_b" that performs:
+
+- The same as "topics_practice" but add the turtle, the functionality of avoiding walls. Whenever the turtle is too close to the walls (around one unit away of the wall), make it turn. Print in the terminal "Avoiding walls".
