@@ -24,7 +24,6 @@ Remember to have your environment properly setup. Perform the following, if the 
 
 See this example: 
 
-
 - Look at the error of not being able to find the desired package. This is because the workspace was not configured correctly.
 
 .. image:: images/ErrorNotSourcing.png
