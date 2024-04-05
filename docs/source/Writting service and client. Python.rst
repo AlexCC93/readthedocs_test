@@ -165,7 +165,7 @@ Navigate to ``py_srvcli/setup.py`` and add the following within the ``console_sc
          ],
    },
 
-4. Build publisher node and run
+4. Build service node and run
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 At this point the script is created, the dependencies configured and the entry point correclty setup. 
 
@@ -469,9 +469,16 @@ A must-see for completing the practice
 The use of ``rclpy.spin_until_future_complete()`` might have entered in conflict with ``rclpy.spin()`` in the ``service_practice`` program while trying to accomplish the practice. For that, imagine a relatively simpler problem to address:
 
 - In a :ref:`new terminal<Installation/Running a docker container>`, run the service node ``service_node``. This will make the ``add_two_ints`` service available for use. 
+
+.. image:: images/RunningService_nodeExample.png
+   :alt: Running the service node to show the example of the simpler problem.
+
 - :ref:`Open a new terminal<Installation/Opening a new terminal>`, and run a talker node like has been seen in a :ref:`previous part<Writting custom publisher and subscriber nodes. Python/Publisher node in python>` of the course. Recall to follow all the required steps (adding depencies, adding the entry point, etc.) to have this node available to use in this package.
 
-With these nodes running, the problem is to create a node that subscribes to the topic called ``topic``, prints the messages of that arrive to the topic (just like :ref:`this previous program<Writting custom publisher and subscriber nodes. Python/Subscriber node in python>`) and when the message ``"Hello World: 10"`` arrives, it calls the ``add_two_ints`` service and prints in the terminal the sum of ``5`` and ``2``. See an example below.
+.. image:: images/RunningTalkerNodeExample.png
+   :alt: Running the talker node to show the example of the simpler problem.
+
+With these nodes running, the problem is to create a node that subscribes to the topic called ``topic``, prints the messages that arrive to the topic (just like :ref:`this previous program<Writting custom publisher and subscriber nodes. Python/Subscriber node in python>`) and when the message: ``"Hello World: 10"`` arrives, it calls the ``add_two_ints`` service and prints in the terminal the sum of ``5`` and ``2``. See the expected result below.
 
 .. image:: images/simplerProblemExample.png
    :alt: Simpler problem result example.

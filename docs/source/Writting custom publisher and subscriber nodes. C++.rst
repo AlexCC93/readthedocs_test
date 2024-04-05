@@ -94,7 +94,7 @@ The first lines correspond to import libraries.
 - ``#include <string>``: This is a standard library in C++ that provides string handling capabilities.
 - ``#include "rclcpp/rclcpp.hpp"``: This includes the ROS2 C++ library header ``rclcpp.hpp``, which contains the core functionality of the ROS2 client library for C++.
 - ``#include "std_msgs/msg/string.hpp"``: This includes the ROS2 message header ``string.hpp`` from the ``std_msgs/msg package``. This header defines the message type ``std_msgs::msg::String``.
-- ``using namespace std::chrono_literals;``: This brings the ``std::chrono_literals`` namespace into the current scope. It allows the use of time literals like 500ms, representing 500 milliseconds..
+- ``using namespace std::chrono_literals;``: This brings the ``std::chrono_literals`` namespace into the current scope. It allows the use of time literals like 500ms, representing 500 milliseconds.
 
 All the  imported headers ``.hpp`` must be specified in the dependencies file called "package.xml". More from this, later in the tutorial, in the :ref:`Adding dependencies section.<2. Publisher, cpp. Adding dependencies>`.
 
