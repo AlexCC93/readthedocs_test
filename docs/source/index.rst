@@ -19,6 +19,8 @@ Contents
    Writting custom publisher and subscriber nodes. Python
    Writting custom publisher and subscriber nodes. C++
    Services
+   Writting service and client. Python
+   Writting service and client. C++
    Launch files
    ROS2 tools
    Final project
