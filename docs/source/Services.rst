@@ -114,7 +114,7 @@ This will list all the services that are available.
    /turtlesim/set_parameters
    /turtlesim/set_parameters_atomically
 
-Notice that the executed nodes have the same six services. Nearly every node in ROS 2 has these infrastructure services that parameters are built off of. These services have to do with ROS2 parameters. 
+Notice that the executed nodes have the same six services. Nearly every node in ROS2 has these infrastructure services that parameters are built off of. These services have to do with ROS2 parameters. 
 
 For the moment, focus on the turtlesim-specific services, ``/clear``, ``/kill``, ``/reset``, ``/spawn``, ``/turtle1/set_pen``, ``/turtle1/teleport_absolute``, and ``/turtle1/teleport_relative``.
 

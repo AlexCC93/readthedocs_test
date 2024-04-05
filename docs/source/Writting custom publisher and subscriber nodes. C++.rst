@@ -1,14 +1,14 @@
 Writting custom publisher and subscriber nodes. C++
 ==========================
 
-.. _communication using topics:
+.. _writting pubsub cpp:
 
 It is already known what a node is (check the :ref:`nodes<nodes/What is it?>` section), as such, the following section of the course is devoted to show the coding of nodes capable of publishing and subscribing to a topic. This code will be developed in C++. 
 
 Publisher node in C++
 ------------------------
 
-Make sure to be in a brand new terminal window and no ROS commands were executed previously. 
+Make sure to be in a brand new terminal window and no ROS commands are currently running. 
 
 It will be necessary first to create a new package. This package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be "cpp_pubsub".
 
@@ -214,7 +214,7 @@ Once everything is added, the ``CMakeLists.txt`` file should be similar to:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 At this point the script is created, the dependencies configured and the ``CMakeLists.txt`` file is correclty setup. 
 
-:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS2 command was executed previously, navigate to the workspace directory and execute either of these two commands:
+:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS2 command is currently running, navigate to the workspace directory and execute either of these two commands:
 
 .. code-block:: console
    
