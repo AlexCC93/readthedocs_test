@@ -539,7 +539,7 @@ This will result in an unexpected behavior of the program, the program stops rig
 .. image:: images/UnexpectedBehaviorSpinUntilFuterAndSpin.png
    :alt: The unexpected behavior when using spin_until_future_complete and spin in the same program.
 
-This occurs because ``spin_until_future_complete`` function is called within the callback function ``pose_callback``. This can lead to a deadlock situation, where the code waits indefinitely for the service call to complete while being stuck in the callback function. This is because the callback function ``pose_callback`` is executed in the context of the ROS2 executor thread, and this thread is being blocked until the service call completes.
+This occurs because ``spin_until_future_complete()`` function is called within the callback function ``listener_callback()``. This can lead to a deadlock situation, where the code waits indefinitely for the service call to complete while being stuck in the callback function. This is because the callback function ``listener_callback()`` is executed in the context of the ROS2 executor thread, and this thread is being blocked until the service call completes.
 
 Hence, to avoid this issue, the service call must be handled in the following manner:
 
@@ -602,7 +602,7 @@ Hence, to avoid this issue, the service call must be handled in the following ma
    if __name__ == '__main__':
       main()
 
-See that ``spin_until_future_complete()`` function is not being used anymore to avoid blocking the ROS2 executor thread. Instead, asynchronous service calls are used properly and a separate method handles the service call asynchronously. This method was named ``callback_sum()``. Below, ther is a detailed explanation of what is happening:
+See that ``spin_until_future_complete()`` function is not being used anymore to avoid blocking the ROS2 executor thread. Instead, asynchronous service calls are used properly and a separate method handles the service call asynchronously. This method was named ``callback_sum()``. Below, there is a detailed explanation of what is happening:
 
 - First, the ``send_request()`` function works fine and finishes its execution returning an object result of sending the request asynchronously using ``self.cli.call_async()``. 
 - This objected returned by ``send_request()`` is stored in a ``Future`` type variable. Later, a callback is attached to this object, the ``callback_sum`` method. But this callback will only be executed when the ``Future`` object is done; that is why the function ``add_done_callback()`` is being used. 

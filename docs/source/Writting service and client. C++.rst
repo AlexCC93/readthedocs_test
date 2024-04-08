@@ -500,143 +500,178 @@ See image below for an example of the results:
 A must-see for completing the practice
 ~~~~~~~~~~~~~~~~~~~~~
 
-.. The use of ``rclpy.spin_until_future_complete()`` might have entered in conflict with ``rclpy.spin()`` in the ``service_practice`` program while trying to accomplish the practice. For that, imagine a relatively simpler problem to address:
+The use of ``rclcpp::spin_until_future_complete()`` might have entered in conflict with ``rclcpp::spin()`` in the ``service_practice`` program while trying to accomplish the practice. For that, imagine a relatively simpler problem to address:
 
-.. - In a :ref:`new terminal<Installation/Running a docker container>`, run the service node ``service_node``. This will make the ``add_two_ints`` service available for use. 
-.. - :ref:`Open a new terminal<Installation/Opening a new terminal>`, and run a talker node like has been seen in a :ref:`previous part<Writting custom publisher and subscriber nodes. Python/Publisher node in python>` of the course. Recall to follow all the required steps (adding depencies, adding the entry point, etc.) to have this node available to use in this package.
+- In a :ref:`new terminal<Installation/Running a docker container>`, run the service node ``add_two_ints_server``. This will make the ``add_two_ints`` service available for use. 
+- :ref:`Open a new terminal<Installation/Opening a new terminal>`, and run a talker node like has been seen in a :ref:`previous part<Writting custom publisher and subscriber nodes. C++. Python/Publisher node in C++>` of the course. Recall to follow all the required steps (adding depencies, configuring the CMakeLists, etc.) to have this node available to use in this package.
 
-.. With these nodes running, the problem is to create a node that subscribes to the topic called ``topic``, prints the messages of that arrive to the topic (just like :ref:`this previous program<Writting custom publisher and subscriber nodes. Python/Subscriber node in python>`) and when the message ``"Hello World: 10"`` arrives, it calls the ``add_two_ints`` service and prints in the terminal the sum of ``5`` and ``2``. See an example below.
+With these nodes running, the problem is to create a node that subscribes to the topic called ``topic``, prints the messages that arrive to the topic (just like :ref:`this previous program<Writting custom publisher and subscriber nodes. C++/Subscriber node in cpp>`) and when the message ``"Hello, world! 10'"`` arrives, it calls the ``add_two_ints`` service and prints in the terminal the sum of ``5`` and ``2``. See an example below.
 
-.. .. image:: images/simplerProblemExample.png
-..    :alt: Simpler problem result example.
+.. image:: images/simplerProblemExampleWorkingGoodCpp.png
+   :alt: Simpler problem result example.
 
-.. This is a first version of this program. Check the usage of ``rclpy.spin_until_future_complete()``.
+This is a first version of this program. Check the usage of ``rclcpp::spin_until_future_complete()``.
 
-.. .. code-block:: console
+.. code-block:: console
 
-..    import sys
-..    from example_interfaces.srv import AddTwoInts
-..    import rclpy
-..    from rclpy.node import Node
-..    from std_msgs.msg import String
+   #include <chrono>
+   #include <memory>
+   #include "rclcpp/rclcpp.hpp"
+   #include "std_msgs/msg/string.hpp"
+   #include "example_interfaces/srv/add_two_ints.hpp"
 
-..    class NodeSubscriberClient(Node):
+   using namespace std::chrono_literals;
 
-..       def __init__(self):
-..          super().__init__('client_subscription_node_fail')
-..          self.subscription_ = self.create_subscription(
-..                String,
-..                'topic',
-..                self.listener_callback,
-..                10)
-..          self.subscription_  # prevent unused variable warning
-..          self.cli = self.create_client(AddTwoInts, 'add_two_ints')
-..          while not self.cli.wait_for_service(timeout_sec=1.0):
-..                self.get_logger().info('service not available, waiting again...')
-..          self.req = AddTwoInts.Request()
+   class NodeSubscriberClient : public rclcpp::Node
+   {
+   public:
+      NodeSubscriberClient() : Node("client_subscription_node_fail")
+      {
+         subscription_ = this->create_subscription<std_msgs::msg::String>(
+               "topic", 10, std::bind(&NodeSubscriberClient::listener_callback, this, std::placeholders::_1));
 
-..       def send_request(self, a, b):
-..          self.req.a = a
-..          self.req.b = b
-..          self.future = self.cli.call_async(self.req)
-..          rclpy.spin_until_future_complete(self, self.future)
-..          return self.future.result()
-      
-..       def listener_callback(self, msg):
-..          self.get_logger().info('I heard: "%s"' % msg.data)
-..          if (msg.data == "Hello World: 10"):
-..                self.get_logger().info('Calling add_two_ints the service...')
-..                res = self.send_request(2,5)
-..                self.get_logger().info('The sum is: "%s"' %res)
+         client_ = this->create_client<example_interfaces::srv::AddTwoInts>("add_two_ints");
+         while (!client_->wait_for_service(1s))
+         {
+               if (!rclcpp::ok())
+               {
+                  RCLCPP_ERROR(this->get_logger(), "Interrupted while waiting for the service. Exiting.");
+                  rclcpp::shutdown();
+                  return;
+               }
+               RCLCPP_INFO(this->get_logger(), "service not available, waiting again...");
+         }
+      }
 
-..    def main():
-..       rclpy.init()
+      void send_request(int a, int b)
+      {
+         auto request = std::make_shared<example_interfaces::srv::AddTwoInts::Request>();
+         request->a = a;
+         request->b = b;
 
-..       sub_client_node = NodeSubscriberClient()
-..       rclpy.spin(sub_client_node)
-..       sub_client_node.destroy_node()
-..       rclpy.shutdown()
+         auto future = client_->async_send_request(request);
+         if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), future) !=
+               rclcpp::FutureReturnCode::SUCCESS)
+         {
+               RCLCPP_ERROR(this->get_logger(), "Failed to call service add_two_ints");
+               return;
+         }
 
+         auto result = future.get();
+         RCLCPP_INFO(this->get_logger(), "The sum is: %ld", result->sum);
+      }
 
-..    if __name__ == '__main__':
-..       main()
+   private:
+      void listener_callback(const std_msgs::msg::String::SharedPtr msg)
+      {
+         RCLCPP_INFO(this->get_logger(), "I heard: '%s'", msg->data.c_str());
+         if (msg->data == "Hello, world! 10")
+         {
+               RCLCPP_INFO(this->get_logger(), "Calling add_two_ints service...");
+               send_request(2, 5);
+         }
+      }
 
-.. This will result in an unexpected behavior of the program, the program stops rigth after receiving the ``"Hello World: 10"`` message.
+      rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
+      rclcpp::Client<example_interfaces::srv::AddTwoInts>::SharedPtr client_;
+   };
 
-.. .. image:: images/UnexpectedBehaviorSpinUntilFuterAndSpin.png
-..    :alt: The unexpected behavior when using spin_until_future_complete and spin in the same program.
+   int main(int argc, char *argv[])
+   {
+      rclcpp::init(argc, argv);
+      auto sub_client_node = std::make_shared<NodeSubscriberClient>();
+      rclcpp::spin(sub_client_node);
+      rclcpp::shutdown();
+      return 0;
+   }
 
-.. This occurs because ``spin_until_future_complete`` function is called within the callback function ``pose_callback``. This can lead to a deadlock situation, where the code waits indefinitely for the service call to complete while being stuck in the callback function. This is because the callback function ``pose_callback`` is executed in the context of the ROS2 executor thread, and this thread is being blocked until the service call completes.
+This will result in an unexpected behavior of the program, the program stops rigth after receiving the ``"Hello World: 10"`` message.
 
-.. Hence, to avoid this issue, the service call must be handled in the following manner:
+.. image:: images/simplerProblemExample_notWorkingCpp.png
+   :alt: The unexpected behavior when using spin_until_future_complete() and spin() in the same program.
 
-.. .. code-block:: console
+This occurs because ``spin_until_future_complete()`` function is called within the callback function ``listener_callback()``. This can lead to a deadlock situation, where the code waits indefinitely for the service call to complete while being stuck in the callback function. This is because the callback function ``listener_callback()`` is executed in the context of the ROS2 executor thread, and this thread is being blocked until the service call completes.
 
-..    import sys
+Hence, to avoid this issue, the service call shoul be called asynchronously. One way to achieve this kind of handling is by making the following:
 
-..    from example_interfaces.srv import AddTwoInts
-..    import rclpy
-..    from rclpy.node import Node
-..    from std_msgs.msg import String
+.. code-block:: console
 
+   #include <chrono>
+   #include <memory>
+   #include "rclcpp/rclcpp.hpp"
+   #include "std_msgs/msg/string.hpp"
+   #include "example_interfaces/srv/add_two_ints.hpp"
 
-..    class NodeSubscriberClient(Node):
+   using namespace std::chrono_literals;
 
-..       def __init__(self):
-..          super().__init__('client_subscription_node_fail')
-..          self.subscription_ = self.create_subscription(
-..                String,
-..                'topic',
-..                self.listener_callback,
-..                10)
-..          self.subscription_  # prevent unused variable warning
-..          self.cli = self.create_client(AddTwoInts, 'add_two_ints')
-..          while not self.cli.wait_for_service(timeout_sec=1.0):
-..                self.get_logger().info('service not available, waiting again...')
-..          self.req = AddTwoInts.Request()
+   class NodeSubscriberClient : public rclcpp::Node
+   {
+   public:
+      NodeSubscriberClient() : Node("client_subscription_node_fail")
+      {
+         subscription_ = this->create_subscription<std_msgs::msg::String>(
+               "topic", 10, std::bind(&NodeSubscriberClient::listener_callback, this, std::placeholders::_1));
 
-..       def send_request(self, a, b):
-..          self.req.a = a
-..          self.req.b = b
-..          self.future = self.cli.call_async(self.req)
-..          # rclpy.spin_until_future_complete(self, self.future)
-..          # return self.future.result()
-..          return self.future
-      
-..       def listener_callback(self, msg):
-..          self.get_logger().info('I heard: "%s"' % msg.data)
-..          if (msg.data == "Hello World: 10"):
-..                self.get_logger().info('Calling add_two_ints the service...')
-..                future = self.send_request(2,5)
-..                future.add_done_callback(self.callback_sum)
-      
-..       def callback_sum(self, future):
-..          if future.result() is not None:
-..                res = future.result()
-..                self.get_logger().info('The sum is: "%s"' % res.sum)
-..          else:
-..                self.get_logger().warning('Service call failed')
+         client_ = this->create_client<example_interfaces::srv::AddTwoInts>("add_two_ints");
+         while (!client_->wait_for_service(1s))
+         {
+               if (!rclcpp::ok())
+               {
+                  RCLCPP_ERROR(this->get_logger(), "Interrupted while waiting for the service. Exiting.");
+                  rclcpp::shutdown();
+                  return;
+               }
+               RCLCPP_INFO(this->get_logger(), "service not available, waiting again...");
+         }
+      }
 
-..    def main():
-..       rclpy.init()
+      void send_request(int a, int b)
+      {
+         auto request = std::make_shared<example_interfaces::srv::AddTwoInts::Request>();
+         request->a = a;
+         request->b = b;
 
-..       sub_client_node = NodeSubscriberClient()
-..       rclpy.spin(sub_client_node)
-..       sub_client_node.destroy_node()
-..       rclpy.shutdown()
+         auto future = client_->async_send_request(request, std::bind(&NodeSubscriberClient::handle_add_two_ints_response, this, std::placeholders::_1));
+      }
 
+      void handle_add_two_ints_response(rclcpp::Client<example_interfaces::srv::AddTwoInts>::SharedFuture future) {
+         auto response = future.get();
+         if (response) {
+               RCLCPP_INFO(this->get_logger(), "The sum is: %ld", response->sum);
+         } else {
+               RCLCPP_ERROR(this->get_logger(), "Failed to call service add_two_ints");
+         }
+      }
 
-..    if __name__ == '__main__':
-..       main()
+   private:
+      void listener_callback(const std_msgs::msg::String::SharedPtr msg)
+      {
+         RCLCPP_INFO(this->get_logger(), "I heard: '%s'", msg->data.c_str());
+         if (msg->data == "Hello, world! 10")
+         {
+               RCLCPP_INFO(this->get_logger(), "Calling add_two_ints service...");
+               send_request(2, 5);
+         }
+      }
 
-.. See that ``spin_until_future_complete()`` function is not being used anymore to avoid blocking the ROS2 executor thread. Instead, asynchronous service calls are used properly and a separate method handles the service call asynchronously. This method was named ``callback_sum()``. Below, ther is a detailed explanation of what is happening:
+      rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
+      rclcpp::Client<example_interfaces::srv::AddTwoInts>::SharedPtr client_;
+   };
 
-.. - First, the ``send_request()`` function works fine and finishes its execution returning an object result of sending the request asynchronously using ``self.cli.call_async()``. 
-.. - This objected returned by ``send_request()`` is stored in a ``Future`` type variable. Later, a callback is attached to this object, the ``callback_sum`` method. But this callback will only be executed when the ``Future`` object is done; that is why the function ``add_done_callback()`` is being used. 
-.. - Next, the callback method. Any callback method attached to the ``add_done_callback()`` function will be invoked with the ``Future`` object as its only argument. And it simply checks if the result of the ``Future`` object is none so that it can print a log messages indicating that the sum has been performed successfully and showing its result, or that the service call has failed. 
+   int main(int argc, char *argv[])
+   {
+      rclcpp::init(argc, argv);
+      auto sub_client_node = std::make_shared<NodeSubscriberClient>();
+      rclcpp::spin(sub_client_node);
+      rclcpp::shutdown();
+      return 0;
+   }
 
-.. Do consider this situation when working with ``rclpy.spin()`` and ``spin_until_future_complete()`` as it will cause unexpected issues if not handled appropriately. 
+See that ``spin_until_future_complete()`` function is not being used anymore to avoid blocking the ROS2 executor thread. Instead, asynchronous service calls are used properly and a separate method handles the service call asynchronously. This method was named ``handle_add_two_ints_response()``. Below, there is a detailed explanation of what is happening:
 
+- First, the ``send_request()`` function works fine and finishes its execution by making the asynchronous call to the ``add_two_ints`` service. Additionally, the response of the ``async_send_request()`` function is binded to the ``handle_add_two_ints_response()`` function. Meaning that the ``handle_add_two_ints_response()`` function will be executed when the service request has been responded.
+- The ``handle_add_two_ints_response()`` callback function simply checks if the result of the ``Future`` object is none so that it can print a log messages indicating that the results of the sum or that the service call has failed. 
 
+Overall, ``send_request()`` function prepares and sends the service request, and ``handle_add_two_ints_response()`` processes the response when it becomes available asynchronously. This asynchronous approach allows the node to continue processing other events while waiting for the service response.
 
 
