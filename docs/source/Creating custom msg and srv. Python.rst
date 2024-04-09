@@ -23,13 +23,8 @@ Notice that the package created, is a CMake package. This is where the custom me
 
 Next, create the folder: ``msg`` and ``srv`` inside ``ros2_ws/src/tutorial_interfaces``. This is where messages and services types will be stored respectively.
 
-Custom definitions
-------------------------
-
-In this part, the actual creation of the custom message and service types will be created. 
-
 Message definition
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------
 
 Inside ``tutorial_interfaces/msg`` create a new file named ``Sphere.msg``. Edit the content of ``Sphere.msg`` to include:
 
@@ -42,7 +37,7 @@ This custom message uses a message from another message package (``geometry_msgs
 
 
 Service definition
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------
 
 Inside ``tutorial_interfaces/srv`` create a new file named ``AddThreeInts.srv``. Edit the content of ``AddThreeInts.srv`` to include:
 
@@ -57,7 +52,7 @@ Inside ``tutorial_interfaces/srv`` create a new file named ``AddThreeInts.srv``.
 This custom service requests three integers named ``a``, ``b``, and ``c``, and responds with an integer called ``sum``.
 
 Edditing the CMakeLists.txt
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------
 
 To convert the defined interfaces into language-specific code (like C++ and Python) so that they can be used in those languages, add the following lines to ``CMakeLists.txt``:
 
@@ -83,7 +78,7 @@ The ``CMakeLists.txt`` file should look similar to:
 
 
 Editting the pacakge.xml file
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------
 
 The following should be added to ``tutorial_interfaces/package.xml``:
 
@@ -104,7 +99,7 @@ The ``pacakge.xml`` file should look similar to:
    :alt: package.xml to build the custom msg and srv.
 
 Build and test
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------
 
 :ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS2 command is currently running, navigate to the workspace directory and execute:
 
@@ -152,8 +147,8 @@ Should output the following:
    ---
    int64 sum
 
-Testing the Sphere custom msg
-^^^^^^
+Testing the Sphere custom msg in a python package
+-----------------------
 Make sure to be in a brand new terminal window and no ROS commands are currently running. 
 
 Create a new python package,  this package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``testing_interfaces_python``. For more reference on package creation consult: :ref:`pacakge creation<conf_env/Creating a package>` or :ref:`pacakge creation2<Configuring environment/Creating a package>` or :ref:`pacakge creation3<_conf_env/Creating a package>`
@@ -163,6 +158,9 @@ Create a new python package,  this package should be contained in the ``ros2_ws`
    ros2 pkg create --build-type ament_python --license Apache-2.0 testing_interfaces_python --dependencies rclpy tutorial_interfaces
 
 The ``--dependencies`` argument will automatically add the necessary dependency lines to ``package.xml``. In this case, ``tutorial_interfaces`` is the package that includes the ``Sphere.msg`` file that is needed for this test.
+
+The code
+~~~~~~~~~~~~~~~~
 
 Next, inside ``testing_interfaces_python/testing_interfaces_python`` create a python script, name it ``sphere_publisher.py``. 
 
@@ -286,6 +284,9 @@ The code is very similar to the listener script that was studied  :ref:`previous
 
 Again, the relevant changes here, have to do with dealing with the appropriate topic name and message type. 
 
+Dependencies and entry points
+~~~~~~~~~~~~~~~~
+
 Once, these two python scripts are ready, it is necessary to add the required dependencies in the ``package.xml`` file, which was already added when creating this package. See that in the ``package.xml`` file it is present the tag ``package.xml``: ``<depend>tutorial_interfaces</depend>``.
 
 Next, add the entry points in the ``setup.py`` file:
@@ -298,6 +299,9 @@ Next, add the entry points in the ``setup.py`` file:
                'sphere_listener = testing_interfaces_python.sphere_listener:main'
          ],
       }
+
+Build and run the custom msg
+~~~~~~~~~~~~~~~~
 
 Build the package with either of these commands:
 
@@ -372,6 +376,192 @@ The expected result is:
 
 At this point, it can be seen that the custom message ``Sphere.msg`` that was created is being used successfully.
 
-Testing the AddThreeInts custom srv 
-^^^^^^
+Testing the AddThreeInts custom srv in a python package
+-----------------------
 
+This example will be worked in the ``testing_interfaces_python`` package.
+
+The code
+~~~~~~~~~~~~~~~~
+
+Inside ``testing_interfaces_python/testing_interfaces_python`` create a python script, name it ``add_service_node.py``. 
+
+Copy this content into the new python script. 
+
+.. code-block:: console
+
+   from tutorial_interfaces.srv import AddThreeInts
+
+   import rclpy
+   from rclpy.node import Node
+
+
+   class AdditionService(Node):
+
+      def __init__(self):
+         super().__init__('add_service_node')
+         self.srv = self.create_service(AddThreeInts, 'add_three_ints', self.add_three_ints_callback)
+
+      def add_three_ints_callback(self, request, response):
+         response.sum = request.a + request.b + request.c
+         self.get_logger().info('Incoming request\na: %d b: %d c: %d' % (request.a, request.b, request.c))
+
+         return response
+
+   def main():
+      rclpy.init()
+
+      addition_service = AdditionService()
+
+      rclpy.spin(addition_service)
+
+      rclpy.shutdown()
+
+   if __name__ == '__main__':
+      main()
+
+Notice that this code is very similar to the service script that was studied  :ref:`previously<Writting service and client. Python/Writting the service node. Python>`.
+
+Check the important changes in this script.
+
+.. code-block:: console
+
+   from tutorial_interfaces.srv import AddThreeInts
+   ...
+   self.srv = self.create_service(AddThreeInts, 'add_three_ints', self.add_three_ints_callback)
+   ...
+   def add_three_ints_callback(self, request, response):
+         response.sum = request.a + request.b + request.c
+         self.get_logger().info('Incoming request\na: %d b: %d c: %d' % (request.a, request.b, request.c))
+
+         return response
+
+- It is important to correctly import the required service.
+- The service node will now be of type ``AddThreeInts``, and the service name is also modified to be ``add_three_ints``. The service name could have stayed the same, but it is better to name the services accordingly.
+- Finally, the callback function, instead of summing two values it will summ the three parameters in the request section of the service. 
+
+Next, create a client node for this service. Inside ``testing_interfaces_python/testing_interfaces_python`` create a python script, name it ``add_client_node.py``. 
+
+Copy this content into the new python script. 
+
+.. code-block:: console
+
+   import sys
+
+   import rclpy
+   from rclpy.node import Node
+   from tutorial_interfaces.srv import AddThreeInts
+
+   class AdditionClientAsync(Node):
+
+      def __init__(self):
+         super().__init__('add_client_node')
+         self.cli = self.create_client(AddThreeInts, 'add_three_ints')
+         while not self.cli.wait_for_service(timeout_sec=1.0):
+               self.get_logger().info('service not available, waiting again...')
+         self.req = AddThreeInts.Request()
+
+      def send_request(self, a, b, c):
+         self.req.a = a
+         self.req.b = b
+         self.req.c = c
+         self.future = self.cli.call_async(self.req)
+         rclpy.spin_until_future_complete(self, self.future)
+         return self.future.result()
+
+
+   def main():
+      rclpy.init()
+
+      add_client = AdditionClientAsync()
+      response = add_client.send_request(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]))
+      add_client.get_logger().info(
+         'Result of add_three_ints: for %d + %d + %d = %d' %
+         (int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), response.sum))
+
+      add_client.destroy_node()
+      rclpy.shutdown()
+
+
+   if __name__ == '__main__':
+      main()
+
+The code is very similar to the client node that was studied  :ref:`previously<Writting service and client. Python/Client node in python>`.
+
+Again, the relevant changes here, have to do with dealing with the appropriate service name and service type. 
+
+Dependencies and entry points
+~~~~~~~~~~~~~~~~
+
+Once, these two python scripts are ready, it is necessary to add the required dependencies in the ``package.xml`` file, which was already added when creating this package. See that in the ``package.xml`` file it is present the tag ``package.xml``: ``<depend>tutorial_interfaces</depend>``.
+
+Next, add the entry points in the ``setup.py`` file:
+
+.. code-block:: console
+
+   entry_points={
+         'console_scripts': [
+               'sphere_publisher = testing_interfaces_python.sphere_publisher:main',
+               'sphere_listener = testing_interfaces_python.sphere_listener:main',
+               'add_service_node = testing_interfaces_python.add_service_node:main',
+               'add_client_node = testing_interfaces_python.add_client_node:main',
+
+         ],
+      },
+
+Build and run the custom srv
+~~~~~~~~~~~~~~~~
+
+Build the package with either of these commands:
+
+.. code-block:: console
+
+   colcon build --symlink-install
+   colcon build --packages-select testing_interfaces_python
+
+Source the setup file:
+
+.. code-block:: console
+   
+   source install/setup.bash
+
+And run the ``add_service_node`` node that was recently created. 
+
+.. code-block:: console
+   
+   ros2 run testing_interfaces_python add_service_node
+
+As a result, nothing will be printed in the terminal. The service is ready to be consumed. 
+
+`Open a new terminal`_ and execute the ``add_client_node`` node:
+
+.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
+
+.. code-block:: console
+   
+   ros2 run testing_interfaces_python add_client_node 4 5 8
+
+The expected result is:
+
+.. code-block:: console
+   
+   [INFO] [1712660818.668964970] [add_client_node]: Result of add_three_ints: for 4 + 5 + 8 = 17
+
+Finally, the ``add_three_ints service`` can also be called from the terminal directly, without the necessity of coding a client node. `Open a new terminal`_ and execute:
+
+.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
+
+.. code-block:: console
+   
+   ros2 service call /add_three_ints tutorial_interfaces/srv/AddThreeInts "{a: 2, b: 3, c: 5}"
+
+The expected result is:
+
+.. code-block:: console
+   
+   requester: making request: tutorial_interfaces.srv.AddThreeInts_Request(a=2, b=3, c=5)
+
+   response:
+   tutorial_interfaces.srv.AddThreeInts_Response(sum=10)
+
+At this point, it can be seen that the custom service ``AddThreeInts.srv`` that was created is being used successfully.
