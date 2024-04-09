@@ -16,11 +16,12 @@ Contents
    Configuring environment
    Nodes
    Topics
-   Writting custom publisher and subscriber nodes. Python
-   Writting custom publisher and subscriber nodes. C++
+   Writting publisher and subscriber nodes. Python
+   Writting publisher and subscriber nodes. C++
    Services
    Writting service and client. Python
    Writting service and client. C++
+   Creating custom msg and srv. Python
    Launch files
    ROS2 tools
    Final project

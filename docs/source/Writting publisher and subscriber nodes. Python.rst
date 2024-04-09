@@ -20,7 +20,7 @@ It will be necessary first to create a new package. This package should be conta
 
 For more reference on package creation consult: :ref:`pacakge creation<conf_env/Creating a package>` or :ref:`pacakge creation2<Configuring environment/Creating a package>` or :ref:`pacakge creation3<_conf_env/Creating a package>`
 
-Inside this package, spsecifically in ``py_pubsub/py_pubsub`` create a python script, name it "publisher_script.py".
+Inside this package, spsecifically in ``py_pubsub/py_pubsub`` create a python script, name it ``publisher_script.py``.
 
 .. image:: images/creatingPythonScript.png
    :alt: Creating a python script in the correct directory.

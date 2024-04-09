@@ -371,3 +371,7 @@ The expected result is:
    ...
 
 At this point, it can be seen that the custom message ``Sphere.msg`` that was created is being used successfully.
+
+Testing the AddThreeInts custom srv 
+^^^^^^
+
