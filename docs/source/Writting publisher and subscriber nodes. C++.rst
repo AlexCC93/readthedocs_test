@@ -1,4 +1,4 @@
-Writting custom publisher and subscriber nodes. C++
+Writting publisher and subscriber nodes. C++
 ==========================
 
 .. _writting pubsub cpp:

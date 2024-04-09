@@ -1,4 +1,4 @@
-Writting custom publisher and subscriber nodes. Python
+Writting publisher and subscriber nodes. Python
 ==========================
 
 .. _writting pubsub python:
