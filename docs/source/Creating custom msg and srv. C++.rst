@@ -257,7 +257,7 @@ The expected result is:
 
 At this point, it can be seen that the custom message ``Sphere.msg`` that was created is being used successfully.
 
-Testing the AddThreeInts custom srv in a python package
+Testing the AddThreeInts custom srv in a C++ package
 -----------------------
 
 This example will be worked in the ``testing_interfaces_cpp`` package.
@@ -521,3 +521,361 @@ The expected result is:
    tutorial_interfaces.srv.AddThreeInts_Response(sum=12)
 
 At this point, it can be seen that the custom service ``AddThreeInts.srv`` that was created is being used successfully.
+
+Testing a custom msg inisde the same package
+-----------------------
+
+The previous examples had the custom msg and srv created in a different package from where these are tested. Recall that the custom msg and srv were created in ``tutorial_interfaces`` but are tested in the ``testing_interfaces_cpp`` package.
+
+In this part, a custom msg will be created in a package of name: ``more_interfaces`` and inside this very same package, a node will be created that makes use of the custom msg. It will be seen that there are some minor differences when using a msg generated in the same package. 
+
+The process below is similar to the one :ref:`studied previously<Creating custom msg and srv. Python/Setup for working with custom msg and srv>`. 
+
+Create a new package
+~~~~~~~~~~~~~~~~
+
+:ref:`Open a new terminal<installation/Running a docker container>` and make sure that no ROS commands are currently running. 
+
+Create a new package. This package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``more_interfaces``.
+
+.. code-block:: console
+
+   ros2 pkg create --build-type ament_cmake --license Apache-2.0 more_interfaces
+
+Create a new custom msg
+~~~~~~~~~~~~~~~~
+
+Next, create the folder: ``msg`` inside ``ros2_ws/src/more_interfaces``. This is where the new messages types will be stored.
+
+Inside ``more_interfaces/msg`` create a new file named ``AddressBook.msg``. Edit the content of ``AddressBook.msg`` to include:
+
+.. code-block:: console
+
+   uint8 PHONE_TYPE_HOME=0
+   uint8 PHONE_TYPE_WORK=1
+   uint8 PHONE_TYPE_MOBILE=2
+
+   string first_name
+   string last_name
+   string phone_number
+   uint8 phone_type
+
+Note that it is possible to set default values for fields within a message definition. 
+
+Build the msg file
+~~~~~~~~~~~~~~~~
+
+To make sure that the msg file is turned into source code for C++ and Python, the following should be added in the ``more_interfaces/package.xml`` file:
+
+.. code-block:: console
+
+   <buildtool_depend>rosidl_default_generators</buildtool_depend>
+   <exec_depend>rosidl_default_runtime</exec_depend>
+   <member_of_group>rosidl_interface_packages</member_of_group>
+
+- ``rosidl_default_generators`` is a package in ROS2 that provides default code generators for ROS message and service types. It is part of the ROS2 build system and is used to generate C++ and Python code from ROS2 message and service definitions. The ``<buildtool_depend>`` specifies a dependency on a build tool needed to build the package.
+- ``<exec_depend>`` is a runtime or execution-stage dependency. ``rosidl_default_runtime`` is a ROS2 package that provides runtime libraries necessary for working with ROS2 messages and services.
+- The ``<member_of_group>`` tag specifies that the package is a member of a particular group.  In this case, ``<member_of_group>rosidl_interface_packages</member_of_group>`` indicates that the package is part of the ``rosidl_interface_packages`` group. The ``rosidl_interface_packages`` group typically includes packages that define ROS interfaces, such as messages, services, and action definitions. These packages contain ``.msg``, ``.srv``, and ``.action`` files that define the structure and behavior of messages, services, and actions used in ROS 2 communication.
+
+Now, regarding the ``CMakeLists.txt`` file, the following should be added just below the ``find_package(ament_cmake REQUIRED)`` line:
+
+.. code-block:: console
+
+   find_package(rosidl_default_generators REQUIRED)
+   set(msg_files
+      "msg/AddressBook.msg"
+   )
+   rosidl_generate_interfaces(${PROJECT_NAME}
+      ${msg_files}
+   )
+
+- The ``find_package(...)`` command finds the package that generates message code from msg/srv files.
+- The ``set(...)`` command declares a list of messages that is to be generated.- The ``rosidl_generate_interfaces(...)`` command generates the messages.
+
+:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS2 command is currently running, navigate to the workspace directory and execute:
+
+.. code-block:: console
+
+   colcon build --packages-select more_interfaces
+
+Now, source the setup file:
+
+.. code-block:: console
+   
+   source install/setup.bash
+
+For more reference on sourcing the setup file, see :ref:`sourcing the setup file<conf_env/Source the setup file>` .
+
+Next, to check that the custom message is correctly created, run:
+
+.. code-block:: console
+   
+   ros2 interface show more_interfaces/msg/AddressBook
+
+The otuput should be: 
+
+.. code-block:: console
+   
+   uint8 PHONE_TYPE_HOME=0
+   uint8 PHONE_TYPE_WORK=1
+   uint8 PHONE_TYPE_MOBILE=2
+
+   string first_name
+   string last_name
+   string phone_number
+   uint8 phone_type
+
+At this point the custom msg is created and ready to be used.
+
+The cpp code in the same package
+~~~~~~~~~~~~~~
+
+Inside ``more_interfaces/src`` create a C++ script, name it ``publish_address_book.cpp``. 
+
+Copy this content into the new C++ script. 
+
+.. code-block:: console
+
+   #include <chrono>
+   #include <memory>
+
+   #include "rclcpp/rclcpp.hpp"
+   #include "more_interfaces/msg/address_book.hpp"
+
+   using namespace std::chrono_literals;
+
+   class AddressBookPublisher : public rclcpp::Node
+   {
+   public:
+   AddressBookPublisher()
+   : Node("address_book_publisher")
+   {
+      address_book_publisher_ =
+         this->create_publisher<more_interfaces::msg::AddressBook>("address_book", 10);
+
+      auto publish_msg = [this]() -> void {
+         auto message = more_interfaces::msg::AddressBook();
+
+         message.first_name = "John";
+         message.last_name = "Doe";
+         message.phone_number = "1234567890";
+         message.phone_type = message.PHONE_TYPE_MOBILE;
+
+         std::cout << "Publishing Contact\nFirst:" << message.first_name <<
+            "  Last:" << message.last_name << std::endl;
+
+         this->address_book_publisher_->publish(message);
+         };
+      timer_ = this->create_wall_timer(1s, publish_msg);
+   }
+
+   private:
+      rclcpp::Publisher<more_interfaces::msg::AddressBook>::SharedPtr address_book_publisher_;
+      rclcpp::TimerBase::SharedPtr timer_;
+   };
+
+
+   int main(int argc, char * argv[])
+   {
+      rclcpp::init(argc, argv);
+      rclcpp::spin(std::make_shared<AddressBookPublisher>());
+      rclcpp::shutdown();
+
+      return 0;
+   }
+
+The code consists on these parts:
+
+- Library imports. Notice specially the ``address_book.hpp`` header that is imported. As explained in :ref:`this section<Testing the AddThreeInts custom srv in a C++ package/The code>`  the srv and msg files are usually converted to snake_case when generating corresponding C++ code.
+
+.. code-block:: console
+
+   #include <chrono>
+   #include <memory>
+
+   #include "rclcpp/rclcpp.hpp"
+   #include "more_interfaces/msg/address_book.hpp"
+
+   using namespace std::chrono_literals;
+
+
+- Creating a node and an ``AddressBook`` publisher.
+
+.. code-block:: console
+
+   class AddressBookPublisher : public rclcpp::Node
+   {
+   public:
+   AddressBookPublisher()
+   : Node("address_book_publisher")
+   {
+      address_book_publisher_ =
+         this->create_publisher<more_interfaces::msg::AddressBook>("address_book");
+
+- Create a callback to publish the messages periodically.
+
+.. code-block:: console
+
+   auto publish_msg = [this]() -> void {
+      auto message = more_interfaces::msg::AddressBook();
+
+      message.first_name = "John";
+      message.last_name = "Doe";
+      message.phone_number = "1234567890";
+      message.phone_type = message.PHONE_TYPE_MOBILE;
+
+      std::cout << "Publishing Contact\nFirst:" << message.first_name <<
+         "  Last:" << message.last_name << std::endl;
+
+      this->address_book_publisher_->publish(message);
+   };
+
+- Create a 1 second timer to call the ``publish_msg`` callback function every second.
+
+.. code-block:: console
+
+   timer_ = this->create_wall_timer(1s, publish_msg);
+
+Build the publisher
+~~~~~~~~~~~~~~
+
+Add the following to the ``CMakeLists.txt`` file, just below the ``find_package(rosidl_default_generators REQUIRED)`` command:
+
+.. code-block:: console
+
+   find_package(rclcpp REQUIRED)
+
+   add_executable(publish_address_book src/publish_address_book.cpp)
+   ament_target_dependencies(publish_address_book rclcpp)
+
+   install(TARGETS
+      publish_address_book
+     DESTINATION lib/${PROJECT_NAME})
+
+In order to use the messages generated in the same package it is needed to use the following CMake code, add this just below the ``rosidl_generate_interfaces(...
+)`` command:
+
+.. code-block:: console
+
+   rosidl_get_typesupport_target(cpp_typesupport_target
+   ${PROJECT_NAME} rosidl_typesupport_cpp)
+
+   target_link_libraries(publish_address_book "${cpp_typesupport_target}")
+
+This CMake code is only required when interfaces are to used in the same package as they are defined.
+
+At the end, this ``CMakeLists.txt`` file should look like the following:
+
+.. code-block:: console
+
+   cmake_minimum_required(VERSION 3.8)
+   project(more_interfaces)
+
+   if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+      add_compile_options(-Wall -Wextra -Wpedantic)
+   endif()
+
+   # find dependencies
+   find_package(ament_cmake REQUIRED)
+   find_package(rosidl_default_generators REQUIRED)
+
+   find_package(rclcpp REQUIRED)
+
+   add_executable(publish_address_book src/publish_address_book.cpp)
+   ament_target_dependencies(publish_address_book rclcpp)
+
+   install(TARGETS
+      publish_address_book
+      DESTINATION lib/${PROJECT_NAME})
+
+   set(msg_files
+      "msg/AddressBook.msg"
+   )
+
+   rosidl_generate_interfaces(${PROJECT_NAME}
+      ${msg_files}
+   )
+
+   rosidl_get_typesupport_target(cpp_typesupport_target
+      ${PROJECT_NAME} rosidl_typesupport_cpp)
+
+   target_link_libraries(publish_address_book "${cpp_typesupport_target}")
+
+   # uncomment the following section in order to fill in
+   # further dependencies manually.
+   # find_package(<dependency> REQUIRED)
+
+   if(BUILD_TESTING)
+      find_package(ament_lint_auto REQUIRED)
+      # the following line skips the linter which checks for copyrights
+      # comment the line when a copyright and license is added to all source files
+      set(ament_cmake_copyright_FOUND TRUE)
+      # the following line skips cpplint (only works in a git repo)
+      # comment the line when this package is in a git repo and when
+      # a copyright and license is added to all source files
+      set(ament_cmake_cpplint_FOUND TRUE)
+      ament_lint_auto_find_test_dependencies()
+   endif()
+
+   ament_package()
+
+Run the publisher
+~~~~~~~~~~~~~~
+
+:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS2 command is currently running, navigate to the workspace directory and execute:
+
+.. code-block:: console
+   
+   colcon build --packages-select more_interfaces
+
+
+Now, source the setup file:
+
+.. code-block:: console
+   
+   source install/setup.bash
+
+For more reference on sourcing the setup file, see :ref:`sourcing the setup file<conf_env/Source the setup file>` .
+
+And run the publisher node that was recently created. 
+
+.. code-block:: console
+   
+   ros2 run more_interfaces publish_address_book
+
+As a result, the following messages will be displayed in the terminal:
+
+.. code-block:: console
+   
+   Publishing Contact
+   First:John  Last:Doe
+   Publishing Contact
+   First:John  Last:Doe
+   ...
+
+
+Finally, it can also be checked the echo of the messages arriving to the desired topic. `Open a new terminal`_ and execute:
+
+.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
+
+.. code-block:: console
+   
+   ros2 topic echo /address_book
+
+The expected result is:
+
+.. code-block:: console
+   
+   first_name: John
+   last_name: Doe
+   phone_number: '1234567890'
+   phone_type: 2
+   ---
+   first_name: John
+   last_name: Doe
+   phone_number: '1234567890'
+   phone_type: 2
+   ---
+   ...
+
+At this point, it can be seen that the custom message ``AddressBook.msg`` that was created is being used successfully within the same package in which it was defined.
