@@ -381,6 +381,8 @@ Testing the AddThreeInts custom srv in a python package
 
 This example will be worked in the ``testing_interfaces_python`` package.
 
+Make sure to be in a brand new terminal window and no ROS commands are currently running.
+
 The code
 ~~~~~~~~~~~~~~~~
 
