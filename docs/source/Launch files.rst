@@ -339,6 +339,7 @@ Practice
 In a :ref:`brand new terminal<Installation/Opening a new terminal>`, execute: 
 
 .. code-block:: console
+   
    ros2 launch py_launch_example turtlesim_mimic_launch.py
 
 Similar to the example of controlling the turtle movement with this command: 

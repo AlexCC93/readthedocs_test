@@ -25,6 +25,6 @@ Contents
    Creating custom msg and srv. C++
    Parameters
    Launch files
-   ROS2 tools
+   ROS2 bag
    Final project
    
