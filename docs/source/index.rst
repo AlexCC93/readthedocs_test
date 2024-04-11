@@ -23,6 +23,7 @@ Contents
    Writting service and client. C++
    Creating custom msg and srv. Python
    Creating custom msg and srv. C++
+   Parameters
    Launch files
    ROS2 tools
    Final project

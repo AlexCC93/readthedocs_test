@@ -293,6 +293,45 @@ The result should look similar to this picture:
 
 With the two turtle windows open. 
 
+Working with launch files in C++ packages
+------------------
+
+In a :ref:`brand new terminal<Installation/Opening a new terminal>`, navigate to ``ros2_ws`` workspace, within its ``/src`` folder.
+Create a new package with name: ``cpp_launch_example``. For more reference on package creation consult: :ref:`pacakge creation<conf_env/Creating a package>` or :ref:`pacakge creation2<Configuring environment/Creating a package>` or :ref:`pacakge creation3<_conf_env/Creating a package>`
+
+.. code-block:: console
+
+   ros2 pkg create --build-type ament_cmake --license Apache-2.0 cpp_launch_example
+
+Next, create a ``launch`` folder inside ``ros2_ws/src/cpp_launch_example``. This is where the launch file scripts will be stored.
+
+Inside ``cpp_launch_example/launch`` copy the launch file of name ``turtlesim_mimic_launch.py``, that was coded in :ref:`this section<Creating a launch file>`.
+
+Next, adjust the ``CMakeLists.txt`` file to include the following:
+
+.. code-block:: console
+
+   # Install launch files.
+   install(DIRECTORY
+   launch
+   DESTINATION share/${PROJECT_NAME}/
+   )
+
+Build and source.
+
+.. code-block:: console
+   
+   colcon build --packages-select cpp_launch_example
+   source install/setup.bash
+
+Run the following command:
+
+.. code-block:: console
+   
+   ros2 launch cpp_launch_example turtlesim_mimic_launch.py
+
+The two turtlesim windows should be oppened. 
+
 Practice 
 ---------
 
