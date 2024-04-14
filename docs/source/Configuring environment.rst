@@ -3,7 +3,7 @@ Configuring environment
 
 .. _conf_env:
 
-Installation
+configuration
 ------------
 
 To use Lumache, first install it using pip:

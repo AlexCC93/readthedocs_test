@@ -1,7 +1,7 @@
 Welcome to the ROS2 course!
 ===================================
 
-ROS2 offers a powerful platform for building, simulating and deploying robotic applications. In this course, we'll guide you through the fundamentals of ROS2, empowering you to harness its capabilities for creating innovative robotic solutions.
+ROS2 offers a powerful platform for building, simulating and deploying robotic applications. In this course, you'll be guided through the fundamentals of ROS2, empowering you to harness its capabilities for creating innovative robotic solutions.
 
 You'll learn essential concepts such as ROS2 architecture, communication mechanisms, and package management. We'll explore how to design modular and scalable robotic systems using ROS2, leveraging its extensive library of tools and resources. Let's dive in and unlock the potential of ROS2 together!
 

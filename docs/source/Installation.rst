@@ -6,13 +6,194 @@ Installation
 Installation
 ------------
 
-Bla bla talk about the installation of Docker and the way it should work with ROS2. 
+There are plenty of ways to use ROS 2, among the most common ones, there are:
+- Working with a VM with Linux OS and install ROS 2 on it.
+- Have Linux host machine or a dual-boot PC and install ROS 2 on it.
+- Work completely online with no installation requirements (https://www.theconstruct.ai/).
+- Using a docker container on a Windows host machine. 
+
+The last option is the one preferred for this course. Hence, all the content of this course will be based on a Windows host machine with a Docker installation providing a ROS 2 container; specifically the Humble ROS 2 distribution is utilized.
 
 
-Running a docker container
+1. Docker installation and configuration
+~~~~~~~~~~~~~~~~~
+
+Start by downloading Docker installer from this link: https://docs.docker.com/desktop/install/windows-install/. In the same link, it is posted the system requirements, be aware that ``wsl2 of Hyper-V`` is required to fully work with Docker. Hence, at some point it will be required to install ``wsl2`` tool if not already installed.
+
+Execute the ``Docker Desktop for Windows`` installer that was downladed. Follow the instructions on the installation wizard clicking ``Next`` at each installation step.
+
+Restart the PC for the changes to take effect.
+
+Run the Docker program from Windows. For the first time execution, it will ask to sing in and to complete a survey. Skip both for the moment. 
+
+2. Xlaunch installation
+~~~~~~~~~~~~~~~
+
+Next download Xlaunch program from: https://sourceforge.net/projects/vcxsrv/. This program enables the user to work with graphical windowing system used in Unix-like operating systems. 
+
+Recall that from Docker, a Linux container will be executed. And from there, only a terminal window will be the interface to work with that OS. If some GUI applications are needed, these will be provided by the Xlaunch program.
+
+Execute the Xlaunch installer following the installation wizard and clicking ``Next`` at each installation step.
+
+3. Search for ROS images
+~~~~~~~~~~~~~~~
+
+Go to https://hub.docker.com/u/osrf which is a docker repository containing ROS images of various distributions.
+
+For this course, the image that is going to be used will be ``ros:humble-desktop``, which is found here: https://hub.docker.com/r/osrf/ros/tags. Open a Windows terminal window and execute:
+
+.. code-block:: console
+
+   docker pull osrf/ros:humble-desktop
+
+This command pulls a docker image from the specified Docker registry. 
+
+Once the docker image is pulled, it must be shown under the ``Images`` section of the Docker desktop application along with any other docker image that was pulled or generated. 
+
+.. image:: images/dockerImage.png
+   :alt: Docker image that was pulled.
+
+3. Generate proper Docker image
+~~~~~~~~~~~~~~~
+
+In order to use the recently pulled Docker image, execute:
+
+.. code-block:: console
+
+   docker run -it osrf/ros:humble-desktop
+
+-	The ``-it`` command refers to "interactive" and "TTY". Which basically makes the Docker container run in interactive mode, allowing to enter commands directly into the container's terminal and see their output.
+-	``osrf/ros:humble-desktop`` is the Docker image name. ``osrf/ros`` is the repository or the name of the Docker image. WHile ``humble-desktop`` is the tag assigned to that particular version or configuration of the Docker image.
+
+Something similar should be the result of this command execution.
+
+.. image:: images/dockerImageExecution.png
+   :alt: Docker image executed.
+
+And in the Docker desktop application, in the containers section, see that a container was generated with a random name.
+
+.. image:: images/DockerContainerGenerated.png
+   :alt: Docker container generated.
+
+Now, in the docker container's terminal inspect the Ubuntu version. Execute:
+
+.. code-block:: console
+
+   lsb_release -a
+
+This should be the output:
+
+.. code-block:: console
+
+   No LSB modules are available.
+   Distributor ID: Ubuntu
+   Description:    Ubuntu 22.04.4 LTS
+   Release:        22.04
+   Codename:       jammy
+
+Next, see the ROS2 distribution installed in this docker image. Execute:
+
+.. code-block:: console
+
+   printenv ROS_DISTRO
+
+This should be the result in the terminal:
+
+.. code-block:: console
+
+   humble
+
+At this point, it is verified that the docker image works as expected. Press ``Ctrl+d`` to exit the docker container.
+
+For this course, some additional settings are to be performed on this image. For this, in the Windows terminal that is already opened, navigate to the desired directory in which to store this course data, and create a file called ``Dockerfile``. Copy this content into the created file.
+
+.. code-block:: console
+
+   FROM osrf/ros:humble-desktop
+
+   RUN apt-get update && apt-get install -y nano && apt-get install tree 
+   RUN apt install -y python3-pip
+   RUN apt-get install dos2unix
+   RUN pip3 install setuptools==58.2.0
+   RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+
+Basically, what it is performed with the ``Dockerfile`` script above, is to build a new Docker image. A more detailed information of the content of this script, go to `"Configuring environment"`_ section.
+
+.. _"Configuring environment": https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html
+
+Go to the Windows terminal and execute the following to build a new Docker image. 
+
+.. code-block:: console
+
+   docker image build -t ros2_humble_image .
+
+The ``-t`` flag stands for "tag" and assigns a human-readable name to the new image, ``ros2_humble_image`` in this case. 
+Finally, the ``.`` character, indicates Docker to look for a Dockerfile in the current directory (.), which contains the instructions for building the image.
+
+Go to the Docker desktop application and see the new Docker image.
+
+.. image:: images/newImageGenerated.png
+   :alt: Docker container generated.
+
+Now, this is the Docker image that is going to be used for the course. From this Docker image, a Docker container must be initialized when working on this course. 
+
+Code setup for working with Docker
 --------------------------
 
-In order to use GUI applications from within the container that will be created, first, if not perfomed yet, run the Xlaunch application and set the Display number to zero. 
+When using a Docker container, any modifications made during a session aren't automatically preserved within the container once the session ends. To retain progress made between sessions, Docker provides the concept of volumes within its environment. These volumes enable the persistence of changes, ensuring that they're maintained across different sessions.
+
+Hence, the recommended way to work in this course is to create in the preferred directory within the Windows machine, a folder that will contain all the code for the different sections of this course. Next, execute the following command to initiate a Docker container and mount a volume to it:
+
+.. code-block:: console
+
+   docker run -it -v $PWD/ros2_ws:/ros2_ws ros2_humble_image
+
+``-v $PWD/ros2_ws:/ros2_ws``: This part specifies a volume (``-v``) to be mounted inside the container. It binds the directory ``$PWD/ros2_ws`` on the local Windows machine to the directory ``/ros2_ws`` within the container. This allows for data sharing between the host machine and the container.  In the example provided, ros2_ws refers to the folder on the Windows local machine containing all the course code progress. It also serves as the ROS2 workspace for this course. Further details will be covered in the `"Configuring environment"`_ section.
+
+In this way any change that is porformed in ``$PWD/ros2_ws`` will be saved in the local Windows machine and the progress can be saved from one Docker session to another.
+
+Optionally, the ``ros2_ws`` folder can be linked to a github repository. Follow these steps to have version control on this folder:
+
+- Make sure ``git`` is installed on the Windows machine. Open a Windows terminal and execute:
+
+.. code-block:: console
+
+   git version
+
+If it's an unknown command, install git following this guide: https://github.com/git-guides/install-git.
+
+- In a Windows terminal, navigate to the folder path and execute: 
+
+.. code-block:: console
+
+   git init
+
+This will create a hidden folder named ``.git``. 
+
+- Next, execute:
+
+.. code-block:: console
+
+   git add .
+
+   git commit -m "Initial commit: Add source code files"
+
+   git remote add origin <repository-url>
+
+Where ``<repository-url>`` is the url of a new repository that was previously created with a Github account. 
+
+- Finally, execute:
+
+.. code-block:: console
+
+   git push -u origin master
+
+Make sure that no empty folders are being pushed, to avoid error messages.
+
+Running a Docker container
+--------------------------
+
+In order to use GUI applications from within the container that will be created, first, if not perfomed yet, run the Xlaunch application and set the ``Display`` number to zero. 
 
 .. image:: images/XlaunchSetDisplayToZero.png
    :alt: Setting display number to zero in Xlaunch.
@@ -22,7 +203,7 @@ Make sure that in the Docker desktop GUI window, there are no containers running
 .. image:: images/NoContainersRunning.png
    :alt: No containers are running in docker.
 
-Open a terminal in Windows, navigate to the directory where the ROS2 workspace is stored, and execute the docker command to start running a container based on a specified docker image. This is the structure of such docker command:
+Open a terminal in Windows, navigate to the directory where the folder containing the code progress is stored, and execute the Docker command to start running a container based on a specified docker image. This is the structure of such Docker command:
 
 .. code-block:: console
 
@@ -46,7 +227,7 @@ An example of this docker command execution:
 Opening a new terminal
 ----------------------
 
-When opening a new terminal in Windows, it will be necessary to link that terminal with the already running docker container. Perform the following to achieve this.
+When opening a new terminal in Windows, it will be necessary to link that terminal with the already running Docker container. Perform the following to achieve this.
 
 See the example below:
 
