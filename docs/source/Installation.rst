@@ -3,9 +3,6 @@ Installation
 
 .. _installation:
 
-Installation
-------------
-
 There are plenty of ways to use ROS 2, among the most common ones, there are:
 - Working with a VM with Linux OS and install ROS 2 on it.
 - Have Linux host machine or a dual-boot PC and install ROS 2 on it.
@@ -91,7 +88,7 @@ This should be the output:
    Release:        22.04
    Codename:       jammy
 
-Next, see the ROS2 distribution installed in this docker image. Execute:
+Next, see the ROS 2 distribution installed in this docker image. Execute:
 
 .. code-block:: console
 
@@ -103,7 +100,7 @@ This should be the result in the terminal:
 
    humble
 
-At this point, it is verified that the docker image works as expected. Press ``Ctrl+d`` to exit the docker container.
+At this point, it is verified that the Docker image has already installed ROS 2 on it; this is the purpose of a Docker image, to gather all software needed, and be ready to be executed and worked on it. Press ``Ctrl+d`` to exit the Docker container.
 
 For this course, some additional settings are to be performed on this image. For this, in the Windows terminal that is already opened, navigate to the desired directory in which to store this course data, and create a file called ``Dockerfile``. Copy this content into the created file.
 
@@ -142,17 +139,19 @@ Code setup for working with Docker
 
 When using a Docker container, any modifications made during a session aren't automatically preserved within the container once the session ends. To retain progress made between sessions, Docker provides the concept of volumes within its environment. These volumes enable the persistence of changes, ensuring that they're maintained across different sessions.
 
-Hence, the recommended way to work in this course is to create in the preferred directory within the Windows machine, a folder that will contain all the code for the different sections of this course. Next, execute the following command to initiate a Docker container and mount a volume to it:
+Hence, the recommended way to work in this course is to create, in the preferred directory within the Windows machine, a folder that will contain all the code for the different sections of this course. Next, execute the following command to initiate a Docker container and mount a volume to it:
 
 .. code-block:: console
 
    docker run -it -v $PWD/ros2_ws:/ros2_ws ros2_humble_image
 
-``-v $PWD/ros2_ws:/ros2_ws``: This part specifies a volume (``-v``) to be mounted inside the container. It binds the directory ``$PWD/ros2_ws`` on the local Windows machine to the directory ``/ros2_ws`` within the container. This allows for data sharing between the host machine and the container.  In the example provided, ros2_ws refers to the folder on the Windows local machine containing all the course code progress. It also serves as the ROS2 workspace for this course. Further details will be covered in the `"Configuring environment"`_ section.
+``-v $PWD/ros2_ws:/ros2_ws``: This part specifies a volume (``-v``) to be mounted inside the container. It binds the directory ``$PWD/ros2_ws`` on the local Windows machine to the directory ``/ros2_ws`` within the container. This allows for data sharing between the host machine and the container.  In the example provided, ``ros2_ws`` refers to the folder on the Windows local machine containing all the course code progress. It also serves as the ROS2 workspace for this course; Further details about this workspace will be covered in the `"Configuring environment"`_ section.
 
 In this way any change that is porformed in ``$PWD/ros2_ws`` will be saved in the local Windows machine and the progress can be saved from one Docker session to another.
 
 Optionally, the ``ros2_ws`` folder can be linked to a github repository. Follow these steps to have version control on this folder:
+
+- Open a new Windows terminal. 
 
 - Make sure ``git`` is installed on the Windows machine. Open a Windows terminal and execute:
 
@@ -162,7 +161,7 @@ Optionally, the ``ros2_ws`` folder can be linked to a github repository. Follow 
 
 If it's an unknown command, install git following this guide: https://github.com/git-guides/install-git.
 
-- In a Windows terminal, navigate to the folder path and execute: 
+- Navigate to the folder that will contain the course code directory (``<path_to_ws_folder>/ros2_ws`` in this particular case) and execute: 
 
 .. code-block:: console
 
@@ -188,7 +187,7 @@ Where ``<repository-url>`` is the url of a new repository that was previously cr
 
    git push -u origin master
 
-Make sure that no empty folders are being pushed, to avoid error messages.
+Make sure that no empty folders are being pushed, to avoid error messages. Create a ``HelloWorld.txt`` file inside to push without problems.
 
 Running a Docker container
 --------------------------
