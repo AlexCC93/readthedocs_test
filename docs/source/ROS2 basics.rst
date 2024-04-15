@@ -10,11 +10,13 @@ What is ROS 2?
 
 - ROS 2 software ecosystem is divided into three categories:
 
-   - Middleware: Referred to as the plumbing, the ROS 2 middleware encompasses communication among components, from network APIs to message parsers. By "Middleware" it refers to an intermediate layer between thre various components of robotics (sensors, actuators, controllers) and higher-level sofware modules.
-
 .. image:: images/ROS2middleware.png
    :alt: ROS2 middleware graph.
 
+   - Middleware: Referred to as the plumbing, the ROS 2 middleware encompasses communication among components, from network APIs to message parsers. By "Middleware" it refers to an intermediate layer between thre various components of robotics (sensors, actuators, controllers) and higher-level sofware modules.
+
+
+   
    - Algorithms: ROS 2 provides many of the algorithms commonly used when building robotics applications, e.g. perception, SLAM, planning, and beyond.
 
    - Developer tools: ROS 2 includes a suite of commandline and graphical tools for configuration, launch, introspection, visualization, debugging, simulation, and logging. There is also a large suite of tools for source management, build processes, and distribution.
