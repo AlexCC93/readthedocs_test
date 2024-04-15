@@ -4,7 +4,7 @@ ROS 2 basics
 .. _ros2_basics:
 
 What is ROS 2?
-------------
+--------------
 
 - ROS 2 (Robotic Operating System) is a software platform for developing robotics applications, also known as a robotics software development kit (SDK).
 
@@ -12,8 +12,8 @@ What is ROS 2?
 
    - Middleware: Referred to as the plumbing, the ROS 2 middleware encompasses communication among components, from network APIs to message parsers. By "Middleware" it refers to an intermediate layer between thre various components of robotics (sensors, actuators, controllers) and higher-level sofware modules.
 
-.. image:: images/ROS2middleware.png
-   :alt: ROS2 middleware graph.
+   .. image:: images/ROS2middleware.png
+      :alt: ROS2 middleware graph.
 
    - Algorithms: ROS 2 provides many of the algorithms commonly used when building robotics applications, e.g. perception, SLAM, planning, and beyond.
    
