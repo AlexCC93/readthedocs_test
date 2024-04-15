@@ -410,7 +410,36 @@ This should be the result in the terminal:
    
    hello world my_package_cpp package
 
+The Dockerfile script explained
+------------------
 
+Recall this script, which is part of the Dockerfile commented `in this part of the course`_. 
 
+.. _in this part of the course: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#generate-proper-docker-image
 
+.. code-block:: console
 
+   FROM osrf/ros:humble-desktop
+
+   RUN apt-get update && apt-get install -y nano && apt-get install tree 
+   RUN apt install -y python3-pip
+   RUN apt-get install dos2unix
+   RUN pip3 install setuptools==58.2.0
+   RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+
+This considers a base Docker image, ``osrf/ros:humble-desktop`` in this case, and runs a series of commands within the Docker container during the image build process:
+
+- ``RUN apt-get update && apt-get install -y nano && apt-get install tree``: Updates the package lists, installs ``nano`` text editor and ``tree`` directory listing tool. 
+- ``RUN apt install -y python3-pip``: Installs the Python 3 package manager, ``pip``, within the Docker container. 
+
+Now, the following command is not critically necessary for the Docker container of this course. Only, that it was seen that for correctly generating python executables with ``chmode +x`` command this utility was needed:
+
+- ``RUN apt-get install dos2unix``: Installs the ``dos2unix`` utility, which is used for converting text files between Unix and DOS formats. This is not a critically necessary utility 
+
+The below command, was seen to be necessary to overcome some warning messages at the moment of building packages in ROS:
+
+- ``RUN pip3 install setuptools==58.2.0``: Uses ``pip3`` to install a specific version of the ``setuptools`` Python package (58.2.0) within the Docker container.
+
+Finally, this command was indeed necessary to prevent to be souring the setup script every time a new terminal is open. 
+
+- ``RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc``: Appends the command ``source /opt/ros/humble/setup.bash`` to the ``bashrc`` file in the user's home directory (~). This ensures that the ROS 2 environment setup script is sourced automatically whenever a new shell session is started within the Docker container.

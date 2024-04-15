@@ -12,7 +12,7 @@ Contents
 
 .. toctree::
    ROS2 basics
-   Installation 
+   Installation and software setup
    Configuring environment
    Nodes
    Topics

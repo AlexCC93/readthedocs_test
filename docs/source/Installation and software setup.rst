@@ -1,9 +1,13 @@
-Installation
+Installation and software setup
 =====
 
 .. _installation:
 
+Installation
+-----------------
+
 There are plenty of ways to use ROS 2, among the most common ones, there are:
+
 - Working with a VM with Linux OS and install ROS 2 on it.
 - Have Linux host machine or a dual-boot PC and install ROS 2 on it.
 - Work completely online with no installation requirements (https://www.theconstruct.ai/).
@@ -12,8 +16,8 @@ There are plenty of ways to use ROS 2, among the most common ones, there are:
 The last option is the one preferred for this course. Hence, all the content of this course will be based on a Windows host machine with a Docker installation providing a ROS 2 container; specifically the Humble ROS 2 distribution is utilized.
 
 
-1. Docker installation and configuration
-~~~~~~~~~~~~~~~~~
+Docker installation and configuration
+~~~~~~~~~~
 
 Start by downloading Docker installer from this link: https://docs.docker.com/desktop/install/windows-install/. In the same link, it is posted the system requirements, be aware that ``wsl2 of Hyper-V`` is required to fully work with Docker. Hence, at some point it will be required to install ``wsl2`` tool if not already installed.
 
@@ -23,8 +27,8 @@ Restart the PC for the changes to take effect.
 
 Run the Docker program from Windows. For the first time execution, it will ask to sing in and to complete a survey. Skip both for the moment. 
 
-2. Xlaunch installation
-~~~~~~~~~~~~~~~
+Xlaunch installation
+~~~~~~~~~~
 
 Next download Xlaunch program from: https://sourceforge.net/projects/vcxsrv/. This program enables the user to work with graphical windowing system used in Unix-like operating systems. 
 
@@ -32,12 +36,12 @@ Recall that from Docker, a Linux container will be executed. And from there, onl
 
 Execute the Xlaunch installer following the installation wizard and clicking ``Next`` at each installation step.
 
-3. Search for ROS images
-~~~~~~~~~~~~~~~
+Search for ROS images
+~~~~~~~~~~
 
 Go to https://hub.docker.com/u/osrf which is a docker repository containing ROS images of various distributions.
 
-For this course, the image that is going to be used will be ``ros:humble-desktop``, which is found here: https://hub.docker.com/r/osrf/ros/tags. Open a Windows terminal window and execute:
+For this course, the image that is going to be used will be ``ros:humble-desktop``, which is found here: https://hub.docker.com/r/osrf/ros/tags. Open a Windows terminal and execute:
 
 .. code-block:: console
 
@@ -45,13 +49,13 @@ For this course, the image that is going to be used will be ``ros:humble-desktop
 
 This command pulls a docker image from the specified Docker registry. 
 
-Once the docker image is pulled, it must be shown under the ``Images`` section of the Docker desktop application along with any other docker image that was pulled or generated. 
+Once the docker image is pulled, it must be shown under the ``Images`` section of the Docker desktop application along with any other docker image that was pulled or generated before. 
 
 .. image:: images/dockerImage.png
    :alt: Docker image that was pulled.
 
-3. Generate proper Docker image
-~~~~~~~~~~~~~~~
+Generate proper Docker image
+~~~~~~~~~~
 
 In order to use the recently pulled Docker image, execute:
 
@@ -60,7 +64,7 @@ In order to use the recently pulled Docker image, execute:
    docker run -it osrf/ros:humble-desktop
 
 -	The ``-it`` command refers to "interactive" and "TTY". Which basically makes the Docker container run in interactive mode, allowing to enter commands directly into the container's terminal and see their output.
--	``osrf/ros:humble-desktop`` is the Docker image name. ``osrf/ros`` is the repository or the name of the Docker image. WHile ``humble-desktop`` is the tag assigned to that particular version or configuration of the Docker image.
+-	``osrf/ros:humble-desktop`` is the Docker image name. ``osrf/ros`` is the repository or the name of the Docker image, while ``humble-desktop`` is the tag assigned to that particular version or configuration of the Docker image.
 
 Something similar should be the result of this command execution.
 
@@ -102,7 +106,7 @@ This should be the result in the terminal:
 
 At this point, it is verified that the Docker image has already installed ROS 2 on it; this is the purpose of a Docker image, to gather all software needed, and be ready to be executed and worked on it. Press ``Ctrl+d`` to exit the Docker container.
 
-For this course, some additional settings are to be performed on this image. For this, in the Windows terminal that is already opened, navigate to the desired directory in which to store this course data, and create a file called ``Dockerfile``. Copy this content into the created file.
+For this course, some additional settings are to be performed on this image. To achieve this, in the Windows terminal that is already opened, navigate to the desired directory and create a file called ``Dockerfile``. Copy this content into the created file.
 
 .. code-block:: console
 
@@ -114,9 +118,9 @@ For this course, some additional settings are to be performed on this image. For
    RUN pip3 install setuptools==58.2.0
    RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 
-Basically, what it is performed with the ``Dockerfile`` script above, is to build a new Docker image. A more detailed information of the content of this script, go to `"Configuring environment"`_ section.
+Basically, what it is performed with the ``Dockerfile`` script above, is to build a new Docker image. For more information of the content of this script, go to `"Configuring environment"`_ section.
 
-.. _"Configuring environment": https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html
+.. _"Configuring environment": https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#the-dockerfile-script-explained
 
 Go to the Windows terminal and execute the following to build a new Docker image. 
 
@@ -148,6 +152,9 @@ Hence, the recommended way to work in this course is to create, in the preferred
 ``-v $PWD/ros2_ws:/ros2_ws``: This part specifies a volume (``-v``) to be mounted inside the container. It binds the directory ``$PWD/ros2_ws`` on the local Windows machine to the directory ``/ros2_ws`` within the container. This allows for data sharing between the host machine and the container.  In the example provided, ``ros2_ws`` refers to the folder on the Windows local machine containing all the course code progress. It also serves as the ROS2 workspace for this course; Further details about this workspace will be covered in the `"Configuring environment"`_ section.
 
 In this way any change that is porformed in ``$PWD/ros2_ws`` will be saved in the local Windows machine and the progress can be saved from one Docker session to another.
+
+Version control with Github
+~~~~~~~~~~
 
 Optionally, the ``ros2_ws`` folder can be linked to a github repository. Follow these steps to have version control on this folder:
 
@@ -246,5 +253,8 @@ See the example below:
 .. image:: images/onlySourcingWorkspace.png
    :alt: Sourcing the workspace only.
 
+For further information on this, check `this section of the course`_.
+
+.. _this section of the course: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#workspace-sourcing
 
 
