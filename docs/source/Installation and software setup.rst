@@ -41,7 +41,7 @@ Search for ROS images
 
 Go to https://hub.docker.com/u/osrf which is a docker repository containing ROS images of various distributions.
 
-For this course, the image that is going to be used will be ``ros:humble-desktop``, which is found here: https://hub.docker.com/r/osrf/ros/tags. Open a Windows terminal and execute:
+For this course, the image that is going to be used is ``ros:humble-desktop``, which is found here: https://hub.docker.com/r/osrf/ros/tags. Open a Windows terminal and execute:
 
 .. code-block:: console
 
@@ -149,9 +149,15 @@ Hence, the recommended way to work in this course is to create, in the preferred
 
    docker run -it -v $PWD/ros2_ws:/ros2_ws ros2_humble_image
 
-``-v $PWD/ros2_ws:/ros2_ws``: This part specifies a volume (``-v``) to be mounted inside the container. It binds the directory ``$PWD/ros2_ws`` on the local Windows machine to the directory ``/ros2_ws`` within the container. This allows for data sharing between the host machine and the container.  In the example provided, ``ros2_ws`` refers to the folder on the Windows local machine containing all the course code progress. It also serves as the ROS2 workspace for this course; Further details about this workspace will be covered in the `"Configuring environment"`_ section.
 
-In this way any change that is porformed in ``$PWD/ros2_ws`` will be saved in the local Windows machine and the progress can be saved from one Docker session to another.
+.. image:: images/runningDockerContainer2.png
+   :alt: Docker container generated example.
+
+``-v $PWD/ros2_ws:/ros2_ws``: This part specifies a volume (``-v``) to be mounted inside the container. It binds the directory ``$PWD/ros2_ws`` on the local Windows machine to the directory ``/ros2_ws`` within the container. This allows for data sharing between the host machine and the container.  In the example provided, ``ros2_ws`` refers to the folder on the Windows local machine containing all the course code progress. It also serves as the ROS 2 workspace for this course; Further details about this workspace will be covered in the `next section`_.
+
+.. _next section: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#creating-and-configuring-the-workspace
+
+In this way any change that is performed in ``$PWD/ros2_ws`` will be saved in the local Windows machine and the progress can be saved from one Docker session to another.
 
 Version control with Github
 ~~~~~~~~~~
@@ -168,7 +174,7 @@ Optionally, the ``ros2_ws`` folder can be linked to a github repository. Follow 
 
 If it's an unknown command, install git following this guide: https://github.com/git-guides/install-git.
 
-- Navigate to the folder that will contain the course code directory (``<path_to_ws_folder>/ros2_ws`` in this particular case) and execute: 
+- Navigate to the folder that contains the course code (``<path_to_ws_folder>/ros2_ws`` in this particular case) and execute: 
 
 .. code-block:: console
 
@@ -194,7 +200,7 @@ Where ``<repository-url>`` is the url of a new repository that was previously cr
 
    git push -u origin master
 
-Make sure that no empty folders are being pushed, to avoid error messages. Create a ``HelloWorld.txt`` file inside to push without problems.
+Make sure that no empty folders are being pushed, to avoid error messages. Create a ``HelloWorld.txt`` file inside the course code folder to push without problems.
 
 Running a Docker container
 --------------------------
@@ -230,7 +236,7 @@ An example of this docker command execution:
    :alt: Running a docker container.
 
 
-Opening a new terminal
+Opening a new terminal for the Docker container
 ----------------------
 
 When opening a new terminal in Windows, it will be necessary to link that terminal with the already running Docker container. Perform the following to achieve this.
