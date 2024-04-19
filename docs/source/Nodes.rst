@@ -9,14 +9,14 @@ What is it?
 - A node is a process that performs computation, communicates with other nodes, or both. 
 - Typically responsible for specific tasks within a robotic system, such as controlling motors, processing sensor data, or implementing algorithms.
 - Each node can send and receive data from other nodes via topics, services, actions, or parameters.
-- Nodes play a crucial role in ROS2 applications, facilitating communication, computation, and modularity within robotic systems.
+- Nodes play a crucial role in ROS 2 applications, facilitating communication, computation, and modularity within robotic systems.
 
 .. image:: https://docs.ros.org/en/humble/_images/Nodes-TopicandService.gif
    :alt: The way nodes communicate through services and topics.
 
 Do not forget 
 -------------
-Remember to have your environment properly setup. Perform the following, if the ROS2 package cannot be found when executing it:
+Remember to have the ROS 2 environment properly setup. Perform the following, if the ROS 2 package cannot be found when executing it:
 
 .. code-block:: console
 
@@ -24,7 +24,7 @@ Remember to have your environment properly setup. Perform the following, if the 
 
 See this example: 
 
-- Look at the error of not being able to find the desired package. This is because the workspace was not configured correctly.
+- Look at the error of not being able to find the desired package. This is because the workspace was not correctly sourced.
 
 .. image:: images/ErrorNotSourcing.png
    :alt: Error message of not sourcing workspace correctly.
@@ -34,8 +34,9 @@ See this example:
 .. image:: images/SourcingWorkspace.png
    :alt: Correctly sourcing the workspace.
 
-Notice that the sourcing is performed inside the workspace folder. 
+More information on sourcing the environment, `check it here`_.
 
+.. _check it here: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#workspace-sourcing
 
 Important commands. Nodes
 -------------------------
@@ -65,7 +66,7 @@ Where, ``turtlesim`` is the name of the package and ``turtlesim_node``, is the n
 
 To print the information of a node, `open a new terminal`_ and execute:
 
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
+.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
 
@@ -88,6 +89,14 @@ It displays the information about:
 
 .. image:: images/rosNodeInfo.png
    :alt: Executing ROS2 node info.
+
+And in a new terminal, execute:
+
+.. code-block:: console
+
+   rqt_graph
+
+The result will be:
 
 .. image:: images/rosNodeInfo_rqt.png
    :alt: Displaying rqt graph of the ROS2 node info.
@@ -137,6 +146,14 @@ Check in another terminal, the list of nodes and see also the rqt graph for this
 
 .. image:: images/ROS2nodeList.png
    :alt: ROS2 node list after remap.
+
+And in a new terminal, execute:
+
+.. code-block:: console
+
+   rqt_graph
+
+The result will be:
 
 .. image:: images/rqt_graphRemapping.png
    :alt: rqt_graph after remap.
