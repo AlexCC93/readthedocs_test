@@ -28,9 +28,9 @@ Any project that is developed in ROS 2, is typically called a "package". And all
             package.xml
             src/
 
-When initiating a Docker container from the ``ros2_humble_image`` that was generated in the `previous section`_, the folder called ``ros2_ws`` is the name of the ROS workspace that is going to be used for the course. 
+When initiating a Docker container from the ``ros2_humble_image`` Docker image that was generated in the `previous section`_ of the course, the folder called ``ros2_ws`` refers to the name of the ROS 2 workspace that is going to be used during the course. 
 
-.. _"previous section": https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#generate-proper-docker-image
+.. _previous section: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#generate-proper-docker-image
 
 Below, it will be seen how to properly configure it as a workspace.
 
@@ -51,9 +51,9 @@ This command is mouniting a volume into the generated container. Inside the cont
    cd ros2_ws
    ls
 
-See that the folder, at this point only contains a ``HelloWorld.txt`` file because of the linking of this folder with git; Recall this previous section.
+See that the folder, at this point only contains a ``HelloWorld.txt`` file because of the linking of this folder with git; Recall `this previous section`_.
 
-.. _"this previous section": https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#code-setup-for-working-with-docker
+.. _this previous section: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#version-control-with-github
 
 .. image:: images/CheckingEmptyWs.png
    :alt: Checking an empty workspace.
@@ -66,7 +66,7 @@ Inside this workspace folder create a ``src`` folder. In the ``ros2_ws/src`` dir
 
 This command is clonning a github repository called: ``ros_tutorials``. This repository consists on various packages, among them, the ``turtlesim`` package, which will be the only one to be built for this example; See that the other packages in this repository contain a ``COLCON_IGNORE`` file. 
 
-This is the current structure of the workspace. Notice that it does not exactly match the one shown above, but since the other packages (ros_tutorials, roscpp_tutorials and rospy_tutorials) are not going to be built, then it is like having only the ``turtlesim`` package and it can now be more similar to the workspace folders structure shown above.
+This is the current structure of the workspace. Notice that it does not exactly match the one shown above, but since the other packages (``ros_tutorials``, ``roscpp_tutorials`` and ``rospy_tutorials``) are not going to be built, then it is like having only the ``turtlesim`` package, which makes it more resemble the workspace folders structure shown above.
 
 .. code-block:: console
 
@@ -99,7 +99,7 @@ This is the current structure of the workspace. Notice that it does not exactly 
                srv/  
                tutorials/
 
-At this point the workspace has been populated with a sample package, but it is not a fully-functional workspace yet. 
+At this point, the workspace has been populated with a sample package, but it is not a fully-functional workspace yet. 
 
 Next, build this workspace by navigating to the ``ros2_ws`` folder and executing:
 
@@ -141,9 +141,9 @@ Now, in order to set up the ROS 2 environment variables and its core functionali
  
    source /opt/ros/humble/setup.bash
 
-This command should be executed inside a Docker container terminal. Each time a new terminal is opened it would be necessary to setup the ROS 2 environment by executing the above command. 
+This command should be executed inside a Docker container terminal. Each time a new terminal is open, it would be necessary to setup the ROS 2 environment by executing the above command. 
 
-In general, it's good practice to add the sourcing of the setup file to the ``.bashrc`` to ensure that the ROS 2 environment is always properly set up whenever a new terminal session is opened. This is exactly what has been done in the ``ros2_humble_image`` Docker image. Execute the following command in the Docker container terminal:
+In general, it's good practice to add the sourcing of the setup file to the ``.bashrc`` to ensure that the ROS 2 environment is always properly set up whenever a new terminal session is open. This is exactly what has been done in the ``ros2_humble_image`` Docker image. Execute the following command in the Docker container terminal:
 
 .. code-block:: console
 
@@ -158,7 +158,7 @@ Until now, it can be seen that the Docker container generated from ``ros2_humble
 
 `Open a new terminal`_ and execute either of these commands:
 
-.. _Open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
+.. _Open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
 
@@ -167,7 +167,7 @@ Until now, it can be seen that the Docker container generated from ``ros2_humble
 
 Sourcing the ``local_setup`` of the overlay will only add the packages available in the overlay workspace to the current ROS 2 environment. 
 
-On the other hand, ``setup`` sources the overlay as well as the underlay it was created in, allowing to utilize both workspaces. But, the overlay takes precedence over the contents of the underlay. 
+On the other hand, ``setup`` will source the overlay as well as the underlay it was created in, allowing to utilize both workspaces but, the overlay takes precedence over the contents of the underlay. 
 
 Now, the ``turtlesim`` package from the overlay workspace can be executed:
 
@@ -184,9 +184,9 @@ Now, it is important to mention that the ``turtlesim`` package also comes with t
 
 Locate the ``turtle_frame.cpp`` file in ``<path_to_ws_folder>/ros2_ws/src/ros_tutorials/turtlesim/src``. Open ``turtle_frame.cpp`` with the preferred text editor (for this course, the suggested text editor is VScode).
 
-On line 52 find the function ``setWindowTitle("TurtleSim")``, change the value "TurtleSim" to ``setWindowTitle("ROS2_course_TurtleSim")``, and save the file.
+On line 52 find the function ``setWindowTitle("TurtleSim")``, change it to be  ``setWindowTitle("ROS2_course_TurtleSim")``, and save the file.
 
-Return to the terminal where the ``ros2 run turtlesim turtlesim_node`` command was executed, stop it by pressing Ctrl+C, and run build the package again with:
+Return to the terminal where the ``ros2 run turtlesim turtlesim_node`` command was executed, stop it by pressing Ctrl+C, and build the package again with:
 
 .. code-block:: console
 
@@ -209,9 +209,9 @@ An Xlaunch window should be opened with a turtle in it and the modified frame na
 .. image:: images/turtlesimNodeOverlay.png
    :alt: Starting the turtlesim node from the overlay, see changes.
 
-To see that your underlay is still intact, open a `brand a new terminal`_ and run turtlesim again:
+To see that your underlay is still intact, `open a new terminal`_ and run turtlesim again:
 
-.. _brand new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
+.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
 
@@ -243,8 +243,7 @@ Where:
 
 - ``CMakeLists.txt`` file specifies the build instructions for the package, including compiler options, dependencies, targets to build, and installation rules.
 
-- ``include/<package_name>`` directory contains the header files (.hpp) for the C++ classes and libraries provided by the package.
-Header files define the interfaces and APIs exposed by the package, allowing other packages to use its functionality.
+- ``include/<package_name>`` directory contains the header files (.hpp) for the C++ classes and libraries provided by the package. Header files define the interfaces and APIs exposed by the package, allowing other packages to use its functionality.
 
 - ``package.xml`` provides metadata and information about the package.
 
@@ -282,13 +281,15 @@ Now, the structure to create a new package with python is the following:
 
    ros2 pkg create --build-type ament_python --license Apache-2.0 <package_name>
 
-To see an example of this, open a `brand a new terminal`_ in a Docker container, and  make sure no other ROS command is currently running. Navigate to ``ros2_ws/src`` and execute:
+To see an example of this, open a `brand a new terminal`_ in a Docker container, and make sure no other ROS command is currently running. Navigate to ``ros2_ws/src`` and execute:
+
+.. _brand a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
 
    ros2 pkg create --build-type ament_python --license Apache-2.0 --node-name my_node my_package
 
-Notice, that here, the ``--node-name my_node`` is new to the package creation structure that was shown above. This indicates to generate an executable node (``my_node``) inside the pacakge of name ``my_package``.
+Notice that, here, the ``--node-name my_node`` is new to the package creation structure that was shown above. This indicates to generate an executable node (``my_node``) inside the pacakge of name ``my_package``.
 
 As a result, in the terminal it will be displayed some information about the package creation. 
 
@@ -335,7 +336,7 @@ Source the workspace:
 
    source install/setup.bash
 
-And run the executable that was created using the ``--node-name <argument>`` during package creation, enter the command:
+And run the executable that was created using the ``--node-name <argument>`` during package creation. Type this command:
 
 .. code-block:: console
 
@@ -415,7 +416,7 @@ The Dockerfile script explained
 
 Recall this script, which is part of the Dockerfile commented `in this part of the course`_. 
 
-.. _in this part of the course: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#generate-proper-docker-image
+.. _in this part of the course: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#generate-proper-docker-image
 
 .. code-block:: console
 
