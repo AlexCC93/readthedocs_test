@@ -217,6 +217,8 @@ Now, see the result when unchecking the ``Params`` option from the ``Hide`` sect
 
 See that the corresponding ``/parameter_events`` topic is now displayed, and it indicates that the ``/turtlesim`` node publishes and subscribes to it. 
 
+In general, ``rqt_graph`` provides a visualization that can be incredibly helpful for understanding the structure and communication patterns within a ROS-based robotics system. It can be useful for debugging, identifying potential issues, and gaining insights into the overall behavior of the ROS 2 application.
+
 
 
  
