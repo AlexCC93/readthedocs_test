@@ -90,7 +90,9 @@ It displays the information about:
 .. image:: images/rosNodeInfo.png
    :alt: Executing ROS2 node info.
 
-And in a new terminal, execute:
+And `in a new terminal`_, execute:
+
+.. _in a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
 
@@ -105,7 +107,6 @@ The ``rqt_graph`` utility permits to see an overview of the nodes that are curre
 
 .. _this section: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
-
 3. Listing all nodes
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -115,7 +116,7 @@ To list all available nodes, :ref:`open a new terminal<_installation/Opening a n
 
    ros2 node list
 
-As an example, :ref:`open a new terminal<Installation/Opening a new terminal>` and execute:
+As an example, `open a new terminal`_ and execute:
 
 .. code-block:: console
 
@@ -138,7 +139,7 @@ In order to reassign default node properties, like node name, topic names, servi
 
    ros2 run <package_name> <executable_name> --ros-args --remap __node:=<new_node_name>
 
-As an example, recall that two nodes already exist from the previous parts of this tutorial (the turtlesim and teleop_turtle nodes). :ref:`open a new terminal<installation/Opening a new terminal>` and execute:
+As an example, recall that two nodes already exist from the previous parts of this tutorial: the ``turtlesim`` and ``teleop_turtle`` nodes. `Open a new terminal`_ and execute:
 
 .. code-block:: console
 
