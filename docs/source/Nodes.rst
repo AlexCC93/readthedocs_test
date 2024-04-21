@@ -101,6 +101,10 @@ The result will be:
 .. image:: images/rosNodeInfo_rqt.png
    :alt: Displaying rqt graph of the ROS2 node info.
 
+The ``rqt_graph`` utility permits to see an overview of the nodes that are currently being executed. See more information about ``rqt_graph`` in `this section`_ of the course. 
+
+.. _this section: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
+
 
 3. Listing all nodes
 ~~~~~~~~~~~~~~~~~~~~
