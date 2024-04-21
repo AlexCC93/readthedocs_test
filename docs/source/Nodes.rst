@@ -110,7 +110,7 @@ The ``rqt_graph`` utility permits to see an overview of the nodes that are curre
 3. Listing all nodes
 ~~~~~~~~~~~~~~~~~~~~
 
-To list all available nodes, :ref:`open a new terminal<_installation/Opening a new terminal>` and execute:
+To list all available nodes, `open a new terminal`_ and execute:
 
 .. code-block:: console
 
@@ -139,7 +139,7 @@ In order to reassign default node properties, like node name, topic names, servi
 
    ros2 run <package_name> <executable_name> --ros-args --remap __node:=<new_node_name>
 
-As an example, recall that two nodes already exist from the previous parts of this tutorial: the ``turtlesim`` and ``teleop_turtle`` nodes. `Open a new terminal`_ and execute:
+As an example, recall that two nodes are already running from the previous part of this tutorial: the ``turtlesim`` and ``teleop_turtle`` nodes. `Open a new terminal`_ and execute:
 
 .. code-block:: console
 
@@ -147,12 +147,14 @@ As an example, recall that two nodes already exist from the previous parts of th
 
 It reassigns the ``turtlesim_node`` node properties into a new node with custom name value of: "my_turtlesim_node".
 
-Check in another terminal, the list of nodes and see also the rqt graph for this example.
+Check `in another terminal`_, the list of nodes and see also the rqt graph for this example.
 
 .. image:: images/ROS2nodeList.png
    :alt: ROS2 node list after remap.
 
-And in a new terminal, execute:
+And `in a new terminal`_, execute:
+
+.. _in another terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
 
