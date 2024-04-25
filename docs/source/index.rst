@@ -1,4 +1,4 @@
-Welcome to the ROS 2 course!
+Welcome to the ROS 2 course
 ===================================
 
 ROS 2 offers a powerful platform for building, simulating and deploying robotic applications. The fundamentals of ROS 2 architecture, communication mechanisms and package management will be studied during this course. 

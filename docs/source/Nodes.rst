@@ -105,7 +105,7 @@ The result will be:
 
 The ``rqt_graph`` utility permits to see an overview of the nodes that are currently being executed. See more information about ``rqt_graph`` in `this section`_ of the course. 
 
-.. _this section: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
+.. _this section: https://alex-readthedocs-test.readthedocs.io/en/latest/ROS%202%20utilites.html#running-rqt-graph
 
 3. Listing all nodes
 ~~~~~~~~~~~~~~~~~~~~
@@ -165,7 +165,7 @@ The result will be:
 .. image:: images/rqt_graphRemapping.png
    :alt: rqt_graph after remap.
 
-ROS arguments are important when executing a node. The way ROS arguments are modified, is by using ``--ros-args`` in the execution command. After that, ``--remap`` and ``__node`` are used to specify that the node name should be remapped to "my_turtlesim_node". 
+ROS arguments are important when executing a node. The way ROS arguments are modified, is by using ``--ros-args`` in the execution command. After that, ``--remap`` and ``__node`` are used to specify that the node name should be remapped to ``my_turtlesim_node``. 
 
 It is possible as well to modify the namespace, topic/service names and parameters of a node. See this link for more information: https://docs.ros.org/en/rolling/How-To-Guides/Node-arguments.html
 
