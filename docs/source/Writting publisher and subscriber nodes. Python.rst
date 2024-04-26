@@ -22,9 +22,6 @@ For more reference on package creation consult: :ref:`pacakge creation<conf_env/
 
 Inside this package, spsecifically in ``py_pubsub/py_pubsub`` create a python script, name it ``publisher_script.py``.
 
-.. image:: images/creatingPythonScript.png
-   :alt: Creating a python script in the correct directory.
-
 Copy this content into the new python script. 
 
 .. code-block:: console
@@ -107,15 +104,15 @@ Next, a class is created:
          self.get_logger().info('Publishing: "%s"' % msg.data)
          self.count_ += 1
 
-- A class of name "MinimalPublisher" is created and it inherits from class "Node".
-- The constructor of the class is defined, for that, ``super().__init__('publisher')`` is issued. This is a call to the "Node" class' constructor function and at the same time, it assigns a node name of: "publisher".
-- An attribute of name "publisher_" is created and stores the result of ``create_publisher()``, which defines an object that publishes messages of type String, over a topic named "topic", and that the "queue size" is 10. Queue size is a required QoS (quality of service) setting that limits the amount of queued messages if a subscriber is not receiving them fast enough. This function belongs to the ``rclpy.node.Node`` class and it has the following structure:
+- A class of name ``MinimalPublisher`` is created and it inherits from class ``Node``.
+- The constructor of the class is defined, for that, ``super().__init__('publisher')`` is issued. This is a call to the ``Node`` class' constructor function and at the same time, it assigns a node name, called ``publisher``.
+- An attribute of name ``publisher_`` is created and stores the result of ``create_publisher()``, which defines an object that publishes messages of type String, over a topic named "topic", and that the "queue size" is 10. Queue size is a required QoS (quality of service) setting that limits the amount of queued messages if a subscriber is not receiving them fast enough. This function belongs to the ``rclpy.node.Node`` class and it has the following structure:
 
 .. code-block:: console
    
    create_publisher(<msg_type>, <topic>, <qos_profile>, *, <callback_group=None>, <event_callbacks=None>)
 
-- An attribute of name "timer_" is created and stores the result of ``create_timer()``, which defines a timer with 0.5 of time period attached to a callback function of name "timer_callback". Again, the ``create_timer()`` function belongs to the ``rclpy.node.Node`` class and it has the following structure:
+- An attribute of name ``timer_`` is created and stores the result of ``create_timer()``, which defines a timer with 0.5 of time period attached to a callback function of name ``timer_callback``. Again, the ``create_timer()`` function belongs to the ``rclpy.node.Node`` class and it has the following structure:
 
 .. code-block:: console
    
@@ -123,7 +120,7 @@ Next, a class is created:
 
 - Next, the definition of the callback function is coded; this will be invoked every 0.5 seconds, as it was configured in the ``create_timer()`` function. 
 - First, a message of type ``String()`` is created and its content is filled with a ``Hello World`` message followed by a counter that starts at 0.
-- The "publisher_" attribute is issued to publish the message.
+- The ``publisher_`` attribute is issued to publish the message.
 - The message is published to the console with the ``self.get_logger().info('Publishing: "%s"' % msg.data)`` line.
 - And the counter attribute is increased in one.
 
@@ -188,7 +185,7 @@ Navigate to ``py_pubsub/setup.py`` and add the following within the ``console_sc
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 At this point the script is created, the dependencies configured and the entry point correclty setup. 
 
-:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS2 command is currently running, navigate to the workspace directory and execute either of these two commands:
+Open a brand new terminal, make sure that no other ROS2 command is currently running, navigate to the workspace directory and execute either of these two commands:
 
 .. code-block:: console
    
@@ -214,7 +211,9 @@ Now, source the setup file:
    
    source install/setup.bash
 
-For more reference on sourcing the setup file, see :ref:`sourcing the setup file<conf_env/Source the setup file>` .
+For more reference on sourcing the setup file, see `sourcing the setup file`_.
+
+.. _sourcing the setup file: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#workspace-sourcing
 
 And run the publisher node that was recently created. 
 

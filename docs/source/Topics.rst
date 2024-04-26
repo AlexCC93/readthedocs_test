@@ -67,7 +67,7 @@ Two topics will we be displayed as a result.
 
 The topic ``/parameter_events`` is a global topic which is always present in the ROS 2 network. The nodes use the ``/paramater_events`` topic to monitor or change parameters in the network. While the ``/rosout`` topic is used for logging messages in the ROS 2 system.
 
-As an example, :ref:`open two new terminals`_ and execute respectively these two commands:
+As an example, `open two new terminals`_ and execute respectively these two commands:
 
 .. _open two new terminals: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
@@ -201,7 +201,7 @@ Finally, by looking at the rqt graph and unchecking the "Debug" option, the foll
 
 Notice that a new node named ``/_ros2cli_618`` is visible and it is subscribed to the ``/turtle1/cmd_vel`` topic. This corresponds to the command: ``ros2 topic echo /turtle1/cmd_vel``.
 
-4. Publishing into a topic
+5. Publishing into a topic
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To publish messages to a given topic, the following command structure should be executed:
@@ -252,7 +252,7 @@ The publishing of the message can be stopped by pressing Ctrl+C. Additionally, r
 
 As in the echoing example, a new node is created (``/_ros2cli_960``) and it is publishing to the ``/turtle1/cmd_vel`` topic.
 
-4. Checking a topic working rate
+6. Checking a topic working rate
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To see the rate at which a topic is handling the messages, the following command structure should be executed:

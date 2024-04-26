@@ -8,7 +8,7 @@ It is already known what a node is (check the :ref:`nodes<nodes/What is it?>` se
 Publisher node in C++
 ------------------------
 
-Make sure to be in a brand new terminal window and no ROS commands are currently running. 
+Make sure to be in a brand new terminal window and no ROS commands were executed previously. 
 
 It will be necessary first to create a new package. This package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be "cpp_pubsub".
 
@@ -16,7 +16,9 @@ It will be necessary first to create a new package. This package should be conta
 
    ros2 pkg create --build-type ament_cmake --license Apache-2.0 cpp_pubsub
 
-For more reference on package creation consult: :ref:`pacakge creation<conf_env/Creating a package>` or :ref:`pacakge creation2<Configuring environment/Creating a package>` or :ref:`pacakge creation3<_conf_env/Creating a package>`
+For more reference on package creation consult: `package creation`_ section.
+
+.. _package creation: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#creating-and-configuring-a-package
 
 Inside this package, spsecifically in ``cpp_pubsub/src`` create a C++ script, name it "publisher_script.cpp".
 
