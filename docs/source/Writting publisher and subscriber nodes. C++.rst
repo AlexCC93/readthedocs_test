@@ -3,74 +3,30 @@ Writting publisher and subscriber nodes. C++
 
 .. _writting pubsub cpp:
 
-It is already known what a node is (check the :ref:`nodes<nodes/What is it?>` section), as such, the following section of the course is devoted to show the coding of nodes capable of publishing and subscribing to a topic. This code will be developed in C++. 
+It is already known what a node is, as such, the following section of the course is devoted to show the coding of nodes capable of publishing and subscribing to a topic. The code in this section will be developed in C++. 
 
 Publisher node in C++
 ------------------------
 
-Make sure to be in a brand new terminal window and no ROS commands were executed previously. 
+Make sure to be in a brand new terminal window and no ROS commands are currently running. 
 
-It will be necessary first to create a new package. This package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be "cpp_pubsub".
+It will be necessary first to create a new package. This package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``cpp_pubsub``.
 
 .. code-block:: console
 
    ros2 pkg create --build-type ament_cmake --license Apache-2.0 cpp_pubsub
 
-For more reference on package creation consult: `package creation`_ section.
+For more reference on package creation consult the `package creation`_ section.
 
 .. _package creation: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#creating-and-configuring-a-package
 
-Inside this package, spsecifically in ``cpp_pubsub/src`` create a C++ script, name it "publisher_script.cpp".
+Inside this package, spsecifically in ``cpp_pubsub/src`` create a C++ script, name it ``publisher_script.cpp``.
 
 Copy this content into the new cpp script. 
 
-.. code-block:: console
-
-   #include <chrono>
-   #include <functional>
-   #include <memory>
-   #include <string>
-
-   #include "rclcpp/rclcpp.hpp"
-   #include "std_msgs/msg/string.hpp"
-
-   using namespace std::chrono_literals;
-
-   /* This example creates a subclass of Node and uses std::bind() to register a
-   * member function as a callback from the timer. */
-
-   class MinimalPublisher : public rclcpp::Node
-   {
-   public:
-      MinimalPublisher()
-      : Node("minimal_publisher"), count_(0)
-      {
-         publisher_ = this->create_publisher<std_msgs::msg::String>("topic", 10);
-         timer_ = this->create_wall_timer(
-         500ms, std::bind(&MinimalPublisher::timer_callback, this));
-      }
-
-   private:
-      void timer_callback()
-      {
-         auto message = std_msgs::msg::String();
-         message.data = "Hello, world! " + std::to_string(count_++);
-         RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
-         publisher_->publish(message);
-      }
-      rclcpp::TimerBase::SharedPtr timer_;
-      rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
-      size_t count_;
-   };
-
-   int main(int argc, char * argv[])
-   {
-   rclcpp::init(argc, argv);
-   rclcpp::spin(std::make_shared<MinimalPublisher>());
-   rclcpp::shutdown();
-   return 0;
-   }
-
+.. literalinclude:: /docs/examples/cpp/publisher.cpp
+   :language: cpp
+   :linenos:
 
 1. Publisher, cpp. Examining the code. 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
