@@ -148,10 +148,10 @@ Lastly, the main function is defined.
 
    int main(int argc, char * argv[])
    {
-   rclcpp::init(argc, argv);
-   rclcpp::spin(std::make_shared<MinimalPublisher>());
-   rclcpp::shutdown();
-   return 0;
+      rclcpp::init(argc, argv);
+      rclcpp::spin(std::make_shared<MinimalPublisher>());
+      rclcpp::shutdown();
+      return 0;
    }
 
 - First the rclcpp library is initialized.
@@ -441,7 +441,7 @@ The ``CMakeLists.txt`` should be similar to the following:
 
 At this point the script is created, the dependencies configured and the ``CMakeLists.txt`` file correclty setup. 
 
-:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS2 command are currently running, navigate to the workspace directory and execute:
+Open a brand new terminal, make sure that no other ROS 2 command are currently running, navigate to the workspace directory and execute:
 
 .. code-block:: console
    
@@ -453,7 +453,7 @@ Now, source the setup file:
    
    source install/setup.bash
 
-For more reference on sourcing the setup file, see :ref:`sourcing the setup file<conf_env/Source the setup file>`.
+For more reference on sourcing the setup file, see `sourcing the setup file`_.
 
 And run the subscriber node that was recently created. 
 
@@ -465,20 +465,16 @@ Notice that nothing will be displayed in the terminal window because no messages
 
 `Open a new terminal`_ and execute the ``talker`` node:
 
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
-
 .. code-block:: console
    
    ros2 run cpp_pubsub talker
 
-After this, return to the terminal where the ``listener`` node was executed. It should be displayed the messages being sent to the topic of name "topic".
+After this, return to the terminal where the ``listener`` node was executed. It should be displayed the messages being sent to the topic of name ``topic``.
 
 .. image:: images/listenerNodeResults.png
    :alt: Results from the listener node.
 
 Finally, `open a new terminal`_ and execute:
-
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
 
 .. code-block:: console
    
@@ -492,7 +488,7 @@ See that the two nodes: ``talker`` and ``listener`` are visible and they are pub
 Practice 
 ---------
 
-Have ``trutlesim`` node running. Create a new node called "topics_practice" that performs:
+Have ``trutlesim`` node running. Create a new node called ``topics_practice`` that performs:
 
 - A countdown starting at 5 and be displayed in the terminal.
 - When counter reaches 0 moves the turtle drawing a growing spiral. Print in the terminal "Drawing spiral".
@@ -509,6 +505,6 @@ See image below for an example of the results:
 Optional
 ~~~~~~~~
 
-Have ``trutlesim`` node running. Create a new node called "topics_practice_b" that performs:
+Have ``trutlesim`` node running. Create a new node called ``topics_practice_b`` that performs:
 
-- The same as "topics_practice" but add the turtle, the functionality of avoiding walls. Whenever the turtle is too close to the walls (around one unit away of the wall), make it turn. Print in the terminal "Avoiding walls".
+- The same as ``topics_practice`` but add the turtle, the functionality of avoiding walls. Whenever the turtle is too close to the walls (around one unit away of the wall), make it turn. Print in the terminal "Avoiding walls".
