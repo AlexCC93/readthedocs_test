@@ -42,3 +42,8 @@ int main(int argc, char * argv[])
     rclcpp::shutdown();
     return 0;
 }
+
+.. literalinclude:: /docs/examples/cpp/publisher.cpp
+   :language: cpp             
+   :linenos:
+
