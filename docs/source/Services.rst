@@ -14,25 +14,22 @@ What is it?
 
 Key differences betweeen services and topics:
 
-+----------------------------------------------------------------+----------------------------------------------------------------+
-|                            Topics                              |                          Services                              |
-+================================================================+================================================================+
-| Should be used for continuous data streams (sensor data,       | Should be used for remote procedure calls that terminate       |
-| robot state, …)                                                | quickly, e.g. for querying the state of a node or doing a     |
-|                                                                | quick calculation such as IK.                                  |
-+----------------------------------------------------------------+----------------------------------------------------------------+
-| Are for continuous data flow. Many-to-many connections.        | They should never be used for longer running processes, in     |
-|                                                                | particular processes that might be required to preempt if       |
-|                                                                | exceptional situations occur and they should never change or   |
-|                                                                | depend on state to avoid unwanted side effects for other nodes.|
-+----------------------------------------------------------------+----------------------------------------------------------------+
-| Data might be published and subscribed at any time independent | Mostly used for comparably fast tasks as requesting specific    |
-| of any senders/receivers.                                      | data.                                                          |
-+----------------------------------------------------------------+----------------------------------------------------------------+
-| Callbacks receive data once it is available.                   | Simple blocking call.                                         |
-+----------------------------------------------------------------+----------------------------------------------------------------+
-| The publisher decides when data is sent.                       | Semantically for processing requests.                         |
-+----------------------------------------------------------------+----------------------------------------------------------------+
+.. list-table:: Services vs Topics
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Topics
+     - Services
+   * - Should be used for continuous data streams (sensor data,  robot state, …) 
+     - Should be used for remote procedure calls that terminate quickly, e.g. for querying the state of a node or doing a quick calculation such as IK. 
+   * - Are for continuous data flow. Many-to-many connections.
+     - They should never be used for longer running processes, in particular processes that might be required to preempt if exceptional situations occur and they should never change or depend on state to avoid unwanted side effects for other nodes.
+   * - Data might be published and subscribed at any time independent of any senders/receivers. 
+     - Mostly used for comparably fast tasks as requesting specific data.
+   * - Callbacks receive data once it is available. 
+     - Simple blocking call.        
+   * - The publisher decides when data is sent.      
+     - Semantically for processing requests.
 
 .. image:: https://docs.ros.org/en/humble/_images/Service-SingleServiceClient.gif
    :alt: The way nodes communicate through services.
