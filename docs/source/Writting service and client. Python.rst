@@ -12,7 +12,7 @@ Setup for working with services
 
 Make sure to be in a brand new terminal window and no ROS commands are currently running. 
 
-Create a new package. This package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be "py_srvcli".
+Create a new package. This package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``py_srvcli``.
 
 .. code-block:: console
 
@@ -27,8 +27,9 @@ The ``--dependencies`` argument will automatically add the necessary dependency 
    ---
    int64 sum
 
-For more reference on package creation consult: :ref:`pacakge creation<conf_env/Creating a package>` or :ref:`pacakge creation2<Configuring environment/Creating a package>` or :ref:`pacakge creation3<_conf_env/Creating a package>`
+For more reference on package creation consult the `package creation`_ section.
 
+.. _package creation: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#creating-and-configuring-a-package
 
 Writting the service node. Python
 ------------------------
@@ -37,7 +38,7 @@ Inside this package, spsecifically in ``py_srvcli/py_srvcli`` create a python sc
 
 Copy this content into the new python script. 
 
-.. code-block:: console
+.. code-block:: python
 
    from example_interfaces.srv import AddTwoInts
 
@@ -85,12 +86,12 @@ The first lines correspond to import libraries.
    from rclpy.node import Node
 
 - ``from example_interfaces.srv import AddTwoInts`` imports the ``AddTwoInts`` service type from the ``example_interfaces`` package. 
-- ``rclpy`` is a Python client library for ROS2. It provides Python bindings for the ROS2 middleware, enabling developers to write ROS2 nodes and applications using the Python programming language.
+- ``rclpy`` is a Python client library for ROS 2. It provides Python bindings for the ROS 2 middleware, enabling developers to write ROS 2 nodes and applications using the Python programming language.
 - ``from rclpy.node import Node`` imports the ``Node`` class from the ``rclpy.node`` module.
 
 Next, a class is created:
 
-.. code-block:: console
+.. code-block:: python
  
    class MinimalService(Node):
 
@@ -118,7 +119,7 @@ Next, a class is created:
 
 Lastly, the main function is defined.
 
-.. code-block:: console
+.. code-block:: python
 
    def main():
       rclpy.init()
@@ -135,14 +136,13 @@ Lastly, the main function is defined.
 
 - First the rclpy library is initialized.
 - A node is created by instantiating an object of the ``MinimalService`` class.
-- ``rclpy.spin(minimal_service)`` starts the ROS2 event loop for the specified node (``minimal_service``). The event loop is responsible for processing messages, handling callbacks, and maintaining the communication infrastructure of the ROS2 system. 
-- ``rclpy.shutdown()`` shuts down the ROS2 system. It releases resources allocated by the ROS2 middleware and cleans up the environment.
-
+- ``rclpy.spin(minimal_service)`` starts the ROS 2 event loop for the specified node (``minimal_service``). The event loop is responsible for processing messages, handling callbacks, and maintaining the communication infrastructure of the ROS 2 system. 
+- ``rclpy.shutdown()`` shuts down the ROS 2 system. It releases resources allocated by the ROS 2 middleware and cleans up the environment.
 
 2. Service, python. Adding dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Once the python script is ready, make sure the dependencies to run this script are correctly configured in the ROS2 environment. Navigate to ``py_srvcli/package.xml`` and add check that the dependecies are already added for this case, since at the moment of the package creation it was executed: ``--dependencies rclpy example_interfaces``.
+Once the python script is ready, make sure the dependencies to run this script are correctly configured in the ROS 2 environment. Navigate to ``py_srvcli/package.xml`` and add check that the dependecies are already added for this case, since at the moment of the package creation it was executed: ``--dependencies rclpy example_interfaces``.
 
 .. code-block:: console
 
@@ -150,7 +150,11 @@ Once the python script is ready, make sure the dependencies to run this script a
    <depend>example_interfaces</depend>
 
 About the ``<depend>`` tags:
-- This tag is a more general declaration of dependency. It's used to specify both build-time and runtime dependencies. ``<depend>`` includes both the dependencies needed for compilation and those needed at runtime. It encompasses a wider range of dependencies compared to ``<exec_depend>``.
+
+- This tag is a more general declaration of dependency. 
+- It's used to specify both build-time and runtime dependencies. 
+- ``<depend>`` includes both the dependencies needed for compilation and those needed at runtime.
+- It encompasses a wider range of dependencies compared to ``<exec_depend>``.
 
 3. Service, python. Adding an entry point
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -169,7 +173,7 @@ Navigate to ``py_srvcli/setup.py`` and add the following within the ``console_sc
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 At this point the script is created, the dependencies configured and the entry point correclty setup. 
 
-:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS2 command is currently running, navigate to the workspace directory and execute either of these two commands:
+Open a brand new terminal, make sure that no other ROS 2 command is currently running, navigate to the workspace directory and execute either of these two commands:
 
 .. code-block:: console
    
@@ -178,7 +182,7 @@ At this point the script is created, the dependencies configured and the entry p
 
 The first command will build only the ``py_srvcli`` package; it will build it by copying the built artifacts (binaries, libraries, headers, etc.) into an install directory. While the second one, will build all the packages contained in the workspace, but rather than copying the built artifacts, it will use symbolic links to these ones. The way the built artifacts are handled results in having to execute ``colcon build`` every time a change is performed in the source code to see their effects, while with ``colcon build --symlink-install``, every time a change is performed in the source code, it will not be necessary to perform the building operation afterwards. 
 
-A message similar to this one, should be expected after building the workspace with colcon build ``--packages-select py_srvcli``:
+A message similar to this one, should be expected after building the workspace with ``colcon build --packages-select py_srvcli``:
 
 .. code-block:: console
    
@@ -193,7 +197,9 @@ Now, source the setup file:
    
    source install/setup.bash
 
-For more reference on sourcing the setup file, see :ref:`sourcing the setup file<conf_env/Source the setup file>` .
+For more reference on sourcing the setup file, see `sourcing the setup file`_.
+
+.. _sourcing the setup file: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#workspace-sourcing
 
 And run the publisher node that was recently created. 
 
@@ -205,7 +211,7 @@ As a result, nothing will be printed in the terminal window. This is because the
 
 `Open a new terminal`_ and execute:
 
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
+.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
    
@@ -263,7 +269,7 @@ Client node in python
 
 Navigate to ``py_srvcli/py_srvcli`` and create a python script called: ``client_node.py``. Copy this content into the new python script. 
 
-.. code-block:: console
+.. code-block:: python
    
    import sys
 
@@ -311,7 +317,7 @@ Navigate to ``py_srvcli/py_srvcli`` and create a python script called: ``client_
 
 The first lines correspond to import libraries. These are the similar libraries as in the :ref:`service node example<1. Service node, python. Examining the code.>`. 
 
-.. code-block:: console
+.. code-block:: python
    
    import sys
 
@@ -323,7 +329,7 @@ The first lines correspond to import libraries. These are the similar libraries 
 
 Next, a class is created:
 
-.. code-block:: console
+.. code-block:: python
    
    class MinimalClientAsync(Node):
 
@@ -351,9 +357,9 @@ Next, a class is created:
    - It spins the node until the future representing the response is complete using ``rclpy.spin_until_future_complete()``.
    - Finally, it returns the result of the future, which should contain the response message.
 
-Lastly, the main function, as in the publisher node, initializes the rclpy library, creates the subscription node, spins it, explicitely destroys it when issued from the terminal window and shuts down the ROS2 system.
+Lastly, the main function, as in the publisher node, initializes the rclpy library, creates the subscription node, spins it, explicitely destroys it when issued from the terminal window and shuts down the ROS 2 system.
 
-.. code-block:: console
+.. code-block:: python
 
    def main():
       rclpy.init()
@@ -372,13 +378,13 @@ Lastly, the main function, as in the publisher node, initializes the rclpy libra
 - It sends a request to the service using command-line arguments passed to the script.
 - It logs the result of the service call by printing a message to the terminal, that specifies the result of the sum. 
 - It destroys the node using ``minimal_client.destroy_node()``.
-- Finally, ``rclpy.shutdown()`` shuts down the ROS2 system. It releases resources allocated by the ROS2 middleware and cleans up the environment.
+- Finally, ``rclpy.shutdown()`` shuts down the ROS 2 system. It releases resources allocated by the ROS2 middleware and cleans up the environment.
 
 
 2. Service client, python. Adding dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As the libraries to use in this program are exactly the same as in the publisher node, then no new dependency should be added. If, for some reason, it were going to use a new library in the subscriber node, then that library should be added as a dependecy in the ``py_srvcli/package.xml`` file.
+As the libraries to use in this program are exactly the same as in the publisher node, then no new dependency should be added. If, for some reason, it were going to be used a new library in the subscriber node, then that library should be added as a dependecy in the ``py_srvcli/package.xml`` file.
 
 3. Service client, python. Adding an entry point
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -405,7 +411,7 @@ This ``entry_points`` field should be remain like this:
 
 At this point the script is created, the dependencies configured and the entry point correclty setup. 
 
-:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS2 command is currently running, navigate to the workspace directory and execute:
+:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS 2 command is currently running, navigate to the workspace directory and execute:
 
 .. code-block:: console
    
@@ -417,7 +423,7 @@ Now, source the setup file:
    
    source install/setup.bash
 
-For more reference on sourcing the setup file, see :ref:`sourcing the setup file<conf_env/Source the setup file>` .
+For more reference on sourcing the setup file, see `sourcing the setup file`_.
 
 And run the following: 
 
@@ -433,11 +439,9 @@ The ouput will be something similar to:
    [INFO] [1712310273.188070919] [client_node]: service not available, waiting again...
    ...
 
-This is expected as the service itself is not running and the current node is trying to consume a service that does not exist yet. 
+This is expected, as the service itself is not running and the current node is trying to consume a service that does not exist yet. 
 
 `Open a new terminal`_ and execute the ``service_node`` node:
-
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
 
 .. code-block:: console
    
@@ -452,7 +456,7 @@ Once, this node is ran, the service becomes available and in the terminal where 
 Practice 
 ---------
 
-Have ``trutlesim`` node running. Create a new node called "service_practice" that performs:
+Have ``trutlesim`` node running. Create a new node called ``service_practice`` that performs:
 
 - When the turtle crosses the point x = 5.5 to the right of the screen, its drawing line should change of color to be red.
 - When the turtle position is to the left of the screen (its x position is lower than 5.5), its drawing line should become green.
@@ -468,24 +472,30 @@ A must-see for completing the practice
 
 The use of ``rclpy.spin_until_future_complete()`` might have entered in conflict with ``rclpy.spin()`` in the ``service_practice`` program while trying to accomplish the practice. For that, imagine a relatively simpler problem to address:
 
-- In a :ref:`new terminal<Installation/Running a docker container>`, run the service node ``service_node``. This will make the ``add_two_ints`` service available for use. 
+- In a `new terminal`_, run the service node ``service_node``. This will make the ``add_two_ints`` service available for use. 
+
+.. _new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. image:: images/RunningService_nodeExample.png
    :alt: Running the service node to show the example of the simpler problem.
 
-- :ref:`Open a new terminal<Installation/Opening a new terminal>`, and run a talker node like has been seen in a :ref:`previous part<Writting custom publisher and subscriber nodes. Python/Publisher node in python>` of the course. Recall to follow all the required steps (adding depencies, adding the entry point, etc.) to have this node available to use in this package.
+- `Open a new terminal`_, and run a talker node like has been seen in a `previous part`_ of the course. Recall to follow all the required steps (adding depencies, adding the entry point, etc.) to have this node available to use in this package.
+
+`previous part`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writting%20publisher%20and%20subscriber%20nodes.%20Python.html#build-publisher-node-and-run
 
 .. image:: images/RunningTalkerNodeExample.png
    :alt: Running the talker node to show the example of the simpler problem.
 
-With these nodes running, the problem is to create a node that subscribes to the topic called ``topic``, prints the messages that arrive to the topic (just like :ref:`this previous program<Writting custom publisher and subscriber nodes. Python/Subscriber node in python>`) and when the message: ``"Hello World: 10"`` arrives, it calls the ``add_two_ints`` service and prints in the terminal the sum of ``5`` and ``2``. See the expected result below.
+With these nodes running, the problem is to create a node that subscribes to the topic called ``topic``, prints the messages that arrive to the topic (just like `this previous program`_) and when the message: ``"Hello World: 10"`` arrives, it calls the ``add_two_ints`` service and prints in the terminal the sum of ``5`` and ``2``. See the expected result below.
+
+`previous part`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writting%20publisher%20and%20subscriber%20nodes.%20C%2B%2B.html#build-subscriber-node-and-run
 
 .. image:: images/simplerProblemExample.png
    :alt: Simpler problem result example.
 
 This is a first version of this program. Check the usage of ``rclpy.spin_until_future_complete()``.
 
-.. code-block:: console
+.. code-block:: python
 
    import sys
    from example_interfaces.srv import AddTwoInts
@@ -539,11 +549,11 @@ This will result in an unexpected behavior of the program, the program stops rig
 .. image:: images/UnexpectedBehaviorSpinUntilFuterAndSpin.png
    :alt: The unexpected behavior when using spin_until_future_complete and spin in the same program.
 
-This occurs because ``spin_until_future_complete()`` function is called within the callback function ``listener_callback()``. This can lead to a deadlock situation, where the code waits indefinitely for the service call to complete while being stuck in the callback function. This is because the callback function ``listener_callback()`` is executed in the context of the ROS2 executor thread, and this thread is being blocked until the service call completes.
+This occurs because ``spin_until_future_complete()`` function is called within the callback function ``listener_callback()``. This can lead to a deadlock situation, where the code waits indefinitely for the service call to complete while being stuck in the callback function. This is because the callback function ``listener_callback()`` is executed in the context of the ROS 2 executor thread, and this thread is being blocked until the service call completes.
 
 Hence, to avoid this issue, the service call must be handled in the following manner:
 
-.. code-block:: console
+.. code-block:: python
 
    import sys
 
@@ -602,7 +612,7 @@ Hence, to avoid this issue, the service call must be handled in the following ma
    if __name__ == '__main__':
       main()
 
-See that ``spin_until_future_complete()`` function is not being used anymore to avoid blocking the ROS2 executor thread. Instead, asynchronous service calls are used properly and a separate method handles the service call asynchronously. This method was named ``callback_sum()``. Below, there is a detailed explanation of what is happening:
+See that ``spin_until_future_complete()`` function is not being used anymore to avoid blocking the ROS 2 executor thread. Instead, asynchronous service calls are used properly and a separate method handles the service call asynchronously. This method was named ``callback_sum()``. Below, there is a detailed explanation of what is happening:
 
 - First, the ``send_request()`` function works fine and finishes its execution returning an object result of sending the request asynchronously using ``self.cli.call_async()``. 
 - This objected returned by ``send_request()`` is stored in a ``Future`` type variable. Later, a callback is attached to this object, the ``callback_sum`` method. But this callback will only be executed when the ``Future`` object is done; that is why the function ``add_done_callback()`` is being used. 
