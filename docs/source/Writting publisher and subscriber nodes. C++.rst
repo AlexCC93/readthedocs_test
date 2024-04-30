@@ -76,7 +76,7 @@ Copy this content into the new cpp script.
 
 The first lines correspond to import libraries.
 
-.. code-block:: console
+.. code-block:: cpp
    
    #include <chrono>
    #include <functional>
@@ -88,20 +88,19 @@ The first lines correspond to import libraries.
 
    using namespace std::chrono_literals;
 
-
 - ``#include <chrono>``:  This is a standard library in C++ that provides facilities for measuring time.
 - ``#include <functional>``: This is a standard library in C++ that provides tools for working with function objects and function pointers.
 - ``#include <memory>``: This is a standard library in C++ that provides smart pointers and memory management utilities.
 - ``#include <string>``: This is a standard library in C++ that provides string handling capabilities.
-- ``#include "rclcpp/rclcpp.hpp"``: This includes the ROS2 C++ library header ``rclcpp.hpp``, which contains the core functionality of the ROS2 client library for C++.
-- ``#include "std_msgs/msg/string.hpp"``: This includes the ROS2 message header ``string.hpp`` from the ``std_msgs/msg package``. This header defines the message type ``std_msgs::msg::String``.
+- ``#include "rclcpp/rclcpp.hpp"``: This includes the ROS 2 C++ library header ``rclcpp.hpp``, which contains the core functionality of the ROS 2 client library for C++.
+- ``#include "std_msgs/msg/string.hpp"``: This includes the ROS 2 message header ``string.hpp`` from the ``std_msgs/msg package``. This header defines the message type ``std_msgs::msg::String``.
 - ``using namespace std::chrono_literals;``: This brings the ``std::chrono_literals`` namespace into the current scope. It allows the use of time literals like 500ms, representing 500 milliseconds.
 
-All the  imported headers ``.hpp`` must be specified in the dependencies file called "package.xml". More from this, later in the tutorial, in the :ref:`Adding dependencies section.<2. Publisher, cpp. Adding dependencies>`.
+All the imported headers ``.hpp`` must be specified in the dependencies file called ``package.xml``. More about this, later in the tutorial, in the :ref:`Adding dependencies section.<2. Publisher, cpp. Adding dependencies>`.
 
 Next, a class is created:
 
-.. code-block:: console
+.. code-block:: cpp
    
    class MinimalPublisher : public rclcpp::Node
    {
@@ -127,7 +126,7 @@ Next, a class is created:
       size_t count_;
    };
 
-- A class named ``MinimalPublisher`` is derived from ``rclcpp::Node``class. 
+- A class named ``MinimalPublisher`` is derived from ``rclcpp::Node`` class. 
 - As attributes that belong to the ``MinimalPublisher`` class (``private`` section), three variables are created:
 
    - ``rclcpp::TimerBase::SharedPtr timer_``. An object of type ``rclcpp::TimerBase::SharedPtr``.
@@ -145,7 +144,7 @@ Next, a class is created:
 
 Lastly, the main function is defined.
 
-.. code-block:: console
+.. code-block:: cpp
 
    int main(int argc, char * argv[])
    {
@@ -157,13 +156,13 @@ Lastly, the main function is defined.
 
 - First the rclcpp library is initialized.
 - Then, ``rclcpp::spin(std::make_shared<MinimalPublisher>());`` creates a shared pointer to an instance of ``MinimalPublisher`` and spins the ROS event loop.
-- When the program gets stopped by hitting Ctrl+C, the ``rclcpp::shutdown();`` command shuts down the ROS2 client library.
+- When the program gets stopped by hitting Ctrl+C, the ``rclcpp::shutdown();`` command shuts down the ROS 2 client library.
 - And finally ``return 0;:`` returns 0 to indicate successful program execution.
 
 2. Publisher, cpp. Adding dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Once the cpp script is ready, make sure the dependencies to run this script are correctly configured in the ROS2 environment. Navigate to ``cpp_pubsub/package.xml`` and add the following just below the ``<buildtool_depend>`` tag:
+Once the cpp script is ready, make sure the dependencies to run this script are correctly configured in the ROS 2 environment. Navigate to ``cpp_pubsub/package.xml`` and add the following just below the ``<buildtool_depend>`` tag:
 
 .. code-block:: console
 
@@ -239,7 +238,9 @@ Now, source the setup file:
    
    source install/setup.bash
 
-For more reference on sourcing the setup file, see :ref:`sourcing the setup file<conf_env/Source the setup file>` .
+For more reference on sourcing the setup file, see `sourcing the setup file`_.
+
+.. _sourcing the setup file: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#workspace-sourcing
 
 And run the publisher node that was recently created. 
 
@@ -260,7 +261,7 @@ See that every 0.5 seconds a new message will be printed in the terminal window.
 
 `Open a new terminal`_ and with the ``talker`` node still being running, execute:
 
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
+.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
    
@@ -282,7 +283,9 @@ This will result in something similar to:
 
 This is expected since it is known that the ``talker`` node publishes messages to the topic of name ``/topic``. 
 
-Finally, it can be verified the name of the node by executing the following in a :ref:`new terminal<_installation/Opening a new terminal>`.
+Finally, it can be verified the name of the node by executing the following in a `new terminal`_.
+
+.. _new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
    
@@ -295,7 +298,9 @@ The result should be similar to this:
    /minimal_publisher
    /rqt_gui_py_node_825
 
-Like explained in the :ref:`python publisher node<Writting custom publisher and subscriber nodes. Python/4. Build publisher node and run>`, it is important to distinguish these three elements:
+As explained in the `python publisher node`_ section, it is important to distinguish these three elements:
+
+.. _python publisher node: https://alex-readthedocs-test.readthedocs.io/en/latest/Writting%20publisher%20and%20subscriber%20nodes.%20Python.html#build-publisher-node-and-run
 
 1. The cpp script name.
 2. The node name. 
@@ -308,7 +313,7 @@ Subscriber node in cpp
 
 Navigate to ``cpp_pubsub/src`` and create a cpp script called: ``listener.cpp``. Copy this content into the new cpp script. 
 
-.. code-block:: console
+.. code-block:: cpp
    
    #include <memory>
 
@@ -350,18 +355,18 @@ Overall, the code for the subscriber node is similar to the publisher node.
 
 The first lines correspond to import libraries. These are the same libraries as in the :ref:`publisher node example<1. Publisher, cpp. Examining the code. >`. 
 
-.. code-block:: console
+.. code-block:: cpp
    
    #include <memory>
    #include "rclcpp/rclcpp.hpp"
    #include "std_msgs/msg/string.hpp"
    using std::placeholders::_1;
 
-With an exception that not all libraries that were used in the publisher are used in the subscriber. Additionally, the ``using std::placeholders::_1`` command is new here; it brings the ``_1`` placeholder into the current scope. ``_1`` is used in binding member functions to arguments with ``std::bind``.
+With an exception, that not all libraries that were used in the publisher are used in the subscriber. Additionally, the ``using std::placeholders::_1`` command is new here; it brings the ``_1`` placeholder into the current scope. ``_1`` is used in binding member functions to arguments with ``std::bind``.
 
 Next, a class is created:
 
-.. code-block:: console
+.. code-block:: cpp
    
    class MinimalSubscriber : public rclcpp::Node
    {
@@ -385,9 +390,9 @@ The constructor of the ``MinimalSubscriber`` class creates a node of name ``list
 
 Afterwards, the implementation of the ``topic_callback`` callback function simply consists on printing the message received in the terminal window. Additionally, also as a member of the class, it is created of course, a variable of type ``rclcpp::Subscription<std_msgs::msg::String>::SharedPtr`` that is required to handle the ``create_subscription()`` function.
 
-Lastly, the main function, as in the publisher node, it initializes the ``rclcpp`` library, creates the subscription node, spins it, shuts down the ROS2 client library, when a stoppage is issued from the terminal window and finally return 0 indicating a successful execution of the program.
+Lastly, the main function, as in the publisher node, it initializes the ``rclcpp`` library, creates the subscription node, spins it, shuts down the ROS 2 client library, when a stoppage is issued from the terminal window and finally return 0 indicating a successful execution of the program.
 
-.. code-block:: console
+.. code-block:: cpp
 
    int main(int argc, char * argv[])
    {
@@ -400,14 +405,14 @@ Lastly, the main function, as in the publisher node, it initializes the ``rclcpp
 2. Subscriber, cpp. Adding dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As the libraries to use in this program are the same as in the publisher node, then no new dependency should be added. If, for some reason, it were going to use a new library in the subscriber node, then that library should be added as a dependecy in the ``cpp_pubsub/package.xml`` file.
+As the libraries to use in this program are the same as in the publisher node, then no new dependency should be added. If, for some reason, it were going to be used a new library in the subscriber node, then that library should be added as a dependecy in the ``cpp_pubsub/package.xml`` file.
 
 3. Subscriber, cpp. CMakeLists.txt
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Navigate to ``cpp_pubsub/CMakeLists.txt`` and add the following below the publisher's entries:
 
-.. code-block:: console
+.. code-block:: txt
    
    add_executable(listener src/subscriber_member_function.cpp)
    ament_target_dependencies(listener rclcpp std_msgs)
@@ -419,7 +424,7 @@ Navigate to ``cpp_pubsub/CMakeLists.txt`` and add the following below the publis
 
 Optionally, it can be deleted this portion of the code, since it is repeated:
 
-.. code-block:: console
+.. code-block:: txt
       
    install(TARGETS
       talker
