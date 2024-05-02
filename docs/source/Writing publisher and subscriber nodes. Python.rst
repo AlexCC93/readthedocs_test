@@ -10,7 +10,9 @@ It is already known what a node is, as such, the following section of the course
 Publisher node in python
 ------------------------
 
-Make sure to be in a brand new terminal window and no ROS commands are currently running. 
+Make sure to be in a `brand new terminal`_ window and no ROS command is currently running. 
+
+.. _`brand new terminal`: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#running-a-docker-container
 
 It will be necessary first to create a new package. This package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``py_pubsub``.
 
@@ -183,7 +185,7 @@ Navigate to ``py_pubsub/setup.py`` and add the following within the ``console_sc
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 At this point the script is created, the dependencies configured and the entry point correclty setup. 
 
-Open a brand new terminal, make sure that no other ROS2 command is currently running, navigate to the workspace directory and execute either of these two commands:
+Open a `brand new terminal`_, make sure that no other ROS2 command is currently running, navigate to the workspace directory and execute either of these two commands:
 
 .. code-block:: console
    
@@ -403,7 +405,7 @@ This ``entry_points`` field should be remain like this:
 
 At this point the script is created, the dependencies configured and the entry point correclty setup. 
 
-Open a brand new terminal in the Docker session, make sure that no other ROS 2 command are currently running, navigate to the workspace directory and execute:
+Open a `brand new terminal`_ in the Docker session, make sure that no other ROS 2 command are currently running, navigate to the workspace directory and execute:
 
 .. code-block:: console
    

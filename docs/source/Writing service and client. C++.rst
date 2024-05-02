@@ -8,7 +8,9 @@ This sections shows how nodes can communicate with each other through services. 
 Setup for working with services
 ------------------------
 
-Make sure to be in a brand new terminal window and no ROS commands are currently running. 
+Make sure to be in a `brand new terminal`_ window and no ROS command is currently running. 
+
+.. _`brand new terminal`: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#running-a-docker-container
 
 Create a new package. This package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``cpp_srvcli``.
 
@@ -169,7 +171,7 @@ Once everything is added, the ``CMakeLists.txt`` file should be similar to:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 At this point the script is created, the dependencies configured and the ``CMakeLists.txt`` file is correclty setup.  
 
-Open a brand new terminal, make sure that no other ROS 2 command is currently running, navigate to the workspace directory and execute either of these two commands:
+Open a `brand new terminal`_, make sure that no other ROS 2 command is currently running, navigate to the workspace directory and execute either of these two commands:
 
 .. code-block:: console
    
@@ -441,7 +443,7 @@ The ``CMakeLists.txt`` should be similar to the following:
 
 At this point the script is created, the dependencies configured and the ``CMakeLists.txt`` file correclty setup. 
 
-Open a brand new terminal, make sure that no other ROS 2 command is currently running, navigate to the workspace directory and execute:
+Open a `brand new terminal`_, make sure that no other ROS 2 command is currently running, navigate to the workspace directory and execute:
 
 .. code-block:: console
    

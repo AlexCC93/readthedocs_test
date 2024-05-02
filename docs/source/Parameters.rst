@@ -32,12 +32,17 @@ See this example:
 .. image:: images/SourcingWorkspace.png
    :alt: Correctly sourcing the workspace.
 
-Notice that the sourcing is performed inside the workspace folder. 
+Notice that the sourcing is performed inside the workspace folder. More information on sourcing the environment, `check it here`_.
+
+.. _check it here: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#workspace-sourcing
+
 
 Important commands. Parameters 
 --------------------------
 
-Make sure to be in a :ref:`brand new terminal window<Installation/Opening a new terminal>` and no ROS command is currently running. 
+Make sure to be in a `brand new terminal`_ window and no ROS command is currently running. 
+
+.. _`brand new terminal`: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#running-a-docker-container
 
 The following can be performed when working with parameters.
 
@@ -263,7 +268,7 @@ To start a node using saved parameter values, the following command structure sh
 
    ros2 run <package_name> <executable_name> --ros-args --params-file <file_name>
 
-Make sure to be in a :ref:`brand new terminal window<Installation/Opening a new terminal>` and no ROS commands are currently running. 
+Make sure to be in a `brand new terminal`_ and no ROS commands are currently running. 
 
 Run this command:
 

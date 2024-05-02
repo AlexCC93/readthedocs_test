@@ -12,7 +12,9 @@ In previous sections, predefined messages and service types were used. Recall th
 Setup for working with custom msg and srv
 ------------------------
 
-Make sure to be in a brand new terminal window and no ROS commands are currently running. 
+Make sure to be in a `brand new terminal`_ window and no ROS command is currently running. 
+
+.. _`brand new terminal`: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#running-a-docker-container
 
 Create a new package. This package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``tutorial_interfaces``. 
 
@@ -105,7 +107,7 @@ The ``pacakge.xml`` file should look similar to:
 Build and test
 -----------------------
 
-Open a brand new terminal, make sure that no other ROS 2 command is currently running, navigate to the workspace directory and execute:
+Open a `brand new terminal`_ , make sure that no other ROS 2 command is currently running, navigate to the workspace directory and execute:
 
 .. code-block:: console
 
@@ -155,7 +157,7 @@ Should output the following:
 
 Testing the Sphere custom msg in a python package
 -----------------------
-Make sure to be in a brand new terminal window and no ROS commands are currently running. 
+Make sure to be in a `brand new terminal`_ window and no ROS commands are currently running. 
 
 Create a new python package,  this package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``testing_interfaces_python``. For more reference on package creation consult the `package creation`_ section.
 
@@ -389,7 +391,7 @@ Testing the AddThreeInts custom srv in a python package
 
 This example will be worked in the ``testing_interfaces_python`` package.
 
-Make sure to be in a brand new terminal window and no ROS commands are currently running.
+Make sure to be in a `brand new terminal`_ window and no ROS commands are currently running.
 
 The code
 ~~~~~~~~~~~~~~~~

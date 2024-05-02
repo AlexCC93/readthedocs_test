@@ -32,12 +32,17 @@ See this example:
 .. image:: images/SourcingWorkspace.png
    :alt: Correctly sourcing the workspace.
 
-Notice that the sourcing is performed inside the workspace folder. 
+Notice that the sourcing is performed inside the workspace folder. More information on sourcing the environment, `check it here`_.
+
+.. _check it here: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#workspace-sourcing
+
 
 Running a launch file 
 --------------------------
 
-Make sure to be in a :ref:`brand new terminal window<Installation/Opening a new terminal>` and no ROS command is currently running.
+Make sure to be in a `brand new terminal`_ window and no ROS command is currently running. 
+
+.. _`brand new terminal`: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#running-a-docker-container
 
 This is the structure to run a launch file:
 
@@ -80,7 +85,7 @@ The code details will be addressed in the next section of this tutorial.
 Creating a launch file
 ------------------
 
-Make sure to be in a brand new terminal window and no ROS command is currently running.
+Make sure to be in a `brand new terminal`_ window and no ROS command is currently running.
 
 Create a new package. This package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``py_launch_example``. For more reference on package creation consult the `package creation`_ section.
 
@@ -301,7 +306,7 @@ With the two turtle windows open.
 Working with launch files in C++ packages
 ------------------
 
-In a :ref:`brand new terminal<Installation/Opening a new terminal>`, navigate to ``ros2_ws`` workspace, within its ``/src`` folder.
+In a `brand new terminal`_, navigate to ``ros2_ws`` workspace, within its ``/src`` folder.
 Create a new package with name: ``cpp_launch_example``. For more reference on package creation consult the `package creation`_ section.
 
 .. code-block:: console
@@ -340,7 +345,7 @@ The two turtlesim windows should be oppened.
 Practice 
 ---------
 
-In a :ref:`brand new terminal<Installation/Opening a new terminal>`, execute: 
+In a `brand new terminal`_, execute: 
 
 .. code-block:: console
    

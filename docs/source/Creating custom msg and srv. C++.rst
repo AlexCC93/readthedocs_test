@@ -17,7 +17,10 @@ In this :ref:`previous section<Creating custom msg and srv. Python/Setup for wor
 
 Testing the Sphere custom msg in a C++ package
 -----------------------
-Make sure to be in a brand new terminal window and no ROS command is currently running. 
+Make sure to be in a `brand new terminal`_ window and no ROS command is currently running. 
+
+.. _`brand new terminal`: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#running-a-docker-container
+
 
 Create a new python package,  this package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``testing_interfaces_cpp``. 
 
@@ -271,7 +274,8 @@ Testing the AddThreeInts custom srv in a C++ package
 
 This example will be worked in the ``testing_interfaces_cpp`` package.
 
-Make sure to be in a brand new terminal window and no ROS commands are currently running.
+Make sure to be in a `brand new terminal`_ window and no ROS command is currently running. 
+
 
 The code
 ~~~~~~~~~~~~~~~~
@@ -603,7 +607,7 @@ Now, regarding the ``CMakeLists.txt`` file, the following should be added just b
 - The ``find_package(...)`` command finds the package that generates message code from msg/srv files.
 - The ``set(...)`` command declares a list of messages that is to be generated.- The ``rosidl_generate_interfaces(...)`` command generates the messages.
 
-:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS 2 command is currently running, navigate to the workspace directory and execute:
+Open a `brand new terminal`_, make sure that no other ROS 2 command is currently running, navigate to the workspace directory and execute:
 
 .. code-block:: console
 
@@ -835,7 +839,7 @@ At the end, this ``CMakeLists.txt`` file should look like the following:
 Run the publisher
 ~~~~~~~~~~~~~~
 
-:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS 2 command is currently running, navigate to the workspace directory and execute:
+Open a `brand new terminal`_, make sure that no other ROS 2 command is currently running, navigate to the workspace directory and execute:
 
 .. code-block:: console
    
