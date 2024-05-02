@@ -4,16 +4,21 @@ Creating custom msg and srv. Python
 .. _custom msg and srv python:
 
 
-In previous sections, predefined messages and service types were used. Recall the String message type in :ref:`the publisher and subscriber example<Writting publisher and subscriber nodes. Python>` or the AddTwoInts service in the :ref:`service and client examples<Writting service and client. Python>`. These types of interfaces already existed and were ready to be used. In this section, custom messages and services types will be created and applied into program examples under the python programming language.
+In previous sections, predefined messages and service types were used. Recall the ``String`` message type in `the publisher and subscriber example`_ or the ``AddTwoInts`` service in the `service and client examples`_. These types of interfaces already existed and were ready to be used. In this section, custom messages and services types will be created and applied into program examples under the python programming language.
 
+.. _`the publisher and subscriber example`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writing%20publisher%20and%20subscriber%20nodes.%20Python.html#writing-publisher-and-subscriber-nodes-python
+.. _`service and client examples`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writing%20service%20and%20client.%20Python.html#writing-service-and-client-python
 
 Setup for working with custom msg and srv
 ------------------------
 
 Make sure to be in a brand new terminal window and no ROS commands are currently running. 
 
-Create a new package. This package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``tutorial_interfaces``. For more reference on package creation consult: :ref:`pacakge creation<conf_env/Creating a package>` or :ref:`pacakge creation2<Configuring environment/Creating a package>` or :ref:`pacakge creation3<_conf_env/Creating a package>`
+Create a new package. This package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``tutorial_interfaces``. 
 
+For more reference on package creation consult the `package creation`_ section.
+
+.. _package creation: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#creating-and-configuring-a-package
 
 .. code-block:: console
 
@@ -34,7 +39,6 @@ Inside ``tutorial_interfaces/msg`` create a new file named ``Sphere.msg``. Edit 
    float64 radius
 
 This custom message uses a message from another message package (``geometry_msgs/Point`` in this case).
-
 
 Service definition
 -----------------------
@@ -101,7 +105,7 @@ The ``pacakge.xml`` file should look similar to:
 Build and test
 -----------------------
 
-:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS2 command is currently running, navigate to the workspace directory and execute:
+Open a brand new terminal, make sure that no other ROS 2 command is currently running, navigate to the workspace directory and execute:
 
 .. code-block:: console
 
@@ -113,7 +117,9 @@ Now, source the setup file:
    
    source install/setup.bash
 
-For more reference on sourcing the setup file, see :ref:`sourcing the setup file<conf_env/Source the setup file>` .
+For more reference on sourcing the setup file, see `sourcing the setup file`_.
+
+.. _sourcing the setup file: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#workspace-sourcing
 
 Next, to check that the custom message is correctly created, run:
 
@@ -151,7 +157,7 @@ Testing the Sphere custom msg in a python package
 -----------------------
 Make sure to be in a brand new terminal window and no ROS commands are currently running. 
 
-Create a new python package,  this package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``testing_interfaces_python``. For more reference on package creation consult: :ref:`pacakge creation<conf_env/Creating a package>` or :ref:`pacakge creation2<Configuring environment/Creating a package>` or :ref:`pacakge creation3<_conf_env/Creating a package>`
+Create a new python package,  this package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``testing_interfaces_python``. For more reference on package creation consult the `package creation`_ section.
 
 .. code-block:: console
 
@@ -166,7 +172,7 @@ Next, inside ``testing_interfaces_python/testing_interfaces_python`` create a py
 
 Copy this content into the new python script. 
 
-.. code-block:: console
+.. code-block:: python
 
    import rclpy
    from rclpy.node import Node
@@ -212,11 +218,13 @@ Copy this content into the new python script.
    if __name__ == '__main__':
       main()
 
-Notice that this code is very similar to the publisher script that was studied  :ref:`previously<Writting publisher and subscriber nodes. Python/Publisher node in python>`.
+Notice that this code is very similar to the `publisher script that was studied previously`_.
+
+.. _`publisher script that was studied previously`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writing%20publisher%20and%20subscriber%20nodes.%20Python.html#publisher-node-in-python
 
 Check the important changes in this script.
 
-.. code-block:: console
+.. code-block:: python
 
    from tutorial_interfaces.msg import Sphere                                      # Change
    ...
@@ -239,7 +247,7 @@ Next, create another node a listener node for this publisher. Inside ``testing_i
 
 Copy this content into the new python script. 
 
-.. code-block:: console
+.. code-block:: python
 
    import rclpy
    from rclpy.node import Node
@@ -280,7 +288,9 @@ Copy this content into the new python script.
    if __name__ == '__main__':
       main()
 
-The code is very similar to the listener script that was studied  :ref:`previously<Writting publisher and subscriber nodes. Python/Subscriber node in python>`.
+The code is very similar to the `listener script that was studied previously`_.
+
+.. _`listener script that was studied previously`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writing%20publisher%20and%20subscriber%20nodes.%20Python.html#subscriber-node-in-python
 
 Again, the relevant changes here, have to do with dealing with the appropriate topic name and message type. 
 
@@ -333,7 +343,7 @@ The result should be like the following:
 
 `Open a new terminal`_ and execute the ``sphere_listener`` node:
 
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
+.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
    
@@ -350,8 +360,6 @@ The expected result is:
    ...
 
 Finally, it can also be checked the echo of the messages arriving to the desired topic. `Open a new terminal`_ and execute:
-
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
 
 .. code-block:: console
    
@@ -390,7 +398,7 @@ Inside ``testing_interfaces_python/testing_interfaces_python`` create a python s
 
 Copy this content into the new python script. 
 
-.. code-block:: console
+.. code-block:: python
 
    from tutorial_interfaces.srv import AddThreeInts
 
@@ -422,11 +430,13 @@ Copy this content into the new python script.
    if __name__ == '__main__':
       main()
 
-Notice that this code is very similar to the service script that was studied  :ref:`previously<Writting service and client. Python/Writting the service node. Python>`.
+Notice that this code is very similar to the `service script that was studied previously`_.
+
+.. _`service script that was studied previously`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writing%20service%20and%20client.%20Python.html#writing-the-service-node-python
 
 Check the important changes in this script.
 
-.. code-block:: console
+.. code-block:: python
 
    from tutorial_interfaces.srv import AddThreeInts
    ...
@@ -446,7 +456,7 @@ Next, create a client node for this service. Inside ``testing_interfaces_python/
 
 Copy this content into the new python script. 
 
-.. code-block:: console
+.. code-block:: python
 
    import sys
 
@@ -488,7 +498,9 @@ Copy this content into the new python script.
    if __name__ == '__main__':
       main()
 
-The code is very similar to the client node that was studied  :ref:`previously<Writting service and client. Python/Client node in python>`.
+The code is very similar to the `service client script that was studied previously`_.
+
+.. _`service client script that was studied previously`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writing%20service%20and%20client.%20Python.html#client-node-in-python
 
 Again, the relevant changes here, have to do with dealing with the appropriate service name and service type. 
 
@@ -537,8 +549,6 @@ As a result, nothing will be printed in the terminal. The service is ready to be
 
 `Open a new terminal`_ and execute the ``add_client_node`` node:
 
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
-
 .. code-block:: console
    
    ros2 run testing_interfaces_python add_client_node 4 5 8
@@ -550,8 +560,6 @@ The expected result is:
    [INFO] [1712660818.668964970] [add_client_node]: Result of add_three_ints: for 4 + 5 + 8 = 17
 
 Finally, the ``add_three_ints service`` can also be called from the terminal directly, without the necessity of coding a client node. `Open a new terminal`_ and execute:
-
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
 
 .. code-block:: console
    
