@@ -1,7 +1,7 @@
-Writting publisher and subscriber nodes. Python
+Writing publisher and subscriber nodes. Python
 ==========================
 
-.. _writting pubsub python:
+.. _Writing pubsub python:
 
 
 It is already known what a node is, as such, the following section of the course is devoted to show the coding of nodes capable of publishing and subscribing to a topic. The code in this section will be developed in python. 

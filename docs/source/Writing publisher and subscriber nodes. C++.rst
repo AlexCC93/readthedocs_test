@@ -1,7 +1,7 @@
-Writting publisher and subscriber nodes. C++
+Writing publisher and subscriber nodes. C++
 ==========================
 
-.. _writting pubsub cpp:
+.. _Writing pubsub cpp:
 
 It is already known what a node is, as such, the following section of the course is devoted to show the coding of nodes capable of publishing and subscribing to a topic. The code in this section will be developed in C++. 
 
@@ -300,7 +300,7 @@ The result should be similar to this:
 
 As explained in the `python publisher node`_ section, it is important to distinguish these three elements:
 
-.. _python publisher node: https://alex-readthedocs-test.readthedocs.io/en/latest/Writting%20publisher%20and%20subscriber%20nodes.%20Python.html#build-publisher-node-and-run
+.. _python publisher node: https://alex-readthedocs-test.readthedocs.io/en/latest/Writing%20publisher%20and%20subscriber%20nodes.%20Python.html#build-publisher-node-and-run
 
 1. The cpp script name.
 2. The node name. 

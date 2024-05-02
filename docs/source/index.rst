@@ -16,11 +16,11 @@ Contents
    Configuring environment
    Nodes
    Topics
-   Writting publisher and subscriber nodes. Python
-   Writting publisher and subscriber nodes. C++
+   Writing publisher and subscriber nodes. Python
+   Writing publisher and subscriber nodes. C++
    Services
-   Writting service and client. Python
-   Writting service and client. C++
+   Writing service and client. Python
+   Writing service and client. C++
    Creating custom msg and srv. Python
    Creating custom msg and srv. C++
    Parameters

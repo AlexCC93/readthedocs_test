@@ -1,7 +1,7 @@
-Writting service and client. Python
+Writing service and client. Python
 ==========================
 
-.. _writting service client python:
+.. _Writing service client python:
 
 
 This sections shows how nodes can communicate with each other through services. The node that sends a request is called the client node, while the node that responds to the request sending the response is called the service node. The programs for the client and service nodes will be developed in python.  
@@ -31,7 +31,7 @@ For more reference on package creation consult the `package creation`_ section.
 
 .. _package creation: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#creating-and-configuring-a-package
 
-Writting the service node. Python
+Writing the service node. Python
 ------------------------
 
 Inside this package, spsecifically in ``py_srvcli/py_srvcli`` create a python script, name it ``service_node.py``.
@@ -378,7 +378,7 @@ Lastly, the main function, as in the publisher node, initializes the rclpy libra
 - It sends a request to the service using command-line arguments passed to the script.
 - It logs the result of the service call by printing a message to the terminal, that specifies the result of the sum. 
 - It destroys the node using ``minimal_client.destroy_node()``.
-- Finally, ``rclpy.shutdown()`` shuts down the ROS 2 system. It releases resources allocated by the ROS2 middleware and cleans up the environment.
+- Finally, ``rclpy.shutdown()`` shuts down the ROS 2 system. It releases resources allocated by the ROS 2 middleware and cleans up the environment.
 
 
 2. Service client, python. Adding dependencies
@@ -481,14 +481,14 @@ The use of ``rclpy.spin_until_future_complete()`` might have entered in conflict
 
 - `Open a new terminal`_, and run a talker node like has been seen in a `previous part`_ of the course. Recall to follow all the required steps (adding depencies, adding the entry point, etc.) to have this node available to use in this package.
 
-`previous part`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writting%20publisher%20and%20subscriber%20nodes.%20Python.html#build-publisher-node-and-run
+.. _`previous part`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writing%20publisher%20and%20subscriber%20nodes.%20Python.html#build-publisher-node-and-run
 
 .. image:: images/RunningTalkerNodeExample.png
    :alt: Running the talker node to show the example of the simpler problem.
 
 With these nodes running, the problem is to create a node that subscribes to the topic called ``topic``, prints the messages that arrive to the topic (just like `this previous program`_) and when the message: ``"Hello World: 10"`` arrives, it calls the ``add_two_ints`` service and prints in the terminal the sum of ``5`` and ``2``. See the expected result below.
 
-`previous part`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writting%20publisher%20and%20subscriber%20nodes.%20C%2B%2B.html#build-subscriber-node-and-run
+.. _`this previous program`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writing%20publisher%20and%20subscriber%20nodes.%20C%2B%2B.html#build-subscriber-node-and-run
 
 .. image:: images/simplerProblemExample.png
    :alt: Simpler problem result example.

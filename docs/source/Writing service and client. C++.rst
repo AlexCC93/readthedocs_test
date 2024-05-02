@@ -1,7 +1,7 @@
-Writting service and client. C++
+Writing service and client. C++
 ==========================
 
-.. _writting service client cpp:
+.. _Writing service client cpp:
 
 This sections shows how nodes can communicate with each other through services. The node that sends a request is called the client node, while the node that responds to the request sending the response is called the service node. The programs for the client and service nodes will be developed in C++.  
 
@@ -29,7 +29,7 @@ The ``--dependencies`` argument will automatically add the necessary dependency 
 For more reference on package creation consult: :ref:`pacakge creation<conf_env/Creating a package>` or :ref:`pacakge creation2<Configuring environment/Creating a package>` or :ref:`pacakge creation3<_conf_env/Creating a package>`
 
 
-Writting the service node. C++
+Writing the service node. C++
 ------------------------
 
 Inside this package, spsecifically in ``cpp_srvcli/src`` create a cpp script, name it ``add_two_ints_server.cpp``.
@@ -503,9 +503,9 @@ A must-see for completing the practice
 The use of ``rclcpp::spin_until_future_complete()`` might have entered in conflict with ``rclcpp::spin()`` in the ``service_practice`` program while trying to accomplish the practice. For that, imagine a relatively simpler problem to address:
 
 - In a :ref:`new terminal<Installation/Running a docker container>`, run the service node ``add_two_ints_server``. This will make the ``add_two_ints`` service available for use. 
-- :ref:`Open a new terminal<Installation/Opening a new terminal>`, and run a talker node like has been seen in a :ref:`previous part<Writting custom publisher and subscriber nodes. C++. Python/Publisher node in C++>` of the course. Recall to follow all the required steps (adding depencies, configuring the CMakeLists, etc.) to have this node available to use in this package.
+- :ref:`Open a new terminal<Installation/Opening a new terminal>`, and run a talker node like has been seen in a :ref:`previous part<Writing custom publisher and subscriber nodes. C++. Python/Publisher node in C++>` of the course. Recall to follow all the required steps (adding depencies, configuring the CMakeLists, etc.) to have this node available to use in this package.
 
-With these nodes running, the problem is to create a node that subscribes to the topic called ``topic``, prints the messages that arrive to the topic (just like :ref:`this previous program<Writting custom publisher and subscriber nodes. C++/Subscriber node in cpp>`) and when the message ``"Hello, world! 10'"`` arrives, it calls the ``add_two_ints`` service and prints in the terminal the sum of ``5`` and ``2``. See an example below.
+With these nodes running, the problem is to create a node that subscribes to the topic called ``topic``, prints the messages that arrive to the topic (just like :ref:`this previous program<Writing custom publisher and subscriber nodes. C++/Subscriber node in cpp>`) and when the message ``"Hello, world! 10'"`` arrives, it calls the ``add_two_ints`` service and prints in the terminal the sum of ``5`` and ``2``. See an example below.
 
 .. image:: images/simplerProblemExampleWorkingGoodCpp.png
    :alt: Simpler problem result example.
