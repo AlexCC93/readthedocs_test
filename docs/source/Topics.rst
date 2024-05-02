@@ -151,7 +151,7 @@ As an example, run the code below:
 
 The expected result is: 
 
-.. code-block:: console
+.. code-block:: txt
 
    # This expresses velocity in free space broken into its linear and angular parts.
    Vector3  linear

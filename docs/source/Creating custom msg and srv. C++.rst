@@ -173,7 +173,7 @@ The code is very similar to the listener script that was studied `listener scrip
 .. _`listener script that was studied previously`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writing%20publisher%20and%20subscriber%20nodes.%20C%2B%2B.html#subscriber-node-in-cpp
 
 Again, the relevant changes here, have to do with dealing with the appropriate topic name and message type. 
--
+
 Dependencies and CMakeLists
 ~~~~~~~~~~~~~~~~
 

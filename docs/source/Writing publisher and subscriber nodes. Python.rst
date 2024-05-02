@@ -28,7 +28,7 @@ Inside this package, spsecifically in ``py_pubsub/py_pubsub`` create a python sc
 
 Copy this content into the new python script. 
 
-.. code-block:: console
+.. code-block:: python
 
    import rclpy
    from rclpy.node import Node
@@ -72,7 +72,7 @@ Copy this content into the new python script.
 
 The first lines correspond to import libraries.
 
-.. code-block:: console
+.. code-block:: python
    
    import rclpy
    from rclpy.node import Node
@@ -87,7 +87,7 @@ All these imported libraries must be specified in the dependencies file called `
 
 Next, a class is created:
 
-.. code-block:: console
+.. code-block:: python
    
    class MinimalPublisher(Node):
 
@@ -129,7 +129,7 @@ The ``create_publisher()`` function belongs to the ``rclpy.node.Node`` class and
 
 Lastly, the main function is defined.
 
-.. code-block:: console
+.. code-block:: python
 
    def main(args=None):
       rclpy.init(args=args)
@@ -284,7 +284,7 @@ Subscriber node in python
 
 Navigate to ``py_pubsub/py_pubsub`` and create a python script called: ``listener.py``. Copy this content into the new python script. 
 
-.. code-block:: console
+.. code-block:: python
    
    import rclpy
    from rclpy.node import Node
@@ -329,7 +329,7 @@ Overall, the code for the subscriber node is similar to the publisher node.
 
 The first lines correspond to import libraries. These are the same libraries as in the :ref:`publisher node example<1. Publisher, python. Examining the code. >`. 
 
-.. code-block:: console
+.. code-block:: python
    
    import rclpy
    from rclpy.node import Node
@@ -337,7 +337,7 @@ The first lines correspond to import libraries. These are the same libraries as 
 
 Next, a class is created:
 
-.. code-block:: console
+.. code-block:: python
    
    class MinimalSubscriber(Node):
 
@@ -355,7 +355,7 @@ Next, a class is created:
 
 The constructor of the ``MinimalSubscriber`` class issues the ``create_subscription()`` function, which receives as arguments: ``String``, as the message type; ``topic``, as the topic to subscribe to; ``self.listener_callback``, as the callback function to be called every time a message arrives to the topic, and a queue size of 10. The structure for the ``create_subscription()`` function is given by:
 
-.. code-block:: console
+.. code-block:: python
    
    create_subscription(<msg_type>, <topic>, <callback>, <qos_profile>, *, <callback_group=None>, <event_callbacks=None>, <raw=False>)
 
@@ -363,7 +363,7 @@ Afterwards, the callback function simply prints the message received in the term
 
 Lastly, the main function, as in the publisher node, initializes the rclpy library, creates the subscription node, spins it, explicitely destroys it when issued from the terminal window and shuts down the ROS 2 system.
 
-.. code-block:: console
+.. code-block:: python
 
    def main(args=None):
       rclpy.init(args=args)
