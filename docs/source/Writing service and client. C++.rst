@@ -5,7 +5,6 @@ Writing service and client. C++
 
 This sections shows how nodes can communicate with each other through services. The node that sends a request is called the client node, while the node that responds to the request sending the response is called the service node. The programs for the client and service nodes will be developed in C++.  
 
-
 Setup for working with services
 ------------------------
 
@@ -26,7 +25,9 @@ The ``--dependencies`` argument will automatically add the necessary dependency 
    ---
    int64 sum
 
-For more reference on package creation consult: :ref:`pacakge creation<conf_env/Creating a package>` or :ref:`pacakge creation2<Configuring environment/Creating a package>` or :ref:`pacakge creation3<_conf_env/Creating a package>`
+For more reference on package creation consult the `package creation`_ section.
+
+.. _package creation: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#creating-and-configuring-a-package
 
 
 Writing the service node. C++
@@ -36,7 +37,7 @@ Inside this package, spsecifically in ``cpp_srvcli/src`` create a cpp script, na
 
 Copy this content into the new cpp script. 
 
-.. code-block:: console
+.. code-block:: cpp
 
    #include "rclcpp/rclcpp.hpp"
    #include "example_interfaces/srv/add_two_ints.hpp"
@@ -73,20 +74,20 @@ Copy this content into the new cpp script.
 
 The first lines correspond to import libraries.
 
-.. code-block:: console
+.. code-block:: cpp
 
    #include "rclcpp/rclcpp.hpp"
    #include "example_interfaces/srv/add_two_ints.hpp"
 
    #include <memory>
 
-- ``#include "rclcpp/rclcpp.hpp"``: This includes the ROS2 C++ library header ``rclcpp.hpp``, which contains the core functionality of the ROS2 client library for C++.
+- ``#include "rclcpp/rclcpp.hpp"``: This includes the ROS 2 C++ library header ``rclcpp.hpp``, which contains the core functionality of the ROS 2 client library for C++.
 - ``#include "example_interfaces/srv/add_two_ints.hpp"``: This includes the header file for the ``AddTwoInts`` service message type. This is necessary to use the ``AddTwoInts`` service.
 - ``#include <memory>``: This is a standard library in C++ that provides smart pointers and memory management utilities.
 
 Next, a void method is implemented
 
-.. code-block:: console
+.. code-block:: cpp
  
    void add(const std::shared_ptr<example_interfaces::srv::AddTwoInts::Request> request,
                std::shared_ptr<example_interfaces::srv::AddTwoInts::Response>      response)
@@ -99,11 +100,11 @@ Next, a void method is implemented
 
 - ``void add(const std::shared_ptr<example_interfaces::srv::AddTwoInts::Request> request, std::shared_ptr<example_interfaces::srv::AddTwoInts::Response> response)``: This defines a function named ``add`` that takes two arguments: a shared pointer to the request message (``example_interfaces::srv::AddTwoInts::Request``) and a shared pointer to the response message (``example_interfaces::srv::AddTwoInts::Response``).
 - ``response->sum = request->a + request->b;``: This calculates the sum of the two integers ``a`` and ``b`` received in the request and stores the result in the ``sum`` field of the response message.
-- ``RCLCPP_INFO(...)``: This logs information messages using the ROS2 logging mechanism. It prints the incoming request values (``a`` and ``b``) as well as the response value (``sum``) to the console.
+- ``RCLCPP_INFO(...)``: This logs information messages using the ROS 2 logging mechanism. It prints the incoming request values (``a`` and ``b``) as well as the response value (``sum``) to the console.
 
-Finally, the main section:
+Finally, the ``main`` section:
 
-.. code-block:: console
+.. code-block:: cpp
    
    int main(int argc, char **argv)
    {
@@ -121,17 +122,17 @@ Finally, the main section:
    }
 
 - ``int main(int argc, char **argv)``: This is the entry point of the program. It takes command-line arguments ``argc`` (argument count) and ``argv`` (argument vector).
-- ``rclcpp::init(argc, argv);``: This initializes the ROS2 C++ client library. 
-- ``std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("add_two_ints_server");``: This creates a shared pointer to a ROS2 node named ``add_two_ints_server``.
-- ``rclcpp::Service<example_interfaces::srv::AddTwoInts>::SharedPtr service = node->create_service<example_interfaces::srv::AddTwoInts>("add_two_ints", &add);``: This creates a service server for the ``AddTwoInts`` service. It associates the service with the function ``add`` and registers it with the ROS2 node.
+- ``rclcpp::init(argc, argv);``: This initializes the ROS 2 C++ client library. 
+- ``std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("add_two_ints_server");``: This creates a shared pointer to a ROS 2 node named ``add_two_ints_server``.
+- ``rclcpp::Service<example_interfaces::srv::AddTwoInts>::SharedPtr service = node->create_service<example_interfaces::srv::AddTwoInts>("add_two_ints", &add);``: This creates a service server for the ``AddTwoInts`` service. It associates the service with the function ``add`` and registers it with the ROS 2 node.
 - ``RCLCPP_INFO(...)``: This logs an information message indicating that the service server is ready to receive requests.
-- ``rclcpp::spin(node);``: This blocks the main thread, allowing the ROS2 node to process callbacks (e.g., incoming service requests).
-- ``rclcpp::shutdown();``: This shuts down the ROS2 node when ``rclcpp::spin()`` returns (e.g., when the program is terminated).
+- ``rclcpp::spin(node);``: This blocks the main thread, allowing the ROS 2 node to process callbacks (e.g., incoming service requests).
+- ``rclcpp::shutdown();``: This shuts down the ROS 2 node when ``rclcpp::spin()`` returns (e.g., when the program is terminated).
 
 2. Service, C++. Adding dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Once the C++ script is ready, make sure the dependencies to run this script are correctly configured in the ROS2 environment. Navigate to ``cpp_srvcli/package.xml`` and check that the dependecies are already added for this case, since at the moment of the package creation it was executed: ``--dependencies rclcpp example_interfaces``.
+Once the C++ script is ready, make sure the dependencies to run this script are correctly configured in the ROS 2 environment. Navigate to ``cpp_srvcli/package.xml`` and check that the dependecies are already added for this case, since at the moment of the package creation it was executed: ``--dependencies rclcpp example_interfaces``.
 
 .. code-block:: console
 
@@ -168,7 +169,7 @@ Once everything is added, the ``CMakeLists.txt`` file should be similar to:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 At this point the script is created, the dependencies configured and the ``CMakeLists.txt`` file is correclty setup.  
 
-:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS2 command is currently running, navigate to the workspace directory and execute either of these two commands:
+Open a brand new terminal, make sure that no other ROS 2 command is currently running, navigate to the workspace directory and execute either of these two commands:
 
 .. code-block:: console
    
@@ -193,7 +194,9 @@ Now, source the setup file:
    
    source install/setup.bash
 
-For more reference on sourcing the setup file, see :ref:`sourcing the setup file<conf_env/Source the setup file>` .
+For more reference on sourcing the setup file, see `sourcing the setup file`_.
+
+.. _sourcing the setup file: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#workspace-sourcing
 
 And run the server node that was recently created. 
 
@@ -209,7 +212,7 @@ As a result, the following message will be displayed:
 
 `Open a new terminal`_ and execute:
 
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
+.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
    
@@ -253,8 +256,7 @@ Client node in C++
 
 Navigate to ``cpp_srvcli/src`` and create a cpp script called: ``add_two_ints_client.cpp``. Copy this content into the new cpp script. 
 
-.. code-block:: console
-   
+.. code-block:: cpp   
 
    #include "rclcpp/rclcpp.hpp"
    #include "example_interfaces/srv/add_two_ints.hpp"
@@ -309,7 +311,7 @@ Navigate to ``cpp_srvcli/src`` and create a cpp script called: ``add_two_ints_cl
 
 The first lines correspond to import libraries. These are the similar libraries as in the :ref:`service node example<1. Service node, cpp. Examining the code.>`. 
 
-.. code-block:: console
+.. code-block:: cpp
    
    #include "rclcpp/rclcpp.hpp"
    #include "example_interfaces/srv/add_two_ints.hpp"
@@ -328,7 +330,7 @@ The first lines correspond to import libraries. These are the similar libraries 
 
 Next, the ``main`` function. This will be explained by parts. The first part is:
 
-.. code-block:: console
+.. code-block:: cpp
    
    int main(int argc, char **argv)
    {
@@ -339,23 +341,23 @@ Next, the ``main`` function. This will be explained by parts. The first part is:
          return 1;
    }
 
-- ``rclcpp::init(argc, argv);``: This initializes the ROS2 C++ client library. 
+- ``rclcpp::init(argc, argv);``: This initializes the ROS 2 C++ client library. 
 - ``if (argc != 3) { ... }``: This condition checks if the program is invoked with exactly 3 arguments (including the program name). If not, it prints usage information and returns with an error code.
 
 Now the second part:
 
-.. code-block:: console
+.. code-block:: cpp
    
    std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("add_two_ints_client");
    rclcpp::Client<example_interfaces::srv::AddTwoInts>::SharedPtr client =
       node->create_client<example_interfaces::srv::AddTwoInts>("add_two_ints");
 
-- ``std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("add_two_ints_client");``: This creates a shared pointer to a ROS2 node named ``add_two_ints_client``.
-- ``rclcpp::Client<example_interfaces::srv::AddTwoInts>::SharedPtr client = node->create_client<example_interfaces::srv::AddTwoInts>("add_two_ints");``: This creates a client for the ``AddTwoInts`` service. It associates the client with the ``example_interfaces::srv::AddTwoInts`` service type and registers it with the ROS2 node.
+- ``std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("add_two_ints_client");``: This creates a shared pointer to a ROS 2 node named ``add_two_ints_client``.
+- ``rclcpp::Client<example_interfaces::srv::AddTwoInts>::SharedPtr client = node->create_client<example_interfaces::srv::AddTwoInts>("add_two_ints");``: This creates a client for the ``AddTwoInts`` service. It associates the client with the ``example_interfaces::srv::AddTwoInts`` service type and registers it with the ROS 2 node.
 
 The third part:
 
-.. code-block:: console
+.. code-block:: cpp
 
    auto request = std::make_shared<example_interfaces::srv::AddTwoInts::Request>();
    request->a = atoll(argv[1]);
@@ -366,7 +368,7 @@ The third part:
 
 The fourth part:
 
-.. code-block:: console
+.. code-block:: cpp
 
    while (!client->wait_for_service(1s)) {
       if (!rclcpp::ok()) {
@@ -380,7 +382,7 @@ The fourth part:
 
 And the fifth part:
 
-.. code-block:: console
+.. code-block:: cpp
 
    auto result = client->async_send_request(request);
    // Wait for the result.
@@ -439,7 +441,7 @@ The ``CMakeLists.txt`` should be similar to the following:
 
 At this point the script is created, the dependencies configured and the ``CMakeLists.txt`` file correclty setup. 
 
-:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS2 command is currently running, navigate to the workspace directory and execute:
+Open a brand new terminal, make sure that no other ROS 2 command is currently running, navigate to the workspace directory and execute:
 
 .. code-block:: console
    
@@ -451,7 +453,7 @@ Now, source the setup file:
    
    source install/setup.bash
 
-For more reference on sourcing the setup file, see :ref:`sourcing the setup file<conf_env/Source the setup file>`.
+For more reference on sourcing the setup file, see `sourcing the setup file`_.
 
 And run the following: 
 
@@ -471,8 +473,6 @@ This is expected as the service itself is not running and the current node is tr
 
 `Open a new terminal`_ and execute the ``add_two_ints_server`` node:
 
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
-
 .. code-block:: console
    
    ros2 run cpp_srvcli add_two_ints_server
@@ -486,7 +486,7 @@ Once, this node is ran, the service becomes available and in the terminal where 
 Practice 
 ---------
 
-Have ``trutlesim`` node running. Create a new node called "service_practice" that performs:
+Have ``trutlesim`` node running. Create a new node called ``service_practice`` that performs:
 
 - When the turtle crosses the point x = 5.5 to the right of the screen, its drawing line should change of color to be red.
 - When the turtle position is to the left of the screen (its x position is lower than 5.5), its drawing line should become green.
@@ -512,7 +512,7 @@ With these nodes running, the problem is to create a node that subscribes to the
 
 This is a first version of this program. Check the usage of ``rclcpp::spin_until_future_complete()``.
 
-.. code-block:: console
+.. code-block:: cpp
 
    #include <chrono>
    #include <memory>
@@ -590,11 +590,11 @@ This will result in an unexpected behavior of the program, the program stops rig
 .. image:: images/simplerProblemExample_notWorkingCpp.png
    :alt: The unexpected behavior when using spin_until_future_complete() and spin() in the same program.
 
-This occurs because ``spin_until_future_complete()`` function is called within the callback function ``listener_callback()``. This can lead to a deadlock situation, where the code waits indefinitely for the service call to complete while being stuck in the callback function. This is because the callback function ``listener_callback()`` is executed in the context of the ROS2 executor thread, and this thread is being blocked until the service call completes.
+This occurs because ``spin_until_future_complete()`` function is called within the callback function ``listener_callback()``. This can lead to a deadlock situation, where the code waits indefinitely for the service call to complete while being stuck in the callback function. This is because the callback function ``listener_callback()`` is executed in the context of the ROS 2 executor thread, and this thread is being blocked until the service call completes.
 
 Hence, to avoid this issue, the service call shoul be called asynchronously. One way to achieve this kind of handling is by making the following:
 
-.. code-block:: console
+.. code-block:: cpp
 
    #include <chrono>
    #include <memory>
@@ -667,7 +667,7 @@ Hence, to avoid this issue, the service call shoul be called asynchronously. One
       return 0;
    }
 
-See that ``spin_until_future_complete()`` function is not being used anymore to avoid blocking the ROS2 executor thread. Instead, asynchronous service calls are used properly and a separate method handles the service call asynchronously. This method was named ``handle_add_two_ints_response()``. Below, there is a detailed explanation of what is happening:
+See that ``spin_until_future_complete()`` function is not being used anymore to avoid blocking the ROS 2 executor thread. Instead, asynchronous service calls are used properly and a separate method handles the service call asynchronously. This method was named ``handle_add_two_ints_response()``. Below, there is a detailed explanation of what is happening:
 
 - First, the ``send_request()`` function works fine and finishes its execution by making the asynchronous call to the ``add_two_ints`` service. Additionally, the response of the ``async_send_request()`` function is binded to the ``handle_add_two_ints_response()`` function. Meaning that the ``handle_add_two_ints_response()`` function will be executed when the service request has been responded.
 - The ``handle_add_two_ints_response()`` callback function simply checks if the result of the ``Future`` object is none so that it can print a log messages indicating that the results of the sum or that the service call has failed. 
