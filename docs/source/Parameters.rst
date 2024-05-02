@@ -8,13 +8,13 @@ What is a parameter?
 
 - Parameters can be thought as node settings. These parameters can be set at runtime and can be changed without restarting the node.
 - A node can store parameters as integers, floats, booleans, strings, and lists. 
-- In ROS2, each node maintains its own parameters. 
-- Parameters can also be used to configure the behavior of the ROS2 middleware itself, such as setting the logging level, defining QoS (Quality of Service) settings, etc.
-- Parameters are often specified in launch files, which are XML files used to start multiple ROS2 nodes and set their parameters in a coordinated way.
+- In ROS 2, each node maintains its own parameters. 
+- Parameters can also be used to configure the behavior of the ROS 2 middleware itself, such as setting the logging level, defining QoS (Quality of Service) settings, etc.
+- Parameters are often specified in launch files, which are XML files used to start multiple ROS 2 nodes and set their parameters in a coordinated way.
 
 Do not forget 
 -------------
-Remember to have your environment properly setup. Perform the following, if a ROS2 package cannot be found when executing it:
+Remember to have your environment properly setup. Perform the following, if a ROS 2 package cannot be found when executing it:
 
 .. code-block:: console
 
@@ -53,7 +53,9 @@ Let's first run these two nodes in separate terminal windows, of course.
    ros2 run turtlesim turtle_teleop_key
 
 
-:ref:`Open a new terminal<Installation/Opening a new terminal>` and execute:
+`Open a new terminal`_ and execute:
+
+.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
 
