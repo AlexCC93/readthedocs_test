@@ -4,7 +4,10 @@ Creating custom msg and srv. C++
 .. _custom msg and srv cpp:
 
 
-In previous sections, predefined messages and service types were used. Recall the String message type in :ref:`the publisher and subscriber example<Writting publisher and subscriber nodes. Python>` or the AddTwoInts service in the :ref:`service and client examples<Writting service and client. Python>`. These types of interfaces already existed and were ready to be used. In this section, custom messages and services types will be created and applied into program examples under the C++ programming language.
+In previous sections, predefined messages and service types were used. Recall the ``String`` message type in `the publisher and subscriber example`_ or the ``AddTwoInts`` service in the `service and client examples`_. These types of interfaces already existed and were ready to be used. In this section, custom messages and services types will be created and applied into program examples under the C++ programming language.
+
+.. _`the publisher and subscriber example`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writing%20publisher%20and%20subscriber%20nodes.%20C%2B%2B.html#writing-publisher-and-subscriber-nodes-c
+.. _`service and client examples`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writing%20service%20and%20client.%20C%2B%2B.html#writing-service-and-client-c
 
 
 Setup for working with custom msg and srv
@@ -14,9 +17,16 @@ In this :ref:`previous section<Creating custom msg and srv. Python/Setup for wor
 
 Testing the Sphere custom msg in a C++ package
 -----------------------
-Make sure to be in a brand new terminal window and no ROS command is currently running. 
+Make sure to be in a `brand new terminal`_ window and no ROS command is currently running. 
 
-Create a new python package,  this package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``testing_interfaces_cpp``. For more reference on package creation consult: :ref:`pacakge creation<conf_env/Creating a package>` or :ref:`pacakge creation2<Configuring environment/Creating a package>` or :ref:`pacakge creation3<_conf_env/Creating a package>`
+.. _`brand new terminal`: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#running-a-docker-container
+
+
+Create a new python package,  this package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``testing_interfaces_cpp``. 
+
+For more reference on package creation consult the `package creation`_ section.
+
+.. _package creation: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#creating-and-configuring-a-package
 
 .. code-block:: console
 
@@ -29,9 +39,9 @@ The code
 
 Next, inside ``testing_interfaces_cpp/src`` create a C++ script, name it ``sphere_publisher.cpp``. 
 
-Copy this content into the new python script. 
+Copy this content into the new C++ script. 
 
-.. code-block:: console
+.. code-block:: cpp
 
    #include <chrono>
    #include <memory>
@@ -82,11 +92,13 @@ Copy this content into the new python script.
       return 0;
    }
 
-Notice that this code is very similar to the publisher script that was studied  :ref:`previously<Writting publisher and subscriber nodes. C++/Publisher node in C++>`.
+Notice that this code is very similar to the publisher script that was studied `publisher script that was studied previously`_.
+
+.. _`publisher script that was studied previously`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writing%20publisher%20and%20subscriber%20nodes.%20C%2B%2B.html#publisher-node-in-c
 
 Check the important changes in this script.
 
-.. code-block:: console
+.. code-block:: cpp
 
    #include "tutorial_interfaces/msg/Sphere.hpp"                                      
    ...
@@ -117,7 +129,7 @@ Next, create another node, a listener node for this publisher. Inside ``testing_
 
 Copy this content into the new C++ script. 
 
-.. code-block:: console
+.. code-block:: cpp
 
    #include <functional>
    #include <memory>
@@ -156,7 +168,9 @@ Copy this content into the new C++ script.
       return 0;
    }
 
-The code is very similar to the listener script that was studied  :ref:`previously<Writting publisher and subscriber nodes. C++/Subscriber node in C++>`.
+The code is very similar to the listener script that was studied `listener script that was studied previously`_.
+
+.. _`listener script that was studied previously`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writing%20publisher%20and%20subscriber%20nodes.%20C%2B%2B.html#subscriber-node-in-cpp
 
 Again, the relevant changes here, have to do with dealing with the appropriate topic name and message type. 
 
@@ -214,7 +228,7 @@ The result should be like the following:
 
 `Open a new terminal`_ and execute the ``sphere_listener`` node:
 
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
+.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
    
@@ -230,8 +244,6 @@ The expected result is:
    ...
 
 Finally, it can also be checked the echo of the messages arriving to the desired topic. `Open a new terminal`_ and execute:
-
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
 
 .. code-block:: console
    
@@ -262,7 +274,8 @@ Testing the AddThreeInts custom srv in a C++ package
 
 This example will be worked in the ``testing_interfaces_cpp`` package.
 
-Make sure to be in a brand new terminal window and no ROS commands are currently running.
+Make sure to be in a `brand new terminal`_ window and no ROS command is currently running. 
+
 
 The code
 ~~~~~~~~~~~~~~~~
@@ -271,7 +284,7 @@ Inside ``testing_interfaces_cpp/src`` create a C++ script, name it ``add_service
 
 Copy this content into the new python script. 
 
-.. code-block:: console
+.. code-block:: cpp
 
    #include "rclcpp/rclcpp.hpp"
    #include "tutorial_interfaces/srv/add_three_ints.hpp"                                        
@@ -302,11 +315,13 @@ Copy this content into the new python script.
       rclcpp::shutdown();
    }
 
-Notice that this code is very similar to the service script that was studied  :ref:`previously<Writting service and client. C++/Writting the service node. C++>`.
+Notice that this code is very similar to the `service script that was studied previously`_.
+
+.. _`service script that was studied previously`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writing%20service%20and%20client.%20C%2B%2B.html#writing-the-service-node-c
 
 Check the important changes in this script.
 
-.. code-block:: console
+.. code-block:: cpp
 
    #include "tutorial_interfaces/srv/add_three_ints.hpp"  
    ...
@@ -336,7 +351,7 @@ Next, create a client node for this service. Inside ``testing_interfaces_cpp/src
 
 Copy this content into the new python script. 
 
-.. code-block:: console
+.. code-block:: cpp
 
    #include "rclcpp/rclcpp.hpp"
    #include "tutorial_interfaces/srv/add_three_ints.hpp"                                       // CHANGE
@@ -387,7 +402,9 @@ Copy this content into the new python script.
       return 0;
    }
 
-The code is very similar to the client node that was studied  :ref:`previously<Writting service and client. C++/Client node in C++>`.
+The code is very similar to the client node that was studied `service client script that was studied previously`_.
+
+.. _`service client script that was studied previously`: https://alex-readthedocs-test.readthedocs.io/en/latest/Writing%20service%20and%20client.%20C%2B%2B.html#client-node-in-c
 
 Again, the relevant changes here, have to do with dealing with the appropriate import of the required library, the service name and service type. 
 
@@ -491,8 +508,6 @@ As a result, this will be shown in the terminal, meaning that the service is rea
 
 `Open a new terminal`_ and execute the ``add_client_node`` node:
 
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
-
 .. code-block:: console
    
    ros2 run testing_interfaces_cpp add_client_node 8 9 5
@@ -504,8 +519,6 @@ The expected result is:
    [INFO] [1712746812.713518561] [rclcpp]: Sum: 22
 
 Finally, the ``add_three_ints service`` can also be called from the terminal directly, without the necessity of coding a client node. `Open a new terminal`_ and execute:
-
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
 
 .. code-block:: console
    
@@ -529,7 +542,9 @@ The previous examples had the custom msg and srv created in a different package 
 
 In this part, a custom msg will be created in a package of name: ``more_interfaces`` and inside this very same package, a node will be created that makes use of the custom msg. It will be seen that there are some minor differences when using a msg generated in the same package. 
 
-The process below is similar to the one :ref:`studied previously<Creating custom msg and srv. Python/Setup for working with custom msg and srv>`. 
+The process below is similar to the one `studied previously`_.
+
+.. _`studied previously`: https://alex-readthedocs-test.readthedocs.io/en/latest/Creating%20custom%20msg%20and%20srv.%20Python.html#testing-the-sphere-custom-msg-in-a-python-package
 
 Create a new package
 ~~~~~~~~~~~~~~~~
@@ -573,8 +588,8 @@ To make sure that the msg file is turned into source code for C++ and Python, th
    <exec_depend>rosidl_default_runtime</exec_depend>
    <member_of_group>rosidl_interface_packages</member_of_group>
 
-- ``rosidl_default_generators`` is a package in ROS2 that provides default code generators for ROS message and service types. It is part of the ROS2 build system and is used to generate C++ and Python code from ROS2 message and service definitions. The ``<buildtool_depend>`` specifies a dependency on a build tool needed to build the package.
-- ``<exec_depend>`` is a runtime or execution-stage dependency. ``rosidl_default_runtime`` is a ROS2 package that provides runtime libraries necessary for working with ROS2 messages and services.
+- ``rosidl_default_generators`` is a package in ROS 2 that provides default code generators for ROS message and service types. It is part of the ROS 2 build system and is used to generate C++ and Python code from ROS 2 message and service definitions. The ``<buildtool_depend>`` specifies a dependency on a build tool needed to build the package.
+- ``<exec_depend>`` is a runtime or execution-stage dependency. ``rosidl_default_runtime`` is a ROS 2 package that provides runtime libraries necessary for working with ROS 2 messages and services.
 - The ``<member_of_group>`` tag specifies that the package is a member of a particular group.  In this case, ``<member_of_group>rosidl_interface_packages</member_of_group>`` indicates that the package is part of the ``rosidl_interface_packages`` group. The ``rosidl_interface_packages`` group typically includes packages that define ROS interfaces, such as messages, services, and action definitions. These packages contain ``.msg``, ``.srv``, and ``.action`` files that define the structure and behavior of messages, services, and actions used in ROS 2 communication.
 
 Now, regarding the ``CMakeLists.txt`` file, the following should be added just below the ``find_package(ament_cmake REQUIRED)`` line:
@@ -592,7 +607,7 @@ Now, regarding the ``CMakeLists.txt`` file, the following should be added just b
 - The ``find_package(...)`` command finds the package that generates message code from msg/srv files.
 - The ``set(...)`` command declares a list of messages that is to be generated.- The ``rosidl_generate_interfaces(...)`` command generates the messages.
 
-:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS2 command is currently running, navigate to the workspace directory and execute:
+Open a `brand new terminal`_, make sure that no other ROS 2 command is currently running, navigate to the workspace directory and execute:
 
 .. code-block:: console
 
@@ -604,7 +619,9 @@ Now, source the setup file:
    
    source install/setup.bash
 
-For more reference on sourcing the setup file, see :ref:`sourcing the setup file<conf_env/Source the setup file>` .
+For more reference on sourcing the setup file, see `sourcing the setup file`_.
+
+.. _sourcing the setup file: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#workspace-sourcing
 
 Next, to check that the custom message is correctly created, run:
 
@@ -634,7 +651,7 @@ Inside ``more_interfaces/src`` create a C++ script, name it ``publish_address_bo
 
 Copy this content into the new C++ script. 
 
-.. code-block:: console
+.. code-block:: cpp
 
    #include <chrono>
    #include <memory>
@@ -688,7 +705,7 @@ The code consists on these parts:
 
 - Library imports. Notice specially the ``address_book.hpp`` header that is imported. As explained in :ref:`this section<Testing the AddThreeInts custom srv in a C++ package/The code>`  the srv and msg files are usually converted to snake_case when generating corresponding C++ code.
 
-.. code-block:: console
+.. code-block:: cpp
 
    #include <chrono>
    #include <memory>
@@ -701,7 +718,7 @@ The code consists on these parts:
 
 - Creating a node and an ``AddressBook`` publisher.
 
-.. code-block:: console
+.. code-block:: cpp
 
    class AddressBookPublisher : public rclcpp::Node
    {
@@ -714,7 +731,7 @@ The code consists on these parts:
 
 - Create a callback to publish the messages periodically.
 
-.. code-block:: console
+.. code-block:: cpp
 
    auto publish_msg = [this]() -> void {
       auto message = more_interfaces::msg::AddressBook();
@@ -732,7 +749,7 @@ The code consists on these parts:
 
 - Create a 1 second timer to call the ``publish_msg`` callback function every second.
 
-.. code-block:: console
+.. code-block:: cpp
 
    timer_ = this->create_wall_timer(1s, publish_msg);
 
@@ -766,7 +783,7 @@ This CMake code is only required when interfaces are to used in the same package
 
 At the end, this ``CMakeLists.txt`` file should look like the following:
 
-.. code-block:: console
+.. code-block:: txt
 
    cmake_minimum_required(VERSION 3.8)
    project(more_interfaces)
@@ -822,7 +839,7 @@ At the end, this ``CMakeLists.txt`` file should look like the following:
 Run the publisher
 ~~~~~~~~~~~~~~
 
-:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS2 command is currently running, navigate to the workspace directory and execute:
+Open a `brand new terminal`_, make sure that no other ROS 2 command is currently running, navigate to the workspace directory and execute:
 
 .. code-block:: console
    
@@ -835,7 +852,7 @@ Now, source the setup file:
    
    source install/setup.bash
 
-For more reference on sourcing the setup file, see :ref:`sourcing the setup file<conf_env/Source the setup file>` .
+For more reference on sourcing the setup file, see `sourcing the setup file`_.
 
 And run the publisher node that was recently created. 
 
@@ -855,8 +872,6 @@ As a result, the following messages will be displayed in the terminal:
 
 
 Finally, it can also be checked the echo of the messages arriving to the desired topic. `Open a new terminal`_ and execute:
-
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
 
 .. code-block:: console
    

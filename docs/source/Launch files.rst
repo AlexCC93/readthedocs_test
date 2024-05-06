@@ -6,15 +6,15 @@ Launch files
 What is a launch file?
 ----------------
 
-- Launch files provide a convenient way to organize and manage the launch process of a ROS2 application, simplifying the initialization of complex robotic systems.
+- Launch files provide a convenient way to organize and manage the launch process of a ROS 2 application, simplifying the initialization of complex robotic systems.
 - Allows to specify which nodes should be started and with which parameters. This includes specifying the node name, package name, executable name, and any parameters that need to be passed to the node
-- Launch files support the use of namespaces for nodes, which helps in organizing and structuring your ROS2 system.
+- Launch files support the use of namespaces for nodes, which helps in organizing and structuring your ROS 2 system.
 - Allows to remap topics, services, and parameters, providing flexibility in connecting nodes together.
 - Other launch files can be included within a launch file, facilitating modularization and reuse of launch configurations.
 
 Do not forget 
 -------------
-Remember to have your environment properly setup. Perform the following, if the ROS2 package cannot be found when executing it:
+Remember to have your environment properly setup. Perform the following, if the ROS 2 package cannot be found when executing it:
 
 .. code-block:: console
 
@@ -32,12 +32,17 @@ See this example:
 .. image:: images/SourcingWorkspace.png
    :alt: Correctly sourcing the workspace.
 
-Notice that the sourcing is performed inside the workspace folder. 
+Notice that the sourcing is performed inside the workspace folder. More information on sourcing the environment, `check it here`_.
+
+.. _check it here: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#workspace-sourcing
+
 
 Running a launch file 
 --------------------------
 
-Make sure to be in a :ref:`brand new terminal window<Installation/Opening a new terminal>` and no ROS command is currently running.
+Make sure to be in a `brand new terminal`_ window and no ROS command is currently running. 
+
+.. _`brand new terminal`: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#running-a-docker-container
 
 This is the structure to run a launch file:
 
@@ -60,7 +65,7 @@ This will run two turtlesim nodes:
 
 It can be further inspected the ``multisim.launch.py`` file. This is its content:
 
-.. code-block:: console
+.. code-block:: python
 
    # turtlesim/launch/multisim.launch.py
 
@@ -75,14 +80,16 @@ It can be further inspected the ``multisim.launch.py`` file. This is its content
                namespace= "turtlesim2", package='turtlesim', executable='turtlesim_node', output='screen'),
       ])
 
-The code details will be addressed in the :ref:`next section<Create launch files>` of this tutorial .
+The code details will be addressed in the next section of this tutorial.
 
 Creating a launch file
 ------------------
 
-Make sure to be in a :ref:`brand new terminal window<Installation/Opening a new terminal>` and no ROS command is currently running.
+Make sure to be in a `brand new terminal`_ window and no ROS command is currently running.
 
-Create a new package. This package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``py_launch_example``. For more reference on package creation consult: :ref:`pacakge creation<conf_env/Creating a package>` or :ref:`pacakge creation2<Configuring environment/Creating a package>` or :ref:`pacakge creation3<_conf_env/Creating a package>`
+Create a new package. This package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``py_launch_example``. For more reference on package creation consult the `package creation`_ section.
+
+.. _package creation: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#creating-and-configuring-a-package
 
 .. code-block:: console
 
@@ -92,7 +99,7 @@ Next, create a ``launch`` folder inside ``ros2_ws/src/py_launch_example``. This 
 
 Inside ``py_launch_example/launch`` create a new file named ``turtlesim_mimic_launch.py``. Edit the content of ``turtlesim_mimic_launch.msg`` to include:
 
-.. code-block:: console
+.. code-block:: python
 
    from launch import LaunchDescription
    from launch_ros.actions import Node
@@ -127,45 +134,45 @@ Explaining the code
 
 First, some libraries import:
 
-.. code-block:: console
+.. code-block:: python
 
    from launch import LaunchDescription
    from launch_ros.actions import Node
 
-- ``from launch import LaunchDescription``: This line imports the ``LaunchDescription`` class from the ``launch`` package. The ``LaunchDescription class`` is a key component in ROS2 launch files. It is used to define the structure and contents of a launch file. When a launch file is created in ROS2, an instance of ``LaunchDescription`` is typically created and various actions (such as starting nodes) are added to it.
-- ``from launch_ros.actions import Node``: This line imports the Node class from the ``launch_ros.actions`` module. The ``Node`` class is a specialized action in ROS2 launch files that is used to start a ROS2 node. To execute a node in a launch file, an instance of ``Node`` is created and the package name, executable name, node name, and any parameters or remappings that are needed for the node are specified.
+- ``from launch import LaunchDescription``: This line imports the ``LaunchDescription`` class from the ``launch`` package. The ``LaunchDescription class`` is a key component in ROS 2 launch files. It is used to define the structure and contents of a launch file. When a launch file is created in ROS 2, an instance of ``LaunchDescription`` is typically created and various actions (such as starting nodes) are added to it.
+- ``from launch_ros.actions import Node``: This line imports the Node class from the ``launch_ros.actions`` module. The ``Node`` class is a specialized action in ROS 2 launch files that is used to start a ROS 2 node. To execute a node in a launch file, an instance of ``Node`` is created and the package name, executable name, node name, and any parameters or remappings that are needed for the node are specified.
 
 Next, a function defintion:
 
-.. code-block:: console
+.. code-block:: python
 
    def generate_launch_description():
-         return LaunchDescription([
-            Node(
-                  package='turtlesim',
-                  namespace='turtlesim1',
-                  executable='turtlesim_node',
-                  name='sim'
-            ),
-            Node(
-                  package='turtlesim',
-                  namespace='turtlesim2',
-                  executable='turtlesim_node',
-                  name='sim'
-            ),
-            Node(
-                  package='turtlesim',
-                  executable='mimic',
-                  name='mimic',
-                  remappings=[
-                     ('/input/pose', '/turtlesim1/turtle1/pose'),
-                     ('/output/cmd_vel', '/turtlesim2/turtle1/cmd_vel'),
-                  ]
-            )
-         ])
+      return LaunchDescription([
+         Node(
+               package='turtlesim',
+               namespace='turtlesim1',
+               executable='turtlesim_node',
+               name='sim'
+         ),
+         Node(
+               package='turtlesim',
+               namespace='turtlesim2',
+               executable='turtlesim_node',
+               name='sim'
+         ),
+         Node(
+               package='turtlesim',
+               executable='mimic',
+               name='mimic',
+               remappings=[
+                  ('/input/pose', '/turtlesim1/turtle1/pose'),
+                  ('/output/cmd_vel', '/turtlesim2/turtle1/cmd_vel'),
+               ]
+         )
+      ])
 
 - This function returns a ``LaunchDescription`` object, which contains all the actions (in this case, node launches) to be performed when the launch file is executed.
-- ``Node(...)``: This line starts the definition of a ROS2 node to be launched.
+- ``Node(...)`` : This line starts the definition of a ROS 2 node to be launched.
    - The ``package``, ``namespace``, ``executable`` and ``name`` parameters are specified.
 - It executes three nodes: 
    - Two nodes from the ``turtlesim_node`` executable file; each one with a different namespace name.
@@ -205,7 +212,8 @@ Indicating that the two turtlesim nodes have been initiated.
    :alt: two turtlesim nodes being executed from the launch file along with the mimic node.
 
 Next, in `a new terminal`_, execute:
-.. _a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
+
+.. _a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
 
@@ -217,7 +225,6 @@ This will show how the mimic node is linking the two turtlesim nodes; it subscri
    :alt: rqt_graph with the two nodes and the mimic node.
 
 Now, in a `a new terminal`_, execute:
-.. _a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
 
 .. code-block:: console
 
@@ -242,12 +249,12 @@ Some message like this will be the output of executing this launch file.
 
 This is because the correct setup for this launch file to be used was not followed. In the next section see how to properly setup the launch file.
 
-Integrating launch files in ROS2 packages
+Integrating launch files in ROS 2 packages
 ~~~~~~~~~~~~~~~~
 
 To enable colcon tool to locate and utilize launch files, the ``setup.py`` file should be edited. Open the ``setup.py`` file, add the necessary import statements at the top, and include the launch files into the ``data_files`` parameter of ``setup(...)`` section:
 
-.. code-block:: console
+.. code-block:: python
 
    import os
    from glob import glob
@@ -271,7 +278,9 @@ The ``setup.py`` file should be similar to this one:
 
 Navigate to ``py_launch_example/launch`` and check the launch file name since this needs to end with ``launch.py`` to be recognized and autocompleted by ``ros2 launch``. 
 
-Now, build and test. :ref:`Open a new terminal window<Installation/Opening a new terminal>` and make sure no ROS command is currently running.
+Now, build and test. `Open a new terminal` window and make sure no ROS command is currently running.
+
+.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 Build and source the package.
 
@@ -297,8 +306,8 @@ With the two turtle windows open.
 Working with launch files in C++ packages
 ------------------
 
-In a :ref:`brand new terminal<Installation/Opening a new terminal>`, navigate to ``ros2_ws`` workspace, within its ``/src`` folder.
-Create a new package with name: ``cpp_launch_example``. For more reference on package creation consult: :ref:`pacakge creation<conf_env/Creating a package>` or :ref:`pacakge creation2<Configuring environment/Creating a package>` or :ref:`pacakge creation3<_conf_env/Creating a package>`
+In a `brand new terminal`_, navigate to ``ros2_ws`` workspace, within its ``/src`` folder.
+Create a new package with name: ``cpp_launch_example``. For more reference on package creation consult the `package creation`_ section.
 
 .. code-block:: console
 
@@ -310,7 +319,7 @@ Inside ``cpp_launch_example/launch`` copy the launch file of name ``turtlesim_mi
 
 Next, adjust the ``CMakeLists.txt`` file to include the following:
 
-.. code-block:: console
+.. code-block:: txt
 
    # Install launch files.
    install(DIRECTORY
@@ -336,7 +345,7 @@ The two turtlesim windows should be oppened.
 Practice 
 ---------
 
-In a :ref:`brand new terminal<Installation/Opening a new terminal>`, execute: 
+In a `brand new terminal`_, execute: 
 
 .. code-block:: console
    

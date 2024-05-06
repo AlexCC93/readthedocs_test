@@ -8,13 +8,13 @@ What is a parameter?
 
 - Parameters can be thought as node settings. These parameters can be set at runtime and can be changed without restarting the node.
 - A node can store parameters as integers, floats, booleans, strings, and lists. 
-- In ROS2, each node maintains its own parameters. 
-- Parameters can also be used to configure the behavior of the ROS2 middleware itself, such as setting the logging level, defining QoS (Quality of Service) settings, etc.
-- Parameters are often specified in launch files, which are XML files used to start multiple ROS2 nodes and set their parameters in a coordinated way.
+- In ROS 2, each node maintains its own parameters. 
+- Parameters can also be used to configure the behavior of the ROS 2 middleware itself, such as setting the logging level, defining QoS (Quality of Service) settings, etc.
+- Parameters are often specified in launch files, which are XML files used to start multiple ROS 2 nodes and set their parameters in a coordinated way.
 
 Do not forget 
 -------------
-Remember to have your environment properly setup. Perform the following, if a ROS2 package cannot be found when executing it:
+Remember to have your environment properly setup. Perform the following, if a ROS 2 package cannot be found when executing it:
 
 .. code-block:: console
 
@@ -32,12 +32,17 @@ See this example:
 .. image:: images/SourcingWorkspace.png
    :alt: Correctly sourcing the workspace.
 
-Notice that the sourcing is performed inside the workspace folder. 
+Notice that the sourcing is performed inside the workspace folder. More information on sourcing the environment, `check it here`_.
+
+.. _check it here: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#workspace-sourcing
+
 
 Important commands. Parameters 
 --------------------------
 
-Make sure to be in a :ref:`brand new terminal window<Installation/Opening a new terminal>` and no ROS command is currently running. 
+Make sure to be in a `brand new terminal`_ window and no ROS command is currently running. 
+
+.. _`brand new terminal`: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#running-a-docker-container
 
 The following can be performed when working with parameters.
 
@@ -53,7 +58,9 @@ Let's first run these two nodes in separate terminal windows, of course.
    ros2 run turtlesim turtle_teleop_key
 
 
-:ref:`Open a new terminal<Installation/Opening a new terminal>` and execute:
+`Open a new terminal`_ and execute:
+
+.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
 
@@ -261,7 +268,7 @@ To start a node using saved parameter values, the following command structure sh
 
    ros2 run <package_name> <executable_name> --ros-args --params-file <file_name>
 
-Make sure to be in a :ref:`brand new terminal window<Installation/Opening a new terminal>` and no ROS commands are currently running. 
+Make sure to be in a `brand new terminal`_ and no ROS commands are currently running. 
 
 Run this command:
 

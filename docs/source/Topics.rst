@@ -19,7 +19,7 @@ What is a topic?
 
 Do not forget 
 -------------
-Remember to have your environment properly setup. Perform the following, if the ROS2 package cannot be found when executing it:
+Remember to have the ROS 2 environment properly setup. Perform the following, if the ROS2 package cannot be found when executing it:
 
 .. code-block:: console
 
@@ -38,12 +38,16 @@ See this example:
 .. image:: images/SourcingWorkspace.png
    :alt: Correctly sourcing the workspace.
 
-Notice that the sourcing is performed inside the workspace folder. 
+Notice that the sourcing is performed inside the workspace folder. More information on sourcing the environment, `check it here`_.
+
+.. _check it here: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#workspace-sourcing
 
 Important commands. Topics 
 --------------------------
 
-Make sure to be in a brand new terminal window and no ROS commands were executed previously. 
+Make sure to be in a `brand new terminal`_ window and no ROS command is currently running. 
+
+.. _`brand new terminal`: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#running-a-docker-container
 
 The following can be performed when working with topics.
 
@@ -65,7 +69,9 @@ Two topics will we be displayed as a result.
 
 The topic ``/parameter_events`` is a global topic which is always present in the ROS 2 network. The nodes use the ``/paramater_events`` topic to monitor or change parameters in the network. While the ``/rosout`` topic is used for logging messages in the ROS 2 system.
 
-As an example, :ref:`open two new terminals<Installation/Opening a new terminal>` and execute respectively these two commands:
+As an example, `open two new terminals`_ and execute respectively these two commands:
+
+.. _open two new terminals: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
 
@@ -145,18 +151,17 @@ As an example, run the code below:
 
 The expected result is: 
 
-.. code-block:: console
+.. code-block:: txt
 
    # This expresses velocity in free space broken into its linear and angular parts.
-
-    Vector3  linear
-            float64 x
-            float64 y
-            float64 z
-    Vector3  angular
-            float64 x
-            float64 y
-            float64 z
+   Vector3  linear
+         float64 x
+         float64 y
+         float64 z
+   Vector3  angular
+         float64 x
+         float64 y
+         float64 z
 
 This indicates that the structure of messages that the ``/turtle1/cmd_vel`` topic handles, is one which involves two vectors: ``linear`` and  ``angular`` which at the same time, each one of them, includes three float64 variables. This provides insights of how the nodes are working among them and which type of data one node expects from the other. 
 
@@ -176,7 +181,6 @@ Run the example below:
    ros2 topic echo /turtle1/cmd_vel
 
 Nothing will be displayed in the terminal because no messages are being sent to the given topic. However, when going back to the terminal where ``turtle_teleop_key`` was executed and the forward arrow key (↑) is pressed, the following will be displayed:
-
 
 .. code-block:: console
 
@@ -199,7 +203,7 @@ Finally, by looking at the rqt graph and unchecking the "Debug" option, the foll
 
 Notice that a new node named ``/_ros2cli_618`` is visible and it is subscribed to the ``/turtle1/cmd_vel`` topic. This corresponds to the command: ``ros2 topic echo /turtle1/cmd_vel``.
 
-4. Publishing into a topic
+5. Publishing into a topic
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To publish messages to a given topic, the following command structure should be executed:
@@ -209,7 +213,7 @@ To publish messages to a given topic, the following command structure should be 
    ros2 topic pub <topic_name> <msg_type> '<args>'
 
 It is specified the topic name which it is desired to pusblish to, the type of message and the message itself. 
-To see an example of the publishing, end all previous nodes (Ctrl+C in each terminal window) and execute the turtlesim node (``ros2 run turtlesim turtlesim_node``). Open a new terminal and execute the following:
+To see an example of the publishing, end all previous nodes (Ctrl+C in each terminal window) and execute the turtlesim node (``ros2 run turtlesim turtlesim_node``). `Open a new terminal`_ and execute the following:
 
 .. code-block:: console
 
@@ -239,9 +243,7 @@ It has been replaced ``--once`` by ``--rate 1`` to indicate that the message sho
 
    publisher: beginning loop
    publishing #1: geometry_msgs.msg.Twist(linear=geometry_msgs.msg.Vector3(x=2.0, y=0.0, z=0.0), angular=geometry_msgs.msg.Vector3(x=0.0, y=0.0, z=1.8))
-
    publishing #2: geometry_msgs.msg.Twist(linear=geometry_msgs.msg.Vector3(x=2.0, y=0.0, z=0.0), angular=geometry_msgs.msg.Vector3(x=0.0, y=0.0, z=1.8))
-
    publishing #3: geometry_msgs.msg.Twist(linear=geometry_msgs.msg.Vector3(x=2.0, y=0.0, z=0.0), angular=geometry_msgs.msg.Vector3(x=0.0, y=0.0, z=1.8))
    ...
 
@@ -252,7 +254,7 @@ The publishing of the message can be stopped by pressing Ctrl+C. Additionally, r
 
 As in the echoing example, a new node is created (``/_ros2cli_960``) and it is publishing to the ``/turtle1/cmd_vel`` topic.
 
-4. Checking a topic working rate
+6. Checking a topic working rate
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To see the rate at which a topic is handling the messages, the following command structure should be executed:
@@ -261,7 +263,9 @@ To see the rate at which a topic is handling the messages, the following command
 
    ros2 topic hz <topic_name>
 
-Open a new terminal and execute the following:
+`Open a new terminal`_ and execute the following:
+
+.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
 

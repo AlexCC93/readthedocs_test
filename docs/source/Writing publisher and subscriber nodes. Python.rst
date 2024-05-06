@@ -1,33 +1,34 @@
-Writting publisher and subscriber nodes. Python
+Writing publisher and subscriber nodes. Python
 ==========================
 
-.. _writting pubsub python:
+.. _Writing pubsub python:
 
 
-It is already known what a node is (check the :ref:`nodes<nodes/What is it?>` section), as such, the following section of the course is devoted to show the coding of nodes capable of publishing and subscribing to a topic. This code will be developed in python. 
+It is already known what a node is, as such, the following section of the course is devoted to show the coding of nodes capable of publishing and subscribing to a topic. The code in this section will be developed in python. 
 
 
 Publisher node in python
 ------------------------
 
-Make sure to be in a brand new terminal window and no ROS commands are currently running. 
+Make sure to be in a `brand new terminal`_ window and no ROS command is currently running. 
 
-It will be necessary first to create a new package. This package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be "py_pubsub".
+.. _`brand new terminal`: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#running-a-docker-container
+
+It will be necessary first to create a new package. This package should be contained in the ``ros2_ws`` workspace, within its ``/src`` folder. The name provided to this new package will be ``py_pubsub``.
 
 .. code-block:: console
 
    ros2 pkg create --build-type ament_python --license Apache-2.0 py_pubsub
 
-For more reference on package creation consult: :ref:`pacakge creation<conf_env/Creating a package>` or :ref:`pacakge creation2<Configuring environment/Creating a package>` or :ref:`pacakge creation3<_conf_env/Creating a package>`
+For more reference on package creation consult the `package creation`_ section.
+
+.. _package creation: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#creating-and-configuring-a-package
 
 Inside this package, spsecifically in ``py_pubsub/py_pubsub`` create a python script, name it ``publisher_script.py``.
 
-.. image:: images/creatingPythonScript.png
-   :alt: Creating a python script in the correct directory.
-
 Copy this content into the new python script. 
 
-.. code-block:: console
+.. code-block:: python
 
    import rclpy
    from rclpy.node import Node
@@ -58,9 +59,6 @@ Copy this content into the new python script.
 
       rclpy.spin(minimal_publisher)
 
-      # Destroy the node explicitly
-      # (optional - otherwise it will be done automatically
-      # when the garbage collector destroys the node object)
       minimal_publisher.destroy_node()
       rclpy.shutdown()
 
@@ -74,22 +72,22 @@ Copy this content into the new python script.
 
 The first lines correspond to import libraries.
 
-.. code-block:: console
+.. code-block:: python
    
    import rclpy
    from rclpy.node import Node
    from std_msgs.msg import String
 
 
-- ``rclpy`` is a Python client library for ROS2. It provides Python bindings for the ROS2 middleware, enabling developers to write ROS2 nodes and applications using the Python programming language.
+- ``rclpy`` is a Python client library for ROS 2. It provides Python bindings for the ROS 2 middleware, enabling developers to write ROS 2 nodes and applications using the Python programming language.
 - ``from rclpy.node import Node`` imports the ``Node`` class from the ``rclpy.node`` module.
 - ``from std_msgs.msg import String`` imports the ``String`` message type from the ``std_msgs.msg`` module.
 
-All these imported libraries must be specified in the dependencies file called "package.xml". More from this, later in the tutorial. 
+All these imported libraries must be specified in the dependencies file called ``package.xml``. More about this, later in the tutorial. 
 
 Next, a class is created:
 
-.. code-block:: console
+.. code-block:: python
    
    class MinimalPublisher(Node):
 
@@ -107,15 +105,17 @@ Next, a class is created:
          self.get_logger().info('Publishing: "%s"' % msg.data)
          self.count_ += 1
 
-- A class of name "MinimalPublisher" is created and it inherits from class "Node".
-- The constructor of the class is defined, for that, ``super().__init__('publisher')`` is issued. This is a call to the "Node" class' constructor function and at the same time, it assigns a node name of: "publisher".
-- An attribute of name "publisher_" is created and stores the result of ``create_publisher()``, which defines an object that publishes messages of type String, over a topic named "topic", and that the "queue size" is 10. Queue size is a required QoS (quality of service) setting that limits the amount of queued messages if a subscriber is not receiving them fast enough. This function belongs to the ``rclpy.node.Node`` class and it has the following structure:
+- A class of name ``MinimalPublisher`` is created and it inherits from class ``Node``.
+- The constructor of the class is defined, for that, ``super().__init__('publisher')`` is issued. This is a call to the ``Node`` class' constructor function. Additionally, it is assigned a node name, which is ``publisher``.
+- Afterwards, an attribute of name ``publisher_`` is created and stores the result of ``create_publisher()``, which defines an object that publishes messages of type String, over a topic named ``topic``, with a ``queue size`` of 10. Queue size is a required QoS (quality of service) setting that limits the amount of queued messages if a subscriber is not receiving them fast enough. 
+
+The ``create_publisher()`` function belongs to the ``rclpy.node.Node`` class and it has the following structure:
 
 .. code-block:: console
    
    create_publisher(<msg_type>, <topic>, <qos_profile>, *, <callback_group=None>, <event_callbacks=None>)
 
-- An attribute of name "timer_" is created and stores the result of ``create_timer()``, which defines a timer with 0.5 of time period attached to a callback function of name "timer_callback". Again, the ``create_timer()`` function belongs to the ``rclpy.node.Node`` class and it has the following structure:
+- An attribute of name ``timer_`` is created and stores the result of ``create_timer()``, which defines a timer with 0.5 of time period attached to a callback function of name ``timer_callback``. Again, the ``create_timer()`` function belongs to the ``rclpy.node.Node`` class and it has the following structure:
 
 .. code-block:: console
    
@@ -123,13 +123,13 @@ Next, a class is created:
 
 - Next, the definition of the callback function is coded; this will be invoked every 0.5 seconds, as it was configured in the ``create_timer()`` function. 
 - First, a message of type ``String()`` is created and its content is filled with a ``Hello World`` message followed by a counter that starts at 0.
-- The "publisher_" attribute is issued to publish the message.
+- The ``publisher_`` attribute is issued to publish the message.
 - The message is published to the console with the ``self.get_logger().info('Publishing: "%s"' % msg.data)`` line.
 - And the counter attribute is increased in one.
 
 Lastly, the main function is defined.
 
-.. code-block:: console
+.. code-block:: python
 
    def main(args=None):
       rclpy.init(args=args)
@@ -138,23 +138,20 @@ Lastly, the main function is defined.
 
       rclpy.spin(minimal_publisher)
 
-      # Destroy the node explicitly
-      # (optional - otherwise it will be done automatically
-      # when the garbage collector destroys the node object)
       minimal_publisher.destroy_node()
       rclpy.shutdown()
 
 - First the rclpy library is initialized.
 - A node is created by instantiating an object of the ``MinimalPublisher`` class.
-- ``rclpy.spin(minimal_publisher)`` starts the ROS2 event loop for the specified node (``minimal_publisher``). The event loop is responsible for processing messages, handling callbacks, and maintaining the communication infrastructure of the ROS2 system. 
+- ``rclpy.spin(minimal_publisher)`` starts the ROS 2 event loop for the specified node (``minimal_publisher``). The event loop is responsible for processing messages, handling callbacks, and maintaining the communication infrastructure of the ROS 2 system. 
 - ``minimal_publisher.destroy_node()`` explicitly destroys the node represented by ``minimal_publisher``.
-- ``rclpy.shutdown()`` shuts down the ROS2 system. It releases resources allocated by the ROS2 middleware and cleans up the environment.
+- ``rclpy.shutdown()`` shuts down the ROS 2 system. It releases resources allocated by the ROS2 middleware and cleans up the environment.
 
 
 2. Publisher, python. Adding dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Once the python script is ready, make sure the dependencies to run this script are correctly configured in the ROS2 environment. Navigate to ``py_pubsub/package.xml`` and add the following just below the ``<license>`` tag:
+Once the python script is ready, make sure the dependencies to run this script are correctly configured in the ROS 2 environment. Navigate to ``py_pubsub/package.xml`` and add the following just below the ``<license>`` tag:
 
 .. code-block:: console
 
@@ -188,7 +185,7 @@ Navigate to ``py_pubsub/setup.py`` and add the following within the ``console_sc
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 At this point the script is created, the dependencies configured and the entry point correclty setup. 
 
-:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS2 command is currently running, navigate to the workspace directory and execute either of these two commands:
+Open a `brand new terminal`_, make sure that no other ROS2 command is currently running, navigate to the workspace directory and execute either of these two commands:
 
 .. code-block:: console
    
@@ -214,7 +211,9 @@ Now, source the setup file:
    
    source install/setup.bash
 
-For more reference on sourcing the setup file, see :ref:`sourcing the setup file<conf_env/Source the setup file>` .
+For more reference on sourcing the setup file, see `sourcing the setup file`_.
+
+.. _sourcing the setup file: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#workspace-sourcing
 
 And run the publisher node that was recently created. 
 
@@ -235,7 +234,7 @@ See that every 0.5 seconds a new message will be printed in the terminal window.
 
 `Open a new terminal`_ and with the ``talker`` node still being running, execute:
 
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
+.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
    
@@ -253,9 +252,11 @@ This will result in something similar to:
    ---
    ...
 
-This is expected since it is known that the ``talker`` node publishes messages to the topic of name "/topic". 
+This is expected since it is known that the ``talker`` node publishes messages to the topic of name ``/topic``. 
 
-Finally, it can be verified the name of the node by executing the following in a :ref:`new terminal<_installation/Opening a new terminal>`.
+Finally, it can be verified the name of the node by executing the following in a `new terminal`_.
+
+.. _new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
    
@@ -281,9 +282,9 @@ And from now on, these three will carry the same name to avoid confussions.
 Subscriber node in python
 -------------------------
 
-Navigate to ``py_pubsub/py_pubsub`` and create a python script called: "listener.py". Copy this content into the new python script. 
+Navigate to ``py_pubsub/py_pubsub`` and create a python script called: ``listener.py``. Copy this content into the new python script. 
 
-.. code-block:: console
+.. code-block:: python
    
    import rclpy
    from rclpy.node import Node
@@ -313,9 +314,6 @@ Navigate to ``py_pubsub/py_pubsub`` and create a python script called: "listener
 
       rclpy.spin(minimal_subscriber)
 
-      # Destroy the node explicitly
-      # (optional - otherwise it will be done automatically
-      # when the garbage collector destroys the node object)
       minimal_subscriber.destroy_node()
       rclpy.shutdown()
 
@@ -331,7 +329,7 @@ Overall, the code for the subscriber node is similar to the publisher node.
 
 The first lines correspond to import libraries. These are the same libraries as in the :ref:`publisher node example<1. Publisher, python. Examining the code. >`. 
 
-.. code-block:: console
+.. code-block:: python
    
    import rclpy
    from rclpy.node import Node
@@ -339,7 +337,7 @@ The first lines correspond to import libraries. These are the same libraries as 
 
 Next, a class is created:
 
-.. code-block:: console
+.. code-block:: python
    
    class MinimalSubscriber(Node):
 
@@ -357,15 +355,15 @@ Next, a class is created:
 
 The constructor of the ``MinimalSubscriber`` class issues the ``create_subscription()`` function, which receives as arguments: ``String``, as the message type; ``topic``, as the topic to subscribe to; ``self.listener_callback``, as the callback function to be called every time a message arrives to the topic, and a queue size of 10. The structure for the ``create_subscription()`` function is given by:
 
-.. code-block:: console
+.. code-block:: python
    
    create_subscription(<msg_type>, <topic>, <callback>, <qos_profile>, *, <callback_group=None>, <event_callbacks=None>, <raw=False>)
 
 Afterwards, the callback function simply prints the message received in the terminal window.
 
-Lastly, the main function, as in the publisher node, initializes the rclpy library, creates the subscription node, spins it, explicitely destroys it when issued from the terminal window and shuts down the ROS2 system.
+Lastly, the main function, as in the publisher node, initializes the rclpy library, creates the subscription node, spins it, explicitely destroys it when issued from the terminal window and shuts down the ROS 2 system.
 
-.. code-block:: console
+.. code-block:: python
 
    def main(args=None):
       rclpy.init(args=args)
@@ -374,16 +372,13 @@ Lastly, the main function, as in the publisher node, initializes the rclpy libra
 
       rclpy.spin(minimal_publisher)
 
-      # Destroy the node explicitly
-      # (optional - otherwise it will be done automatically
-      # when the garbage collector destroys the node object)
       minimal_publisher.destroy_node()
       rclpy.shutdown()
 
 2. Subscriber, python. Adding dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As the libraries to use in this program are exactly the same as in the publisher node, then no new dependency should be added. If, for some reason, it were going to use a new library in the subscriber node, then that library should be added as a dependecy in the ``py_pubsub/package.xml`` file.
+As the libraries to use in this program are exactly the same as in the publisher node, then no new dependency should be added. If, for some reason, it were going to be used a new library in the subscriber node, then that library should be added as a dependecy in the ``py_pubsub/package.xml`` file.
 
 3. Subscriber, python. Adding an entry point
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -410,13 +405,13 @@ This ``entry_points`` field should be remain like this:
 
 At this point the script is created, the dependencies configured and the entry point correclty setup. 
 
-:ref:`Open a brand new terminal<installation/Running a docker container>`, make sure that no other ROS2 command are currently running, navigate to the workspace directory and execute:
+Open a `brand new terminal`_ in the Docker session, make sure that no other ROS 2 command are currently running, navigate to the workspace directory and execute:
 
 .. code-block:: console
    
    colcon build --symlink-install
 
-As it was explained in the :ref:`publisher node part<Build publisher node and run>`, this will build the packages of the workspace. 
+As it was explained in the :ref:`publisher node part<Build publisher node and run>`, this will build all packages of the workspace. 
 
 Now, source the setup file:
 
@@ -424,7 +419,9 @@ Now, source the setup file:
    
    source install/setup.bash
 
-For more reference on sourcing the setup file, see :ref:`sourcing the setup file<conf_env/Source the setup file>` .
+For more reference on sourcing the setup file, see `this section`_ .
+
+.. _this section: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#workspace-sourcing
 
 And run the subscriber node that was recently created. 
 
@@ -436,20 +433,16 @@ Notice that nothing will be displayed in the terminal window because no messages
 
 `Open a new terminal`_ and execute the ``talker`` node:
 
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
-
 .. code-block:: console
    
    ros2 run py_pubsub talker
 
-After this, return to the terminal where the ``listener`` node was executed. It should be displayed the messages being sent to the topic of name "topic".
+After this, return to the terminal where the ``listener`` node was executed. It should be displayed the messages being sent to the topic of name ``topic``.
 
 .. image:: images/listenerNodeResults.png
    :alt: Results from the listener node.
 
 Finally, `open a new terminal`_ and execute:
-
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
 
 .. code-block:: console
    
@@ -463,7 +456,7 @@ See that the two nodes: ``talker`` and ``listener`` are visible and they are pub
 Practice 
 ---------
 
-Have ``trutlesim`` node running. Create a new node called "topics_practice" that performs:
+Have ``trutlesim`` node running. Create a new node called ``topics_practice`` that performs:
 
 - A countdown starting at 5 and be displayed in the terminal.
 - When counter reaches 0 moves the turtle drawing a growing spiral. Print in the terminal "Drawing spiral".
@@ -480,6 +473,6 @@ See image below for an example of the results:
 Optional
 ~~~~~~~~
 
-Have ``trutlesim`` node running. Create a new node called "topics_practice_b" that performs:
+Have ``trutlesim`` node running. Create a new node called ``topics_practice_b`` that performs:
 
-- The same as "topics_practice" but add the turtle, the functionality of avoiding walls. Whenever the turtle is too close to the walls (around one unit away of the wall), make it turn. Print in the terminal "Avoiding walls".
+- The same as ``topics_practice`` but add the turtle, the functionality of avoiding walls. Whenever the turtle is too close to the walls (around one unit away of the wall), make it turn. Print in the terminal "Avoiding walls".

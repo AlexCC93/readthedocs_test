@@ -239,9 +239,17 @@ An example of this docker command execution:
 Opening a new terminal for the Docker container
 ----------------------
 
-When opening a new terminal in Windows, it will be necessary to link that terminal with the already running Docker container. Perform the following to achieve this.
+When opening a new terminal in Windows, it will be necessary to link that terminal with the already running Docker container. See the command structure to achieve this:
+
+.. code-block:: console
+   
+   docker exec -it <name_of_the_container> bash
 
 See the example below:
+
+.. code-block:: console
+   
+   docker exec -it ros2_container bash
 
 .. image:: images/OpenNewTerminalLinkToContainer.png
    :alt: Linking a new terminal to the docker container.

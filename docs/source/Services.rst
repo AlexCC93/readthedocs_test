@@ -14,25 +14,22 @@ What is it?
 
 Key differences betweeen services and topics:
 
-+----------------------------------------------------------------+----------------------------------------------------------------+
-|                            Topics                              |                          Services                              |
-+================================================================+================================================================+
-| Should be used for continuous data streams (sensor data,       | Should be used for remote procedure calls that terminate       |
-| robot state, …)                                                | quickly, e.g. for querying the state of a node or doing a     |
-|                                                                | quick calculation such as IK.                                  |
-+----------------------------------------------------------------+----------------------------------------------------------------+
-| Are for continuous data flow. Many-to-many connections.        | They should never be used for longer running processes, in     |
-|                                                                | particular processes that might be required to preempt if       |
-|                                                                | exceptional situations occur and they should never change or   |
-|                                                                | depend on state to avoid unwanted side effects for other nodes.|
-+----------------------------------------------------------------+----------------------------------------------------------------+
-| Data might be published and subscribed at any time independent | Mostly used for comparably fast tasks as requesting specific    |
-| of any senders/receivers.                                      | data.                                                          |
-+----------------------------------------------------------------+----------------------------------------------------------------+
-| Callbacks receive data once it is available.                   | Simple blocking call.                                         |
-+----------------------------------------------------------------+----------------------------------------------------------------+
-| The publisher decides when data is sent.                       | Semantically for processing requests.                         |
-+----------------------------------------------------------------+----------------------------------------------------------------+
+.. list-table:: Services vs Topics
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Topics
+     - Services
+   * - Should be used for continuous data streams (sensor data,  robot state, …) 
+     - Should be used for remote procedure calls that terminate quickly, e.g. for querying the state of a node or doing a quick calculation such as IK. 
+   * - Are for continuous data flow. Many-to-many connections.
+     - They should never be used for longer running processes, in particular processes that might be required to preempt if exceptional situations occur and they should never change or depend on state to avoid unwanted side effects for other nodes.
+   * - Data might be published and subscribed at any time independent of any senders/receivers. 
+     - Mostly used for comparably fast tasks as requesting specific data.
+   * - Callbacks receive data once it is available. 
+     - Simple blocking call.        
+   * - The publisher decides when data is sent.      
+     - Semantically for processing requests.
 
 .. image:: https://docs.ros.org/en/humble/_images/Service-SingleServiceClient.gif
    :alt: The way nodes communicate through services.
@@ -42,7 +39,7 @@ Key differences betweeen services and topics:
 
 Do not forget 
 -------------
-Remember to have your environment properly setup. Perform the following, if the ROS2 package cannot be found when executing it:
+Remember to have your environment properly setup. Perform the following, if the ROS 2 package cannot be found when executing it:
 
 .. code-block:: console
 
@@ -60,10 +57,15 @@ See this example:
 .. image:: images/SourcingWorkspace.png
    :alt: Correctly sourcing the workspace.
 
+Notice that the sourcing is performed inside the workspace folder. More information on sourcing the environment, `check it here`_.
+
+.. _check it here: https://alex-readthedocs-test.readthedocs.io/en/latest/Configuring%20environment.html#workspace-sourcing
 
 Important commands. Services
 -------------------------
-Make sure to be in a brand new terminal window and no ROS commands are currently running. 
+Make sure to be in a `brand new terminal`_ window and no ROS command is currently running. 
+
+.. _`brand new terminal`: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#running-a-docker-container
 
 Execute this node:
 
@@ -73,7 +75,7 @@ Execute this node:
 
 `Open a new terminal`_ and execute:
 
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
+.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
 .. code-block:: console
 
@@ -83,8 +85,6 @@ Execute this node:
 ~~~~~~~~~~~~~~~~~
 
 `Open a new terminal`_ and execute:
-
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal
 
 .. code-block:: console
 
@@ -114,7 +114,7 @@ This will list all the services that are available.
    /turtlesim/set_parameters
    /turtlesim/set_parameters_atomically
 
-Notice that the executed nodes have the same six services. Nearly every node in ROS2 has these infrastructure services that parameters are built off of. These services have to do with ROS2 parameters. 
+Notice that the executed nodes have the same six services. Nearly every node in ROS 2 has these infrastructure services that parameters are built off of. These services have to do with ROS 2 parameters. 
 
 For the moment, focus on the turtlesim-specific services, ``/clear``, ``/kill``, ``/reset``, ``/spawn``, ``/turtle1/set_pen``, ``/turtle1/teleport_absolute``, and ``/turtle1/teleport_relative``.
 
@@ -129,8 +129,6 @@ Services types have two parts: one message for the request and another for the r
    ros2 service type <service_name>
 
 `Open a new terminal`_ and try this example:
-
-.. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation.html#opening-a-new-terminal 
 
 .. code-block:: console
 
