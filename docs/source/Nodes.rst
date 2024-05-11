@@ -78,7 +78,7 @@ See this example:
 
 .. code-block:: console
 
-   ros2 node info turtlesim_node
+   ros2 node info turtlesim
 
 It displays the information about:
 
