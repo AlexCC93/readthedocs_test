@@ -75,7 +75,7 @@ As an example, `open two new terminals`_ and execute respectively these two comm
 
 .. code-block:: console
 
-   ros2 run turtlesim turtlesim 
+   ros2 run turtlesim turtlesim_node 
    ros2 run turtlesim turtle_teleop_key
 
 Afterwards, return to the terminal where it was ran ``ros2 topic list`` and run it again. The following will be listed:
