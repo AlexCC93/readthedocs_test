@@ -141,7 +141,9 @@ Now, this is the Docker image that is going to be used for the course. From this
 Code setup for working with Docker
 --------------------------
 
-When using a Docker container, any modifications made during a session aren't automatically preserved within the container once the session ends. To retain progress made between sessions, Docker provides the concept of volumes within its environment. These volumes enable the persistence of changes, ensuring that they're maintained across different sessions.
+When using a Docker container, any modifications made during a session aren't automatically preserved within the container once the session ends; unless, of course, a new session is created pointing to the exact same container. 
+
+To retain progress made among sessions, Docker provides the concept of volumes within its environment. These volumes enable the persistence of changes, ensuring that they're maintained across different sessions.
 
 Hence, the recommended way to work in this course is to create, in the preferred directory within the Windows machine, a folder that will contain all the code for the different sections of this course. Next, execute the following command to initiate a Docker container and mount a volume to it:
 
@@ -165,6 +167,10 @@ Version control with Github
 Optionally, the ``ros2_ws`` folder can be linked to a github repository. Follow these steps to have version control on this folder:
 
 - Open a new Windows terminal. 
+
+- Navigate to the ``ros2_ws`` directory and create inside of it, a file called ``HelloWorld.txt``. This dummy file is created inside this folder because pushing an empty folder typically causes errors.
+
+- Go to the internet browser and enter https://github.com. Create an account if not having one yet, and create a new github repository at https://github.com/new. When entering the repository creation link, provide a name to it, select it to be a public repository and click on "Create repository" button. It is recommended that the repository has the same name as the folder that will contain the course code, in this case, the recommended repository name would be ``ros2_ws``.
 
 - Make sure ``git`` is installed on the Windows machine. Open a Windows terminal and execute:
 
@@ -192,7 +198,7 @@ This will create a hidden folder named ``.git``.
 
    git remote add origin <repository-url>
 
-Where ``<repository-url>`` is the url of a new repository that was previously created with a Github account. 
+Where ``<repository-url>`` is the url of the new repository that was previously created with a Github account. 
 
 - Finally, execute:
 
@@ -200,7 +206,9 @@ Where ``<repository-url>`` is the url of a new repository that was previously cr
 
    git push -u origin master
 
-Make sure that no empty folders are being pushed, to avoid error messages. Create a ``HelloWorld.txt`` file inside the course code folder to push without problems.
+At this point, the ``ros2_ws`` folder that exists locally in the Windows machine now also resides in Github, in the publicly available online repository that was created; check in the browser the contents of the created repository, should be the same as the local folder.
+
+Additionally, any change that is made in the local folder can be pushed to the online repository using the appropriate git commands (``git add .``,  ``git commit`` and ``git push``). 
 
 Running a Docker container
 --------------------------
