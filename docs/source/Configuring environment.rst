@@ -101,13 +101,26 @@ This is the current structure of the workspace. Notice that it does not exactly 
 
 At this point, the workspace has been populated with a sample package, but it is not a fully-functional workspace yet. 
 
-Next, build this workspace by navigating to the ``ros2_ws`` folder and executing:
+Building the packages in the workspace
+~~~~~~~~~~~~~~~~
+
+Next, to make a workspace fully functional, meaning that one could be able to run executables that belong to a specific package, it is necessary to build the workspace. Building the workspace involves discovering packages, resolving dependencies, compiling code and generating build artifacts. 
+
+To achieve building a workspace, the following three commands will be described. Navigate to the ``ros2_ws`` folder and execute either of these:
 
 .. code-block:: console
  
    colcon build
 
-The result will be similar to:
+   colcon build --symlink-install
+
+   colcon build --packages-select turtlesim
+
+The first command will build all the packages contained in the workspace; it will build them by copying the built artifacts (binaries, libraries, headers, etc.) into an install directory. While the second one, will also build all the packages contained in the workspace, but rather than copying the built artifacts, it will use symbolic links to these ones. The way the built artifacts are handled results in having to build the workspace every time a change is performed in the source code, or not. With ``colcon build --symlink-install``, every time a change is performed in the source code, it will not be necessary to perform the building operation afterwards. 
+
+Finally, the third ``colcon`` command specifically builds the given package rather than all packages contained in the workspace. 
+
+After execution of either of the above-shown commands, the result will be similar to:
 
 .. code-block:: console
  
