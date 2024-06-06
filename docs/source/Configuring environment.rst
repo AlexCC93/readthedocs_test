@@ -427,6 +427,8 @@ This should be the result in the terminal:
 The Dockerfile script explained
 ------------------
 
+A Dockerfile is a script containing a series of instructions on how to build a Docker image. It automates the process of creating a Docker image, which is a lightweight, standalone, and executable package that includes everything needed to run a piece of software, such as the code, runtime, libraries, and environment variables.
+
 Recall this script, which is part of the Dockerfile commented `in this part of the course`_. 
 
 .. _in this part of the course: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#generate-proper-docker-image
