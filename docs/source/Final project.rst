@@ -102,9 +102,9 @@ Next, to correctly be able to work with the final project environment, source th
 
    source /usr/share/gazebo/setup.sh 
 
-This command sets up various environment variables needed for Gazebo to function properly. These variables may include paths to Gazebo libraries, plugins, and other resources.
+This command sets up various environment variables needed for Gazebo to function properly; These variables may include paths to Gazebo libraries, plugins, and other resources.
 
-Additionally, inside the workspace folder source the workspace setup file:
+Additionally, navigate to the workspace folder and source the workspace setup file:
 
 .. code-block:: console
 
@@ -129,9 +129,12 @@ Up to this point the Gazebo enviroment is ready to be worked on for the final pr
 Working in the Gazebo environment  
 ------------
 
-There are a few things to do in the Gazebo environment to help with the development of the final project. Hence, make sure the Gazebo environment with the turtlebot3 robot in it is already executed (the ``ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py`` command of the previous section).
+There are a few tools and executables that could help with the development of the final project. In order to use them, make sure the Gazebo environment with the turtlebot3 robot in it, is already executed (the ``ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py`` command of the previous section).
 
-To remote control the turtlebot3 robot in the Gazebo enviroment, `open a new terminal`_, making sure to point to the final project container: 
+Remote control of the turlebot3 
+~~~~~~~~~~~~~
+
+First, turtlebot3 robot in the Gazebo environment can be remote-controlled by the user.  `Open a new terminal`_, making sure to point to the final project container: 
 
 .. _open a new terminal: https://alex-readthedocs-test.readthedocs.io/en/latest/Installation%20and%20software%20setup.html#opening-a-new-terminal-for-the-docker-container
 
@@ -151,6 +154,9 @@ And once inside the ``fin_proj_container`` container in the new terminal, execut
    :alt: Teleoperation in the Gazebo environment for the final project.
 
 With this node executed, it is possible to control the motion of the turtlebot3 robot. Forward, backward and angular velocities can be commanded throught the keyboard and the robot will respond accordingly.
+
+rqt_gui tool
+~~~~~~~~~~~~~
 
 Additionally, there is a graphical tool that enables visualization of the lectures obtained from the turlebot3 lidar sensor. `Open a new terminal`_, making sure to point to the final project container, and execute:
 
@@ -173,7 +179,7 @@ As a result, the distance measurements corresponding to laser beams in position 
 Statement of the final project
 ------------
 
-The final project's objective is to make the turtlebot3 robot in the given Gazebo environment, go straight for a while and begin following the wall until one complete turn without crashing with it. 
+The final project's objective is to make the turtlebot3 robot, in the given Gazebo environment, go straight for a while and begin following the wall until one complete turn is performed, without crashing with it. 
 
 This is where the turtlebot3 robot is spawned in the Gazebo environment. 
 
