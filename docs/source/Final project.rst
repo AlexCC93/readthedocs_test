@@ -218,12 +218,6 @@ And any other operation that the programmer thinks necessary.
 .. image:: images/RobotGoingAwayWall.png
    :alt: Robot getting away from the wall. 
 
-Additionally, accross all the functioning of the program, the user must be able to call a service that indicates, based on the position of the robot, the percentage at which the objective is being accomplished. See below pictures, for reference.
-
-**TO CHANGE IMAGE**
-.. image:: images/RobotGoingAwayWall.png
-   :alt: Robot getting away from the wall. 
-
 The execution of the final project must be contained in a single launch file. All nodes that the programmer believes necessary must be contained in a single launch file. 
 
 The code of the final project must be uploaded to each participant's personal Github repository. This link must be then shared with the instructor to asses its performance. 
