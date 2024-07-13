@@ -7,6 +7,9 @@ Let's dive in and unlock the potential of ROS 2.
 
 This entire course is based on the ROS 2 documentation webpage: https://docs.ros.org/en/humble/index.html. 
 
+HEY, THIS IS A CHANGE FOR TESTING PURPOSES
+
+
 Contents
 --------
 
